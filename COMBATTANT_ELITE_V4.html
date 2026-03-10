@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Combattant Élite — Zacair</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --or:#C9A84C;--or2:#E8C97A;--or3:#F5E9C8;
+  --noir:#0C0C0C;--n2:#161616;--n3:#202020;--n4:#2A2A2A;--n5:#333;
+  --g1:#5A5A5A;--g2:#888;--g3:#BBB;
+  --blanc:#F4F2ED;
+  --p0:#5B9BD4;--p1:#C9A84C;--p2:#D4603A;--p3:#3DAF6B;
+  --r:10px;--safe:env(safe-area-inset-bottom,16px)
+}
+html,body{height:100%;background:var(--noir);color:var(--blanc);font-family:'DM Sans',sans-serif;overflow:hidden}
+#app{height:100%;display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+/* ─── HEADER ─── */
+.hdr{
+  flex-shrink:0;background:var(--n2);
+  border-bottom:1px solid rgba(201,168,76,.12);
+  padding:12px 16px 10px;
+  display:flex;align-items:center;gap:10px;
+  position:relative;z-index:20
+}
+.hdr-back{
+  background:var(--n3);border:none;color:var(--g2);
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;cursor:pointer;flex-shrink:0;transition:.2s
+}
+.hdr-back:active{background:var(--n4)}
+.hdr-info{flex:1;min-width:0}
+.hdr-sub{font-size:10px;letter-spacing:2px;color:var(--or);font-family:'Bebas Neue';margin-bottom:1px}
+.hdr-title{font-family:'Bebas Neue';font-size:20px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-right{flex-shrink:0}
+.hdr-ring{width:36px;height:36px;position:relative}
+.hdr-ring svg{width:36px;height:36px;transform:rotate(-90deg)}
+.hdr-ring circle{fill:none;stroke-width:3}
+.hdr-ring .track{stroke:var(--n4)}
+.hdr-ring .fill{stroke:var(--or);stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.hdr-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--or)}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav{
+  flex-shrink:0;
+  background:var(--n2);border-top:1px solid rgba(255,255,255,.05);
+  display:flex;padding-bottom:var(--safe);
+  position:relative;z-index:20
+}
+.bn-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:3px;padding:10px 0;cursor:pointer;transition:.2s;border:none;background:none;color:var(--g1)
+}
+.bn-item.active{color:var(--or)}
+.bn-item:active{opacity:.7}
+.bn-icon{font-size:20px;line-height:1}
+.bn-lbl{font-size:10px;letter-spacing:1px;font-family:'Bebas Neue'}
+
+/* ─── SCROLL ─── */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+
+/* ─── HOME ─── */
+.home-hero{
+  padding:20px 16px 16px;
+  background:linear-gradient(180deg,var(--n2) 0%,transparent 100%)
+}
+.home-greeting{font-size:13px;color:var(--g2);margin-bottom:2px}
+.home-title{font-family:'Bebas Neue';font-size:32px;letter-spacing:1px;line-height:1}
+.home-day{font-size:12px;color:var(--or);margin-top:4px;font-weight:600}
+
+.home-ring-wrap{
+  margin:16px;padding:20px;
+  background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);
+  display:flex;align-items:center;gap:20px
+}
+.big-ring{width:80px;height:80px;position:relative;flex-shrink:0}
+.big-ring svg{width:80px;height:80px;transform:rotate(-90deg)}
+.big-ring circle{fill:none;stroke-width:5}
+.big-ring .track{stroke:var(--n4)}
+.big-ring .fill{stroke:var(--or);stroke-linecap:round;transition:.8s ease}
+.big-ring-pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.big-ring-num{font-family:'Bebas Neue';font-size:22px;color:var(--or);line-height:1}
+.big-ring-sub{font-size:9px;color:var(--g2);letter-spacing:1px}
+.home-stats{flex:1;display:flex;flex-direction:column;gap:8px}
+.home-stat{display:flex;justify-content:space-between;align-items:center}
+.home-stat-lbl{font-size:12px;color:var(--g2)}
+.home-stat-val{font-family:'Bebas Neue';font-size:18px;color:var(--blanc)}
+
+.home-next{margin:0 16px 16px}
+.home-next-title{font-size:11px;letter-spacing:2px;color:var(--or);font-family:'Bebas Neue';margin-bottom:10px}
+.next-card{
+  background:var(--n2);border:1px solid rgba(201,168,76,.2);
+  border-radius:var(--r);padding:16px;
+  display:flex;align-items:center;gap:14px;cursor:pointer;
+  transition:.25s ease;position:relative;overflow:hidden
+}
+.next-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--or)}
+.next-card:active{opacity:.8}
+.next-card-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(201,168,76,.1);border:2px solid rgba(201,168,76,.3);
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0
+}
+.next-card-info{flex:1;min-width:0}
+.next-card-week{font-size:10px;color:var(--g2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.next-card-name{font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;line-height:1.1}
+.next-card-meta{font-size:12px;color:var(--g2);margin-top:3px}
+.next-card-arrow{color:var(--or);font-size:20px;flex-shrink:0}
+
+.home-phases{margin:0 16px 16px}
+.hp-title{font-size:11px;letter-spacing:2px;color:var(--g1);font-family:'Bebas Neue';margin-bottom:10px}
+.hp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hp-item{
+  padding:12px 8px;background:var(--n2);border-radius:var(--r);
+  border:1px solid rgba(255,255,255,.05);text-align:center
+}
+.hp-item-pct{font-family:'Bebas Neue';font-size:20px;line-height:1;margin-bottom:2px}
+.hp-item-lbl{font-size:9px;color:var(--g2);letter-spacing:1px;line-height:1.3}
+
+.home-recent{margin:0 16px 16px}
+.hr-title{font-size:11px;letter-spacing:2px;color:var(--g1);font-family:'Bebas Neue';margin-bottom:10px}
+.hr-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)
+}
+.hr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hr-name{flex:1;font-size:13px;color:var(--g3)}
+.hr-time{font-size:11px;color:var(--g1)}
+
+/* ─── TIMELINE ─── */
+.tl-hero{padding:20px 16px 0;background:linear-gradient(180deg,var(--n2) 0%,transparent 100%)}
+.tl-brand{font-size:10px;letter-spacing:3px;color:var(--or);font-family:'Bebas Neue';margin-bottom:4px}
+.tl-title{font-family:'Bebas Neue';font-size:46px;line-height:.9;margin-bottom:6px}
+.tl-title span{color:var(--or)}
+.tl-desc{font-size:13px;color:var(--g2);font-weight:300;margin-bottom:16px;line-height:1.5}
+.pbar-wrap{display:grid;grid-template-columns:repeat(90,1fr);gap:1.5px;margin:0 16px 6px}
+.pbar-day{height:4px;border-radius:1px;background:var(--n4)}
+.pbar-day.s0{background:rgba(91,155,212,.6)}
+.pbar-day.p1{background:rgba(201,168,76,.5)}
+.pbar-day.p2{background:rgba(212,96,58,.6)}
+.pbar-day.p3{background:rgba(61,175,107,.7)}
+.pbar-day.test{background:var(--or);box-shadow:0 0 4px rgba(201,168,76,.8)}
+.tl-milestones{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 16px 20px}
+.tl-ms{text-align:center;padding:8px 4px;border-top:2px solid var(--n4)}
+.tl-ms.done{border-top-color:var(--or)}
+.tl-ms-day{font-family:'Bebas Neue';font-size:18px;color:var(--or)}
+.tl-ms-lbl{font-size:9px;color:var(--g1);letter-spacing:1px;text-transform:uppercase;margin-top:2px;line-height:1.2}
+.tl-phase{margin:0 16px 8px;padding:10px 14px;border-left:3px solid var(--phase-c);background:rgba(255,255,255,.02)}
+.tl-phase-tag{font-size:10px;letter-spacing:2px;color:var(--phase-c);font-family:'Bebas Neue';margin-bottom:1px}
+.tl-phase-name{font-family:'Bebas Neue';font-size:21px;letter-spacing:2px}
+.tl-phase-days{font-size:11px;color:var(--g1);margin-top:1px}
+
+.wk-card{
+  margin:0 16px 8px;background:var(--n2);
+  border:1px solid rgba(255,255,255,.06);border-radius:var(--r);
+  padding:14px;cursor:pointer;position:relative;overflow:hidden;transition:.25s ease
+}
+.wk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--wc);opacity:.6;transition:opacity .25s}
+.wk-card.locked{opacity:.4;cursor:default}
+.wk-card.completed::before{opacity:1}
+.wk-card:not(.locked):active{transform:scale(.98);background:var(--n3)}
+.wk-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.wk-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--n4);border:2px solid var(--n4)}
+.wk-badge.unlocked{border-color:var(--wc)}
+.wk-badge.completed{background:var(--wc);border-color:var(--wc)}
+.wk-info{flex:1;min-width:0}
+.wk-num{font-size:10px;letter-spacing:2px;color:var(--g1);text-transform:uppercase}
+.wk-name{font-family:'Bebas Neue';font-size:19px;letter-spacing:1px;line-height:1}
+.wk-focus{font-size:12px;color:var(--g2);line-height:1.5;margin-bottom:10px;font-style:italic}
+.wk-sessions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.wk-sess-dot{height:4px;border-radius:2px;background:var(--n4)}
+.wk-sess-dot.done{background:var(--wc)}
+.wk-status{font-size:10px;margin-top:6px}
+
+/* ─── WEEK VIEW ─── */
+.wv-hero{padding:18px 16px;background:linear-gradient(180deg,var(--n2) 0%,transparent 100%)}
+.wv-phase{font-size:10px;letter-spacing:2px;color:var(--phase-c);font-family:'Bebas Neue';margin-bottom:3px}
+.wv-title{font-family:'Bebas Neue';font-size:36px;line-height:.95;margin-bottom:4px}
+.wv-sub{font-size:13px;color:var(--g2);font-style:italic;margin-bottom:14px}
+.wv-prog{display:flex;gap:5px;margin-bottom:4px}
+.wv-prog-item{flex:1;height:4px;border-radius:2px;background:var(--n4)}
+.wv-prog-item.done{background:var(--phase-c)}
+.wv-prog-lbl{font-size:10px;color:var(--g1);letter-spacing:1px}
+
+.sess-card{margin:10px 16px 0;background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s ease}
+.sess-card.locked{opacity:.4;cursor:default;pointer-events:none}
+.sess-card:not(.locked):active{opacity:.8}
+.sess-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.sess-icon{width:42px;height:42px;border-radius:50%;background:var(--n4);border:2px solid var(--n4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sess-icon.done{background:var(--phase-c);border-color:var(--phase-c)}
+.sess-icon.active{border-color:var(--phase-c)}
+.sess-info{flex:1;min-width:0}
+.sess-title{font-family:'Bebas Neue';font-size:17px;letter-spacing:1px;line-height:1.1}
+.sess-meta{font-size:11px;color:var(--g1);margin-top:3px}
+.sess-arrow{color:var(--g1);font-size:16px}
+.sess-done-bar{height:3px;background:var(--phase-c);transition:width .4s ease}
+
+.mob-card{margin:10px 16px 0;background:rgba(91,155,212,.05);border:1px solid rgba(91,155,212,.2);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s ease}
+.mob-card.locked{opacity:.4;cursor:default;pointer-events:none}
+.mob-card:not(.locked):active{opacity:.8}
+.mob-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.mob-icon{width:42px;height:42px;border-radius:50%;background:rgba(91,155,212,.1);border:2px solid rgba(91,155,212,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.mob-icon.done{background:#5B9BD4;border-color:#5B9BD4}
+
+.wv-bilan{margin:16px 16px 0;padding:14px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.2);border-radius:var(--r)}
+.wv-bilan-title{font-family:'Bebas Neue';font-size:14px;letter-spacing:2px;color:var(--or);margin-bottom:8px}
+.wv-bilan-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:12px;color:var(--g2);line-height:1.4}
+.wv-bilan-item::before{content:'→';color:var(--or);flex-shrink:0;margin-top:1px}
+
+/* ─── SESSION VIEW ─── */
+.sv-hero{padding:14px 16px 10px;background:var(--n2)}
+.sv-phase{font-size:10px;letter-spacing:2px;color:var(--phase-c);font-family:'Bebas Neue';margin-bottom:2px}
+.sv-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:1px;line-height:1.1;margin-bottom:4px}
+.sv-meta{font-size:11px;color:var(--g1)}
+
+.sv-actions{display:flex;gap:10px;margin:12px 16px}
+.sv-btn-start{
+  flex:1;background:var(--phase-c);color:var(--noir);
+  border:none;border-radius:var(--r);padding:14px;
+  font-family:'Bebas Neue';font-size:17px;letter-spacing:2px;
+  cursor:pointer;transition:.25s ease;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.sv-btn-start:active{opacity:.8}
+.sv-btn-start.done{background:var(--p3);color:#fff}
+.sv-btn-complete{
+  flex:1;background:var(--n3);color:var(--g3);
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:14px;
+  font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;
+  cursor:pointer;transition:.25s ease
+}
+.sv-btn-complete.done{background:var(--p3);color:#fff;border-color:transparent}
+.sv-btn-complete:active{opacity:.8}
+
+.sect{margin:18px 16px 8px;font-family:'Bebas Neue';font-size:12px;letter-spacing:3px;color:var(--g1)}
+
+/* ─── EXERCISE CARD ─── */
+.ex-item{
+  margin:0 16px 8px;
+  background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);overflow:hidden;
+  transition:.2s ease
+}
+.ex-item.checked{border-color:rgba(201,168,76,.2);background:rgba(201,168,76,.03)}
+.ex-main{display:flex;align-items:flex-start;gap:10px;padding:12px 14px 10px}
+.ex-check{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--n5);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:2px;cursor:pointer;transition:.2s;background:transparent
+}
+.ex-item.checked .ex-check{background:var(--phase-c);border-color:var(--phase-c)}
+.ex-check svg{display:none;width:11px;height:11px}
+.ex-item.checked .ex-check svg{display:block}
+.ex-body{flex:1;min-width:0}
+.ex-name{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;line-height:1.3;margin-bottom:6px;text-transform:uppercase}
+.ex-name a{color:var(--or2);text-decoration:none}
+.ex-name a:active{opacity:.7}
+.ex-name .no-link{color:var(--blanc)}
+.ex-params{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0}
+.ex-param{font-size:11px;color:var(--g2);background:var(--n4);padding:2px 8px;border-radius:12px}
+
+/* WHY section */
+.ex-why{
+  margin:0 14px 10px;padding:9px 12px;
+  background:rgba(255,255,255,.025);
+  border-left:2px solid rgba(201,168,76,.3);
+  border-radius:0 6px 6px 0;
+  font-size:12px;color:var(--g2);line-height:1.6;font-style:italic
+}
+.ex-why strong{color:var(--g3);font-style:normal}
+
+/* Mobility */
+.mob-desc{margin:0 14px 10px;padding:9px 12px;background:rgba(91,155,212,.06);border-radius:6px;font-size:12px;color:var(--g2);line-height:1.6;font-style:italic}
+
+/* notes */
+.notes-section{margin:16px 16px 0}
+.notes-lbl{font-size:11px;letter-spacing:2px;color:var(--or);font-family:'Bebas Neue';margin-bottom:8px}
+.notes-ta{width:100%;background:var(--n2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);color:var(--g3);font-family:'DM Sans';font-size:13px;padding:12px;resize:none;min-height:90px;line-height:1.5}
+.notes-ta:focus{outline:none;border-color:rgba(201,168,76,.4)}
+.notes-ta::placeholder{color:var(--g1)}
+.congrats{margin:14px 16px 0;padding:14px;background:rgba(61,175,107,.08);border:1px solid rgba(61,175,107,.3);border-radius:var(--r);text-align:center}
+.congrats-emoji{font-size:32px;margin-bottom:6px}
+.congrats-title{font-family:'Bebas Neue';font-size:20px;color:#3DAF6B;letter-spacing:2px;margin-bottom:4px}
+.congrats-text{font-size:13px;color:var(--g2);line-height:1.5}
+
+/* ─── WORKOUT MODE ─── */
+.workout-overlay{
+  position:fixed;inset:0;z-index:100;
+  background:var(--noir);
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .3s ease
+}
+.workout-overlay.active{opacity:1;pointer-events:all}
+.wo-header{
+  padding:16px 16px 12px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0
+}
+.wo-close{background:var(--n3);border:none;color:var(--g2);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0}
+.wo-title-area{flex:1;min-width:0}
+.wo-sess-title{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;color:var(--g2)}
+.wo-progress-text{font-size:12px;color:var(--or);font-weight:600;margin-top:2px}
+.wo-progress-bar{height:3px;background:var(--n4);margin-top:8px;border-radius:2px;overflow:hidden;flex-shrink:0}
+.wo-progress-fill{height:100%;background:var(--or);border-radius:2px;transition:width .4s ease}
+
+.wo-body{flex:1;overflow-y:auto;padding:0 16px 20px;display:flex;flex-direction:column;gap:0;-webkit-overflow-scrolling:touch}
+
+.wo-ex-num{
+  font-family:'Bebas Neue';font-size:80px;color:rgba(201,168,76,.08);
+  line-height:1;margin:16px 0 -16px;user-select:none
+}
+.wo-ex-name{font-family:'Bebas Neue';font-size:clamp(26px,6vw,36px);line-height:1;margin-bottom:14px;letter-spacing:.5px;text-transform:uppercase}
+.wo-ex-name a{color:var(--or2);text-decoration:none}
+.wo-ex-name .no-link{color:var(--blanc)}
+
+.wo-params{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.wo-param{
+  flex:1;min-width:80px;
+  background:var(--n2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);padding:12px;text-align:center
+}
+.wo-param-icon{font-size:20px;margin-bottom:4px}
+.wo-param-val{font-family:'Bebas Neue';font-size:20px;color:var(--or);line-height:1}
+.wo-param-lbl{font-size:10px;color:var(--g2);letter-spacing:1px;margin-top:2px}
+
+.wo-why{
+  padding:12px 14px;
+  background:rgba(255,255,255,.025);
+  border-left:2px solid rgba(201,168,76,.3);
+  border-radius:0 8px 8px 0;
+  font-size:13px;color:var(--g2);line-height:1.7;font-style:italic;margin-bottom:16px
+}
+.wo-why strong{color:var(--g3);font-style:normal}
+
+.wo-mob-desc{padding:12px 14px;background:rgba(91,155,212,.06);border-radius:8px;font-size:13px;color:var(--g2);line-height:1.7;font-style:italic;margin-bottom:16px}
+
+/* Rest timer */
+.wo-rest{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 0;gap:12px
+}
+.wo-rest.active{display:flex}
+.wo-rest-title{font-size:12px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;font-family:'Bebas Neue'}
+.wo-rest-ring{position:relative;width:110px;height:110px}
+.wo-rest-ring svg{width:110px;height:110px;transform:rotate(-90deg)}
+.wo-rest-ring circle{fill:none;stroke-width:5}
+.wo-rest-ring .rt{stroke:var(--n4)}
+.wo-rest-ring .rf{stroke:var(--p3);stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.wo-rest-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:36px;color:var(--p3)}
+.wo-rest-skip{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--g2);border-radius:20px;padding:8px 24px;font-size:13px;cursor:pointer;font-family:'Bebas Neue';letter-spacing:1px}
+.wo-rest-skip:active{background:var(--n3)}
+
+.wo-done-screen{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 20px;gap:16px;text-align:center;min-height:60vh
+}
+.wo-done-screen.active{display:flex}
+.wo-done-emoji{font-size:64px}
+.wo-done-title{font-family:'Bebas Neue';font-size:40px;letter-spacing:2px;color:var(--p3)}
+.wo-done-sub{font-size:15px;color:var(--g2);line-height:1.7;max-width:280px}
+
+.wo-footer{flex-shrink:0;padding:12px 16px calc(12px + var(--safe));border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:8px}
+.wo-btn-next{
+  background:var(--or);color:var(--noir);border:none;border-radius:var(--r);
+  padding:16px;font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;
+  cursor:pointer;transition:.25s ease;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.wo-btn-next:active{opacity:.8}
+.wo-btn-next.done-style{background:var(--p3);color:#fff}
+.wo-btn-check{
+  background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--g2);
+  border-radius:var(--r);padding:12px;font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;
+  cursor:pointer;transition:.25s ease
+}
+.wo-btn-check.checked{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--or)}
+.wo-btn-check:active{opacity:.7}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:calc(70px + var(--safe));left:50%;transform:translateX(-50%) translateY(20px);background:var(--or);color:var(--noir);padding:10px 20px;border-radius:20px;font-family:'Bebas Neue';font-size:15px;letter-spacing:2px;opacity:0;transition:.4s ease;z-index:200;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── HEADER ICONS ─── */
+.hdr-icon-btn{
+  background:var(--n3);border:1px solid rgba(255,255,255,.06);
+  color:var(--g2);width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;flex-shrink:0;transition:.2s;border:none
+}
+.hdr-icon-btn:active{background:var(--n4);transform:scale(.92)}
+.hdr-right{display:flex;align-items:center;gap:7px;flex-shrink:0}
+
+/* ─── FULL OVERLAYS ─── */
+.full-overlay{
+  position:fixed;inset:0;z-index:150;
+  background:var(--noir);
+  display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  will-change:transform
+}
+.full-overlay.open{transform:translateY(0)}
+.ov-header{
+  flex-shrink:0;padding:14px 16px 12px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:var(--n2)
+}
+.ov-close{background:var(--n3);border:none;color:var(--g2);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0}
+.ov-close:active{background:var(--n4)}
+.ov-title-area{flex:1;min-width:0}
+.ov-eyebrow{font-size:10px;letter-spacing:3px;color:var(--or);font-family:'Bebas Neue';margin-bottom:1px}
+.ov-title{font-family:'Bebas Neue';font-size:22px;letter-spacing:1px}
+.ov-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px}
+
+/* ─── PROFILE ─── */
+.profile-hero{padding:20px 16px 16px;background:linear-gradient(180deg,var(--n2) 0%,transparent 100%)}
+.profile-hero-title{font-family:'Bebas Neue';font-size:32px;margin-bottom:2px}
+.profile-hero-sub{font-size:12px;color:var(--g2)}
+.profile-form{margin:0 16px 16px;padding:16px;background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r)}
+.profile-form-title{font-family:'Bebas Neue';font-size:13px;letter-spacing:2px;color:var(--or);margin-bottom:12px}
+.pf-row{margin-bottom:12px}
+.pf-label{font-size:11px;color:var(--g2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.pf-input{width:100%;background:var(--n3);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:var(--blanc);font-family:'DM Sans';font-size:14px;padding:10px 12px}
+.pf-input:focus{outline:none;border-color:rgba(201,168,76,.4)}
+.pf-input::placeholder{color:var(--g1)}
+.pf-scale{display:flex;gap:5px;flex-wrap:wrap}
+.pf-scale-btn{flex:1;min-width:30px;padding:8px 4px;background:var(--n3);border:1px solid rgba(255,255,255,.06);border-radius:6px;color:var(--g2);font-family:'Bebas Neue';font-size:15px;cursor:pointer;text-align:center;transition:.15s}
+.pf-scale-btn.sel{background:var(--or);color:var(--noir);border-color:var(--or)}
+.pf-scale-btn:active{opacity:.7}
+.pf-save-btn{width:100%;background:var(--or);color:var(--noir);border:none;border-radius:var(--r);padding:14px;font-family:'Bebas Neue';font-size:17px;letter-spacing:2px;cursor:pointer;transition:.25s;margin-top:4px}
+.pf-save-btn:active{opacity:.8}
+.profile-chart{margin:0 16px 16px}
+.pc-title{font-family:'Bebas Neue';font-size:12px;letter-spacing:2px;color:var(--g1);margin-bottom:10px}
+.pc-svg-wrap{background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:12px;overflow:hidden}
+.pc-svg{width:100%;height:130px;display:block}
+.pc-no-data{font-size:12px;color:var(--g1);text-align:center;padding:30px;font-style:italic}
+.profile-history{margin:0 16px 16px}
+.ph-title{font-family:'Bebas Neue';font-size:12px;letter-spacing:2px;color:var(--g1);margin-bottom:10px}
+.ph-item{background:var(--n2);border:1px solid rgba(255,255,255,.05);border-radius:var(--r);padding:12px 14px;margin-bottom:8px}
+.ph-date{font-size:10px;color:var(--or);letter-spacing:1px;font-family:'Bebas Neue';margin-bottom:6px}
+.ph-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.ph-metric{font-size:11px;color:var(--g2);background:var(--n3);padding:3px 8px;border-radius:10px}
+.ph-notes{font-size:12px;color:var(--g1);font-style:italic;margin-top:4px}
+
+/* ─── NUTRITION ─── */
+.nut-home{padding:20px 16px 0}
+.nut-home-title{font-family:'Bebas Neue';font-size:34px;line-height:.9;margin-bottom:6px}
+.nut-home-title span{color:var(--or)}
+.nut-home-sub{font-size:13px;color:var(--g2);margin-bottom:20px;line-height:1.5}
+.nut-card{border-radius:var(--r);padding:20px;margin-bottom:12px;cursor:pointer;position:relative;overflow:hidden;transition:.25s}
+.nut-card:active{transform:scale(.98)}
+.nut-card-seche{background:linear-gradient(135deg,#1a1208 0%,#2a1e08 100%);border:1px solid rgba(201,168,76,.25)}
+.nut-card-masse{background:linear-gradient(135deg,#0a1a12 0%,#0d2518 100%);border:1px solid rgba(61,175,107,.25)}
+.nut-card-tag{font-size:10px;letter-spacing:3px;font-family:'Bebas Neue';margin-bottom:4px}
+.nut-card-title{font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;margin-bottom:4px}
+.nut-card-sub{font-size:12px;line-height:1.5;margin-bottom:12px}
+.nut-card-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nut-chip{font-size:10px;padding:3px 10px;border-radius:12px;font-family:'Bebas Neue';letter-spacing:1px}
+.nut-card-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:28px;opacity:.4}
+
+.nut-back-btn{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--or);font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;cursor:pointer;padding:14px 16px;width:100%;border-bottom:1px solid rgba(255,255,255,.05)}
+.nut-back-btn:active{opacity:.7}
+
+.nut-section{margin:0 16px 20px}
+.nut-section-title{font-family:'Bebas Neue';font-size:13px;letter-spacing:3px;color:var(--g1);margin:20px 0 10px}
+.nut-intro{font-size:13px;color:var(--g2);line-height:1.7;padding:14px;background:var(--n2);border-radius:var(--r);border-left:3px solid var(--or)}
+.nut-info-box{background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:14px;margin-bottom:8px}
+.nut-info-box h4{font-family:'Bebas Neue';font-size:15px;letter-spacing:1px;color:var(--or);margin-bottom:6px}
+.nut-info-box p{font-size:12px;color:var(--g2);line-height:1.7}
+
+.nut-morpho-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.nut-morpho-btn{background:var(--n2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:14px 8px;text-align:center;cursor:pointer;transition:.2s}
+.nut-morpho-btn.active{border-color:var(--or);background:rgba(201,168,76,.06)}
+.nut-morpho-btn:active{opacity:.7}
+.nut-morpho-icon{font-size:22px;margin-bottom:4px}
+.nut-morpho-name{font-family:'Bebas Neue';font-size:13px;letter-spacing:1px;line-height:1.2}
+.nut-morpho-kcal{font-size:10px;color:var(--g2);margin-top:2px}
+
+.nut-macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.nut-macro{background:var(--n2);border-radius:var(--r);padding:12px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.nut-macro-val{font-family:'Bebas Neue';font-size:18px;color:var(--or);margin-bottom:2px}
+.nut-macro-lbl{font-size:10px;color:var(--g2);letter-spacing:1px}
+
+.nut-meal{background:var(--n2);border:1px solid rgba(255,255,255,.05);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.nut-meal-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.nut-meal-icon{font-size:18px;flex-shrink:0}
+.nut-meal-title{font-family:'Bebas Neue';font-size:15px;letter-spacing:1px}
+.nut-meal-kcal{margin-left:auto;font-size:10px;color:var(--or);font-family:'Bebas Neue';letter-spacing:1px}
+.nut-meal-items{padding:0 14px 12px;display:flex;flex-direction:column;gap:3px}
+.nut-meal-item{font-size:12px;color:var(--g2);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.nut-meal-item::before{content:'·';color:var(--or);flex-shrink:0;margin-top:1px}
+
+.nut-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px}
+.nut-table th{text-align:left;padding:8px 10px;background:rgba(201,168,76,.08);color:var(--or);font-family:'Bebas Neue';font-size:11px;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nut-table td{padding:8px 10px;color:var(--g2);border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top;line-height:1.5}
+.nut-table tr:last-child td{border-bottom:none}
+
+.nut-faq-item{background:var(--n2);border:1px solid rgba(255,255,255,.05);border-radius:var(--r);margin-bottom:6px;overflow:hidden}
+.nut-faq-q{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;font-size:13px;font-weight:500}
+.nut-faq-q span{flex:1}
+.nut-faq-arrow{color:var(--or);transition:.2s;flex-shrink:0}
+.nut-faq-item.open .nut-faq-arrow{transform:rotate(180deg)}
+.nut-faq-a{display:none;padding:0 14px 12px;font-size:12px;color:var(--g2);line-height:1.7}
+.nut-faq-item.open .nut-faq-a{display:block}
+
+.nut-steps{counter-reset:step}
+.nut-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;padding:12px 14px;background:var(--n2);border-radius:var(--r);border:1px solid rgba(255,255,255,.05)}
+.nut-step-num{width:28px;height:28px;border-radius:50%;background:var(--or);color:var(--noir);font-family:'Bebas Neue';font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nut-step-text{font-size:13px;color:var(--g2);line-height:1.6;padding-top:3px}
+
+.nut-aliment-cat{background:var(--n2);border:1px solid rgba(255,255,255,.05);border-radius:var(--r);padding:14px;margin-bottom:8px}
+.nut-aliment-cat h4{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;color:var(--or);margin-bottom:8px}
+.nut-aliment-cat p{font-size:12px;color:var(--g2);line-height:1.7;margin-bottom:8px}
+.nut-tags{display:flex;gap:5px;flex-wrap:wrap}
+.nut-tag{font-size:11px;color:var(--g3);background:var(--n4);padding:3px 10px;border-radius:12px}
+
+/* ─── SUPERSET STYLES ─── */
+.ss-group{
+  border:2px solid rgba(201,168,76,.35);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:12px;
+  background:rgba(201,168,76,.04)
+}
+.ss-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px 8px;
+  background:linear-gradient(135deg,rgba(201,168,76,.15) 0%,rgba(201,168,76,.06) 100%);
+  border-bottom:1px solid rgba(201,168,76,.2)
+}
+.ss-header-left{display:flex;align-items:center;gap:8px}
+.ss-badge{
+  background:var(--or);color:var(--noir);
+  font-family:'Bebas Neue';font-size:12px;letter-spacing:1.5px;
+  padding:3px 10px;border-radius:4px;flex-shrink:0
+}
+.ss-count{font-size:11px;color:var(--or);letter-spacing:1px;font-family:'Bebas Neue'}
+.ss-rule{
+  font-size:11px;color:var(--or);font-family:'Bebas Neue';
+  letter-spacing:.5px;opacity:.8
+}
+.ss-explain{
+  padding:8px 14px 10px;
+  background:rgba(201,168,76,.05);
+  border-bottom:1px solid rgba(201,168,76,.1);
+  font-size:12px;color:var(--g2);line-height:1.6
+}
+.ss-explain strong{color:var(--or)}
+.ss-order{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px 8px;
+  background:rgba(0,0,0,.2);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:11px;color:var(--g1);letter-spacing:.5px
+}
+.ss-order-step{
+  display:flex;align-items:center;gap:4px;
+  background:var(--n3);border-radius:4px;
+  padding:2px 8px;font-family:'Bebas Neue';font-size:12px;color:var(--g2)
+}
+.ss-order-arrow{color:var(--or);font-size:14px;font-weight:bold}
+.ss-then{font-size:10px;color:var(--g1);font-style:italic}
+.ss-group .ex-item{border-radius:0;border:none;border-bottom:1px solid rgba(255,255,255,.04);margin:0}
+.ss-group .ex-item:last-child{border-bottom:none}
+
+/* video accordion removed */
+
+/* ─── WORKOUT MODE SUPERSET SIDE-BY-SIDE ─── */
+.wo-ss-wrap{
+  display:flex;gap:12px;padding:12px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.wo-ss-card{
+  flex:1;background:var(--n2);border-radius:10px;
+  padding:14px;border:1px solid rgba(201,168,76,.15);
+  display:flex;flex-direction:column;align-items:center;text-align:center
+}
+.wo-ss-card.active-card{border-color:var(--or);background:rgba(201,168,76,.06)}
+.wo-ss-badge{
+  font-family:'Bebas Neue';font-size:11px;letter-spacing:2px;
+  color:var(--or);margin-bottom:6px
+}
+.wo-ss-name{
+  font-family:'Bebas Neue';font-size:clamp(16px,4vw,20px);
+  letter-spacing:.5px;text-transform:uppercase;line-height:1.2;margin-bottom:8px
+}
+.wo-ss-params{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:6px}
+.wo-ss-param{font-size:10px;color:var(--g2);background:var(--n4);padding:2px 6px;border-radius:10px}
+.wo-ss-check{
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin-top:auto;transition:.2s
+}
+.wo-ss-check.done{background:var(--or);border-color:var(--or)}
+.wo-ss-check svg{width:14px;height:14px;fill:var(--noir);display:none}
+.wo-ss-check.done svg{display:block}
+.wo-ss-banner{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:8px 16px;background:rgba(201,168,76,.08);
+  border-bottom:1px solid rgba(201,168,76,.15);
+  font-family:'Bebas Neue';font-size:13px;letter-spacing:2px;color:var(--or)
+}
+
+/* ─── WORKOUT MODE SUPERSET — 1 PAR 1 ─── */
+.wo-ss-progress-bar{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:14px 16px 4px;
+}
+.wo-ss-pip{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:var(--n3);border:1px solid rgba(255,255,255,.08);
+  border-radius:8px;padding:5px 12px;min-width:48px;
+  transition:.2s
+}
+.wo-ss-pip.current{
+  background:rgba(201,168,76,.12);border-color:var(--or);
+}
+.wo-ss-pip.done{
+  background:rgba(61,175,107,.1);border-color:#3DAF6B;
+}
+.wo-ss-pip-label{
+  font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;
+  color:var(--g1)
+}
+.wo-ss-pip.current .wo-ss-pip-label{color:var(--or)}
+.wo-ss-pip.done .wo-ss-pip-label{color:#3DAF6B}
+.wo-ss-pip-arrow{color:var(--or);font-size:16px;font-weight:bold;opacity:.6}
+.wo-ss-step-label{
+  text-align:center;font-family:'Bebas Neue';font-size:12px;
+  letter-spacing:2px;color:var(--or);opacity:.8;
+  padding:2px 0 8px;
+}
+
+/* ENCHAÎNE DIRECT banner */
+.wo-enchaine-banner{
+  margin:14px 16px 4px;
+  border:2px solid rgba(201,168,76,.3);
+  border-radius:12px;
+  overflow:hidden;
+  background:rgba(201,168,76,.04);
+}
+.wo-enchaine-label{
+  background:var(--or);color:var(--noir);
+  font-family:'Bebas Neue';font-size:13px;letter-spacing:3px;
+  text-align:center;padding:6px 12px;
+}
+.wo-enchaine-arrow{
+  text-align:center;font-size:24px;color:var(--or);
+  padding:4px 0 0;opacity:.7;
+}
+.wo-enchaine-next{
+  font-family:'Bebas Neue';font-size:clamp(18px,5vw,24px);
+  text-align:center;letter-spacing:.5px;
+  padding:4px 16px 2px;line-height:1.2;
+}
+.wo-enchaine-sub{
+  text-align:center;font-size:11px;color:var(--g1);
+  padding:4px 16px 12px;letter-spacing:.3px;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<!-- ─── PROFILE OVERLAY ─── -->
+<div class="full-overlay" id="profile-overlay">
+  <div class="ov-header">
+    <button class="ov-close" id="profile-close">✕</button>
+    <div class="ov-title-area">
+      <div class="ov-eyebrow">COMBATTANT ÉLITE</div>
+      <div class="ov-title">MON PROFIL</div>
+    </div>
+  </div>
+  <div class="ov-scroll" id="profile-scroll"></div>
+</div>
+
+<!-- ─── NUTRITION OVERLAY ─── -->
+<div class="full-overlay" id="nutrition-overlay">
+  <div class="ov-header">
+    <button class="ov-close" id="nutrition-close">✕</button>
+    <div class="ov-title-area">
+      <div class="ov-eyebrow">COMBATTANT ÉLITE</div>
+      <div class="ov-title" id="nut-ov-title">NUTRITION</div>
+    </div>
+  </div>
+  <div class="ov-scroll" id="nutrition-scroll"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ─── WORKOUT OVERLAY ─── -->
+<div class="workout-overlay" id="wo">
+  <div class="wo-header">
+    <button class="wo-close" id="wo-close">✕</button>
+    <div class="wo-title-area">
+      <div class="wo-sess-title" id="wo-sess-title"></div>
+      <div class="wo-progress-text" id="wo-progress-text"></div>
+    </div>
+  </div>
+  <div class="wo-progress-bar"><div class="wo-progress-fill" id="wo-fill" style="width:0%"></div></div>
+
+  <div class="wo-body" id="wo-body">
+    <!-- exercise content injected here -->
+  </div>
+
+  <div class="wo-footer" id="wo-footer">
+    <button class="wo-btn-next" id="wo-btn-next">Exercice suivant →</button>
+    <button class="wo-btn-check" id="wo-btn-check">☐ &nbsp;Marquer cet exercice</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════
+// VIDEO LOOKUP
+// ═══════════════════════════
+const V={
+  "high static jump":"7B3RR6mUy5w","bench barbell jump squat":"Olqjm8xZ5Pk","barbell jump squat":"Olqjm8xZ5Pk",
+  "landmine squat press":"oXHCnV7HFgs","landmine press":"B4gIyoUMHO8","kettlebell swing elastic":"hjGTBOlYfT4",
+  "kettlebell swing élastique":"ckmGUUHTp9M","switch step slam ball":"esO5yTNMlYw","développé couché à la barre isométrique":"e0zqnu94AHY",
+  "pompes plyométriques isométrique":"dMUXiFzipJw","pompes plyométriques":"w4YFQzF1-wE","pompe plyométrique":"w4YFQzF1-wE",
+  "medball punch":"yj8OgcBU894","zercher squat":"Yg862H_qO9w","sled push":"w2oZfMTp7lI",
+  "side sled push":"CM4MlJc44fU","trap bar farmer walk":"Kit8zGJToks","explosive hip torque":"ZxTWAFW0jy8",
+  "medball shuffle to lateral throw":"rwuT6mUA_iU","gym ball dumbbell press":"L1EfE7BzHhw",
+  "landmine press hip variation":"ckDle5nhJxc","passage d'épaulé":"ifi0QIuxNOk","ski erg":"6dZg1dMP5NI",
+  "kettlebell swing + high jump squat":"RLqoh0HLbXY","banded kb front squat press":"UW_uvO_eHuw",
+  "pendlay row":"Z6VN37vmtG4","trap bar deadlift":"Fmd6jtkjnkM","high knee dynamic":"xTDAVRcAbak",
+  "knee to floor to high jump":"KyYZTpnxGHw","glute bridge single dumbbell floor press":"TIcN82lYEcI",
+  "b stance squat":"gQ1ojXP1IXc","développé couché à la barre":"KYLkJXusFtY","bench press":"KYLkJXusFtY",
+  "dumbbell bench press unilateral":"JlsfV0wY7SY","rotational landmine clean & press":"M3gl-fpFkh0",
+  "b stance trap bar deadlift":"W7jn-UU71GM","dumbbell b stance box jump":"5xv7gsyoJDM",
+  "kettlebell drop lunges":"keKc9QbLa9Y","side step to high jump":"hmrzE9L8VeE",
+  "stato dynamic hip thrust":"kvLoUQvRj1U","hiptrust stato":"U0QfQzcnYKw",
+  "knee floor to side jump":"a2R4KTlyhYU","full rotation medball slam":"sFmxTcxCVIo",
+  "power clean":"5tsy1Qp6Bx8","hang power clean":"5tsy1Qp6Bx8","hang clean":"R7J4FvdfiPI",
+  "landmine split jerk":"sYhU8kzoJfs","landmine press split jerk":"0yJRyzVMVM0",
+  "traction":"UtJnu6mH454","tractions":"UtJnu6mH454","tractions lestées":"UtJnu6mH454",
+  "tractions australiennes":"oPwKzB5XfnU","db clean & press":"Kxc8PZt8cnU","clean & press":"Nd0MSeiBN2Q",
+  "dead broad jump":"KT9tt9ceBC4","broad jump":"AkdQ_7P12WA","tipping plate fast":"Wol0eaD23Ek",
+  "fast ladder tipping":"uLETSg1GVl8","clean high pull":"0ys7v_pDFNo","tirage haut d'épaule":"lQQtFPVA3JI",
+  "tirage lourd d'épaulé":"lWsq0QsE7m0","suitcase carry":"SP-PQ-dp6cg","hollow arch":"DQBMf599GZw",
+  "slam ball":"YpyqLj_e5vg","heavy straight medball shoot":"ej2gBzNwNtQ","medball lateral jump":"KScSGcMb2Y8",
+  "hips dumbbell floor press":"4VY7sDWQzlw","landmine switch press":"04OQ5RotC14","zercher lunges":"RmGOUVJBviQ",
+  "knee floor to high jump":"nz4jNLOAeAU","zercher good morning":"s52tZYAlNnQ","high squat box jump":"nsZ1MblXa8E",
+  "box single leg high broad jump":"GiyyFKMeN5A","wall roll up":"Bqy6kwlrs1U","deadlift":"Ho3G4m2OGh4",
+  "soulever de terre":"Ho3G4m2OGh4","zercher deadlift":"k0L1HiUUve8","kettlebell cossack squat":"p7mAdA0N6GQ",
+  "cossack squat":"p7mAdA0N6GQ","elastic jump squat":"EX5JKR7kE3U","medball side shuffle slam":"vB7UIfnWiPk",
+  "soulever de terre jambes tendues":"VThBpsRttvE","front squat":"aQuNtfOAEtI","barbell punch":"C7xayzFVtC4",
+  "high hurdle jump":"XYIBWNxbQVE","shadow single":"48eNEdKZqqk","curl prise marteau":"d_hcLQNMhzI",
+  "gorilla row":"U-vYr2rBOuA","sprawl with high jump":"bdF1vduRQmE","heavy kb farmer walk":"0B0DQ16ItvY",
+  "kb farmer walk":"cyCpvtxfHBg","kettlebell farmer walk":"cyCpvtxfHBg","one step clean press on box":"cfSEHh24xRQ",
+  "one step high jump on box":"wVBS9uTvXVw","squat box":"mHKteQXrIXw","side jump high knee with kb":"ZjTJyNh8OQw",
+  "développé couché aux haltères":"Y662W3L9rWQ","dumbbell incline press":"yDCkMd-uMkw",
+  "développé couché incliné":"yDCkMd-uMkw","leg raises":"Tg16x_-2vrQ","single leg side jump":"P0DEU9p2Zpw",
+  "dumbbell press floor bridge":"T2UHUFJog30","landmine press squat":"hmV3cDZiU4k",
+  "straight medball shot":"gqWUGk3gbh0","rotational medball shot":"I5Dgq3_TIDY","hips rotate medball":"Y2oUP3rNoo8",
+  "fast tipping plate":"D35VE9SoAdI","jump squat over the box":"Ge8ErAnaSek","lunges to high step":"iYCdyHj4D1k",
+  "isométrique squat":"IGZtvCYmTK8","push press":"bkE04fOihhg","barbell bridge floor press":"GhQT-3fBtgE",
+  "slam ball switch step":"8qffBYmrPj8","bûcheron à l'haltère":"RSOjqL1wATc","rameur":"Aakk_gs3gSo",
+  "hiptrust":"5bKYxEBI_gE","développé couché en stato dynamique":"9D6HqYDCJ9g",
+  "medball side jump":"RoCRyj2iyhU","lateral jump with medball":"1T4ZsLxq56c","high knee to box jump":"MgbTbNic_Wk",
+  "fast slam ball":"6yVGJeh-NPE","abs side press plate":"RpSg0DFZYzk","jump lunges":"Qwdse8vW3iQ",
+  "landmine seated press":"SbuanmaLV30","zercher pull band":"lndYuIhmAtg",
+  "développé couché au sol":"lo4nJHjs_as","pompes pliométrique":"EqGuCV1rO-M","assault bike":"7WaJXYjUzdY",
+  "bench barbell squat jump":"G56AYnq6K4w","montées de genoux dynamiques":"xTDAVRcAbak"
+};
+function getVideo(name){
+  const n=name.toLowerCase().replace(/[()0-9%']/g,'').replace(/\s+/g,' ').trim();
+  for(const[k,v]of Object.entries(V)){if(n===k)return`https://youtube.com/shorts/${v}`;}
+  for(const[k,v]of Object.entries(V)){if(n.startsWith(k))return`https://youtube.com/shorts/${v}`;}
+  for(const[k,v]of Object.entries(V)){if(n.includes(k))return`https://youtube.com/shorts/${v}`;}
+  return null;
+}
+
+// ═══════════════════════════
+// WHY DESCRIPTIONS
+// ═══════════════════════════
+const WHY={
+  "Montées de genoux dynamiques":"Active le système nerveux et prépare les hanches fléchisseurs avant l'effort. <strong>En combat :</strong> simule la mécanique des coups de genou et des déplacements rapides.",
+  "Kettlebell swing elastic":"La résistance de l'élastique force une extension explosive des hanches plus puissante. <strong>En combat :</strong> renforce directement la chaîne postérieure utilisée dans les projections et les frappes avec rotation du bassin.",
+  "Dead broad jump":"Saut horizontal depuis l'arrêt complet — sollicite la force explosive pure sans élan. <strong>En combat :</strong> développe la capacité à changer de niveau et à avancer sur l'adversaire avec puissance.",
+  "Slam ball":"Exercice de puissance total-body avec relâchement maximal. <strong>En combat :</strong> reproduit la mécanique des coudes et des frappes descendantes en développant la chaîne antérieure.",
+  "Développé couché à la barre isométrique":"Phase statique qui recrute un maximum de fibres musculaires avant l'effort concentrique. <strong>En combat :</strong> développe la force de poussée maximale utile dans la lutte debout et les déséquilibres.",
+  "Pompes plyométriques":"Exercice de puissance musculaire pour le haut du corps avec phase de décollage. <strong>En combat :</strong> améliore la vitesse de frappe et la réactivité de protection du visage.",
+  "Medball punch":"Rotation explosive avec lancer — isole la chaîne cinétique du cross. <strong>En combat :</strong> renforce directement la puissance de frappe en répliquant le pattern neuromusculaire du direct.",
+  "Zercher squat":"Squat avec charge portée en avant — sollicite massivement le core et les quadriceps. <strong>En combat :</strong> renforce la position de lutte basse (shot) et la résistance aux takedowns.",
+  "Sled push":"Effort horizontal intense sans phase excentrique — idéal pour le cardio de force. <strong>En combat :</strong> développe l'endurance de poussée utilisée dans les clinch et les projections.",
+  "Trap bar farmer walk":"Porter une charge lourde avec la trap bar préserve mieux le dos que les haltères. <strong>En combat :</strong> renforce la préhension, les trapèzes et la stabilité du tronc sous fatigue.",
+  "Explosive hip torque":"Rotation explosive des hanches contre résistance — isole le mouvement de pivot. <strong>En combat :</strong> améliore directement la puissance des crochets, uppercuts et coups de pied rotationnels.",
+  "Medball shuffle to lateral throw":"Déplacement latéral suivi d'un lancer explosif. <strong>En combat :</strong> entraîne la coordination déplacement-frappe et la puissance du corps entier dans les changements d'angle.",
+  "Gym ball dumbbell press":"Instabilité du ballon force le gainage en contraction pendant la poussée. <strong>En combat :</strong> développe la stabilisation des épaules et du core sous effort, capital en position de garde.",
+  "Landmine press hip variation":"Rotation et poussée simultanées depuis la hanche. <strong>En combat :</strong> reproduit fidèlement la mécanique du jab-cross en recrutant l'ensemble de la chaîne rotationnelle.",
+  "Passage d'épaulé":"Mouvement olympique complet — explosion des jambes transférée aux bras. <strong>En combat :</strong> développe la coordination inter-segmentaire et la puissance explosive générale.",
+  "Kettlebell swing + high jump squat":"Combo qui enchaîne propulsion et saut — surcharge le système neuromusculaire. <strong>En combat :</strong> améliore la réactivité explosive après un effort et la capacité à exploser depuis des positions basses.",
+  "Banded KB front squat press":"L'élastique ajoute de la résistance en haut du mouvement. <strong>En combat :</strong> développe la force de démarrage et la puissance de poussée depuis les jambes jusqu'aux bras.",
+  "Pendlay row":"Tirage horizontal explosif depuis le sol — barre doit être posée entre chaque répétition. <strong>En combat :</strong> renforce les muscles de la traction utiles dans les clinch, ceintures et immobilisations.",
+  "Trap bar deadlift":"Deadlift avec trap bar — répartit la charge autour du centre de gravité. <strong>En combat :</strong> développe la puissance de la chaîne postérieure avec moins de contrainte lombaire.",
+  "High knee dynamic + jump over the box":"Enchaîne cardio-mécanique et saut par-dessus obstacle. <strong>En combat :</strong> développe l'endurance explosive et la capacité à exploser après une phase cardio intense.",
+  "Knee to floor to high jump + medball shot":"Descente au sol suivie d'une explosion vers le haut. <strong>En combat :</strong> reproduit la mécanique du relevé-frappe et la puissance nécessaire en fin de round.",
+  "Glute bridge single dumbbell floor press":"Gainage du bassin en contraction simultanée avec la poussée. <strong>En combat :</strong> développe la stabilisation du bassin et les connexions hanche-épaule indispensables en position de garde basse.",
+  "B stance squat":"Squat asymétrique — travail unilatéral de force. <strong>En combat :</strong> corrige les déséquilibres latéraux et développe la force fonctionnelle dans les positions de combat jambe avancée.",
+  "Développé couché à la barre":"Exercice de force maximale du pectoral, deltoïde antérieur et triceps. <strong>En combat :</strong> base de la force de poussée pour toutes les frappes directes et les séparations en clinch.",
+  "Dumbbell bench press unilateral":"Presse unilatérale avec haltère — force la stabilisation anti-rotation. <strong>En combat :</strong> développe indépendamment chaque bras pour corriger les asymétries de force entre le direct et le cross.",
+  "Rotational landmine clean & press":"Mouvement olympique avec rotation — combine puissance et coordination. <strong>En combat :</strong> développe la puissance explosive de toute la chaîne cinétique dans les coups rotationnels.",
+  "B stance trap bar deadlift":"Deadlift asymétrique sur trap bar — intensité maximale sur la jambe avant. <strong>En combat :</strong> développe la puissance unilatérale des jambes utilisée dans les déplacements et les projections.",
+  "Dumbbell B stance box jump":"Saut vertical en position asymétrique avec charge. <strong>En combat :</strong> entraîne la capacité à exploser verticalement depuis n'importe quelle position de pied.",
+  "Kettlebell drop lunges":"Fentes avec drop du kettlebell — étirement actif. <strong>En combat :</strong> développe la mobilité des hanches sous charge et la force excentrique des quadriceps utile dans les changements de niveau.",
+  "Side step to high jump":"Déplacement latéral suivi d'un saut vertical. <strong>En combat :</strong> entraîne la réactivité explosive après un déplacement défensif — le mouvement après l'esquive.",
+  "Stato dynamic hip thrust":"Isométrique suivie d'une poussée explosive des hanches. <strong>En combat :</strong> renforce les fessiers et la chaîne postérieure dans les projections hanches-avant (hip toss, uchi-mata).",
+  "Knee floor to side jump":"Depuis le genou au sol, explosion vers le côté. <strong>En combat :</strong> développe la capacité à se relever explosif depuis une position basse — capital en grappling et MMA.",
+  "Full rotation medball slam":"Rotation complète avec slam au sol — amplitude maximale. <strong>En combat :</strong> développe la puissance rotationnelle totale utilisée dans les uppercuts, coudes et coups de pied circulaires.",
+  "Power clean":"Mouvement olympique complet — extension explosive hanche-genou-cheville. <strong>En combat :</strong> développe la puissance explosive générale et la coordination inter-segmentaire.",
+  "Hang power clean":"Power clean depuis la position pendue — accent sur l'extension explosive. <strong>En combat :</strong> développe le « second pull » explosif reproduisant la mécanique des projections.",
+  "Hang clean":"Variante technique avec réception en squat. <strong>En combat :</strong> développe la coordination rapide et la capacité à absorber une charge en mouvement.",
+  "Landmine split jerk":"Jerk en fente avec landmine — mouvement balistique unilatéral. <strong>En combat :</strong> développe la synchronisation poussée-déplacement et la puissance overhead.",
+  "Traction":"Exercice de force de traction maximale. <strong>En combat :</strong> renforce les dorsaux, les rhomboïdes et la sangle abdominale — muscles clés dans les ceintures, les étranglements et la traction au clinch.",
+  "Tractions lestées":"Tractions avec surcharge additionnelle — intensité maximale. <strong>En combat :</strong> développe la force de traction absolue nécessaire pour dominer l'adversaire à la ceinture ou au col.",
+  "Tractions australiennes":"Traction horizontale avec le corps incliné. <strong>En combat :</strong> développe les rétracteurs d'épaule et les dorsaux en position de tirage horizontal utilisée dans les clinch et séparations.",
+  "Dead broad jump":"Saut horizontal explosif sans élan. <strong>En combat :</strong> développe la capacité à couvrir la distance rapidement et à changer de niveau de façon explosive.",
+  "Clean high pull":"Tirage haut explosif — épaules et trapèzes. <strong>En combat :</strong> développe la vitesse d'extension et la puissance des trapèzes utile dans les projections par-dessus l'épaule.",
+  "Tirage haut d'épaule":"Tirage explosif vers le haut — emprise et trapèzes. <strong>En combat :</strong> développe la force de saisie et de traction verticale utilisée dans les uchi-mata et seoi-nage.",
+  "Tirage lourd d'épaulé":"Tirage lourd depuis le sol — chaîne postérieure complète. <strong>En combat :</strong> base de toutes les projections qui passent par un tirage vertical.",
+  "Suitcase carry":"Marche avec charge asymétrique — anti-flexion latérale. <strong>En combat :</strong> renforce le gainage latéral du tronc pour résister aux déséquilibres latéraux imposés par l'adversaire.",
+  "Hollow arch":"Gainage en position creusée et arquée alternée. <strong>En combat :</strong> renforce la stabilité de la colonne vertébrale dans les deux directions — base de tout travail au sol.",
+  "Heavy straight medball shoot":"Lancer frontal lourd — extension explosive complète. <strong>En combat :</strong> développe la puissance de frappe directe et la synchronisation du bas et du haut du corps.",
+  "Medball lateral jump":"Saut latéral avec lancer de medball. <strong>En combat :</strong> entraîne la puissance des déplacements latéraux combinés à une frappe ou une action offensive.",
+  "Hips dumbbell floor press":"Presse au sol avec poussée simultanée des hanches. <strong>En combat :</strong> développe la connexion hanches-épaules dans les positions au sol — essentiel en BJJ et grappling.",
+  "Landmine switch press":"Presse avec changement de bras en alternance. <strong>En combat :</strong> développe la coordination et la puissance alternée des bras utile dans les combinaisons de frappes.",
+  "Zercher lunges":"Fentes avec barre en position Zercher. <strong>En combat :</strong> développe la force des jambes et le gainage dans la position de saisie basse — changements de niveau et takedowns.",
+  "Knee floor to high jump":"Depuis le sol, explosion vers le haut. <strong>En combat :</strong> développe la puissance de relevé et la transition sol-debout explosive — décisive en MMA.",
+  "Zercher good morning":"Good morning en position Zercher — charge sur les bras fléchis. <strong>En combat :</strong> renforce la charnière lombaire et les ischio-jambiers sous charge frontale.",
+  "High squat box jump":"Saut vertical sur box depuis position squat. <strong>En combat :</strong> développe la puissance explosive des jambes en partant d'une position basse de garde.",
+  "Box single leg high broad jump":"Saut horizontal unilatéral depuis une box. <strong>En combat :</strong> développe la puissance explosive de chaque jambe séparément pour les déplacements directionnels.",
+  "Wall roll up":"Roulade verticale le long du mur. <strong>En combat :</strong> développe la coordination du gainage et la conscience proprioceptive du tronc.",
+  "Deadlift":"Soulevé de terre classique — force maximale de la chaîne postérieure. <strong>En combat :</strong> développe la force brute de soulèvement utilisée dans toutes les projections et les sorties de clinch.",
+  "Soulever de terre":"Soulevé de terre — force maximale de la chaîne postérieure complète. <strong>En combat :</strong> base absolue de la force de soulèvement dans les projections et les sorties de clinch.",
+  "Zercher deadlift":"Deadlift en position Zercher — charge portée en avant des bras. <strong>En combat :</strong> renforce la force de saisie basse dans les positions de clinch bas et les takedowns.",
+  "Kettlebell cossack squat":"Squat latéral avec kettlebell — mobilité et force combinées. <strong>En combat :</strong> développe la force et la mobilité des hanches dans les déplacements latéraux bas.",
+  "Elastic jump squat":"Squat jump avec élastique — résistance en haut du mouvement. <strong>En combat :</strong> développe la puissance explosive verticale et la vitesse de détente.",
+  "Medball side shuffle slam":"Déplacement latéral suivi d'un slam. <strong>En combat :</strong> simule la combinaison esquive latérale + frappe puissante.",
+  "Soulever de terre jambes tendues":"Romanian deadlift — accent sur les ischio-jambiers. <strong>En combat :</strong> renforce les ischios et la chaîne postérieure, prévenant les blessures aux genoux et au bas du dos.",
+  "Front squat":"Squat frontal — fémurs à l'horizontale, tronc vertical. <strong>En combat :</strong> développe la posture en guard stance et la force de poussée verticale dans les séparations.",
+  "Barbell punch":"Frappe avec barre depuis le sol. <strong>En combat :</strong> développe la puissance rotationnelle et la synchronisation corps-bras dans les frappes.",
+  "High hurdle jump":"Sauts par-dessus haies successives. <strong>En combat :</strong> développe la puissance répétée des membres inférieurs et la réactivité au sol — capital pour enchaîner les actions.",
+  "Shadow single / double leg":"Shadow boxing avec simulations de takedowns. <strong>En combat :</strong> entraîne les patterns neuromusculaires des entrées en lutte tout en développant le cardio spécifique.",
+  "Curl prise marteau":"Curl avec prise neutre — biceps brachial et brachioradial. <strong>En combat :</strong> renforce les fléchisseurs du coude dans la prise marteau utilisée au clinch et dans les séparations.",
+  "Gorilla row":"Tirage alterné avec haltères depuis position basse. <strong>En combat :</strong> développe la force fonctionnelle du dos dans les positions basses de grappling et les saisies au niveau de la ceinture.",
+  "Sprawl with high jump":"Sprawl défensif suivi d'un saut explosif. <strong>En combat :</strong> entraîne directement la séquence défense-contre-attaque — le sprawl stop-takedown puis l'explosion offensive.",
+  "Heavy KB farmer walk":"Marche avec kettlebells lourds. <strong>En combat :</strong> développe l'endurance de la préhension et le gainage sous effort continu — reproduit la fatigue d'un clinch prolongé.",
+  "One step clean press on box":"Clean & press depuis une box. <strong>En combat :</strong> développe la puissance explosive de toute la chaîne avec accent sur la vitesse de press.",
+  "One step high jump on box":"Saut sur box depuis un pas d'élan. <strong>En combat :</strong> entraîne la conversion d'énergie cinétique horizontale en verticale — utile dans les déplacements offensifs.",
+  "Squat box":"Squat sur box — travail de la force de démarrage. <strong>En combat :</strong> développe la force explosive depuis une position arrêtée — base des sorties de clinch et des projections.",
+  "Side jump high knee with KB":"Saut latéral avec montée de genou et kettlebell. <strong>En combat :</strong> développe la coordination déplacement-garde et la puissance des membres inférieurs sous charge.",
+  "Développé couché aux haltères":"Presse avec haltères — amplitude plus complète que la barre. <strong>En combat :</strong> développe la force des pectoraux avec travail de stabilisation utile pour les bras de force.",
+  "Dumbbell incline press":"Presse inclinée — pectoraux supérieurs et déltoïdes antérieurs. <strong>En combat :</strong> développe la force de poussée vers le haut utilisée dans les séparations et les frappes en montant.",
+  "Leg raises":"Relevés de jambes — fléchisseurs de hanche et abdominaux inférieurs. <strong>En combat :</strong> renforce le contrôle du bassin dans les positions de guard et les gardes basses.",
+  "Single leg side jump":"Saut latéral sur une jambe. <strong>En combat :</strong> développe la puissance et la stabilité unilatérale dans les déplacements défensifs.",
+  "Dumbbell press floor bridge":"Presse allongé avec pont des hanches. <strong>En combat :</strong> développe la connexion hanches-épaules dans les positions de bridge — fondamental pour sortir du dessous.",
+  "Landmine press squat":"Squat + press simultanés avec landmine. <strong>En combat :</strong> développe la coordination et la puissance corps entier dans les mouvements de projection combinant jambes et bras.",
+  "Straight medball shot":"Lancer frontal de medball contre mur. <strong>En combat :</strong> développe la puissance de frappe directe et la synchronisation du bas et du haut du corps.",
+  "Rotational medball shot":"Lancer rotatif de medball. <strong>En combat :</strong> développe la puissance des frappes rotationnelles (crochet, uppercut, coup de pied circulaire).",
+  "Hips rotate medball":"Rotation des hanches avec medball. <strong>En combat :</strong> isole et renforce le mouvement pivot des hanches — source principale de puissance dans tous les coups.",
+  "Fast tipping plate":"Basculement rapide d'un disque de chaque côté. <strong>En combat :</strong> développe la vitesse de réaction et la coordination agoniste/antagoniste des muscles du tronc.",
+  "Jump squat over the box":"Saut par-dessus la box depuis squat. <strong>En combat :</strong> développe la puissance explosive verticale et l'agilité dans les déplacements obstacles.",
+  "Lunges to high step on the box":"Fente suivie d'une montée explosive sur box. <strong>En combat :</strong> entraîne la puissance d'accélération depuis une position basse vers une position haute.",
+  "Isométrique squat":"Maintien en position squat. <strong>En combat :</strong> développe la résistance musculaire dans les positions basses de lutte et améliore la stabilité articulaire du genou.",
+  "Push press":"Press avec impulsion des jambes. <strong>En combat :</strong> développe la puissance overhead et la synchronisation corps entier — utilisée dans les projections par-dessus l'épaule.",
+  "Barbell bridge floor press":"Presse au sol avec pont. <strong>En combat :</strong> reproduit la position de bridge en grappling tout en développant la force de poussée depuis le dessous.",
+  "Slam ball switch step":"Slam ball avec changement de pied. <strong>En combat :</strong> développe la puissance rotationnelle et la coordination pieds-mains dans les combinaisons de frappes.",
+  "Bûcheron à l'haltère":"Mouvement diagonal de haut en bas. <strong>En combat :</strong> reproduit la trajectoire du crochet descendant et du coude en rentrant.",
+  "Hiptrust":"Poussée de hanches — fessiers et ischios. <strong>En combat :</strong> développe la force des fessiers dans toutes les positions de projeté et les déplacements offensifs.",
+  "Développé couché en stato dynamique":"Combinaison isométrique-concentrique. <strong>En combat :</strong> recrute un maximum de fibres musculaires avant la poussée explosive — améliore la force de démarrage.",
+  "Medball side jump":"Saut latéral avec medball. <strong>En combat :</strong> développe la puissance explosive dans les déplacements latéraux tout en maintenant une tension des bras.",
+  "High knee to box jump":"Montées de genoux suivies d'un saut sur box. <strong>En combat :</strong> développe le cardio explosif et la coordination jambes rapides.",
+  "Fast slam ball":"Slam ball à répétitions rapides. <strong>En combat :</strong> développe l'endurance de puissance — la capacité à frapper fort encore et encore en fin de round.",
+  "Jump lunges":"Fentes sautées en alternance. <strong>En combat :</strong> développe la puissance et l'endurance des membres inférieurs dans les positions de fente utilisées en boxe et en escrime.",
+  "Isométrique presse barre":"Presse contre résistance fixe — contraction isométrique. <strong>En combat :</strong> développe la force maximale de démarrage en activant un maximum d'unités motrices.",
+  "Run":"Footing continu en zone aérobie. <strong>En combat :</strong> développe la base cardio-vasculaire — le moteur qui alimente tous les autres systèmes pendant les rounds.",
+  "Rameur":"Effort cardio complet — jambes, dos, bras. <strong>En combat :</strong> développe l'endurance spécifique combat avec un profil d'effort très proche du clinch intensif.",
+  "Assault bike":"Vélo assault — cardio total-body. <strong>En combat :</strong> développe l'endurance cardio-vasculaire maximale dans un pattern d'effort proche du combat — alternance haute et basse intensité.",
+  "Lateral jump with medball shot":"Saut latéral avec lancer. <strong>En combat :</strong> développe la puissance offensive depuis un déplacement — frapper en mouvement latéral.",
+  "Abs side press plate":"Press latéral avec disque. <strong>En combat :</strong> développe la résistance rotationnelle du tronc pour encaisser et contre-attaquer les frappes latérales.",
+  "Landmine seated press":"Press assis avec landmine. <strong>En combat :</strong> développe la force overhead sans solliciter les lombaires — force de poussée verticale en toute sécurité.",
+  "Zercher pull band":"Tirage élastique en position Zercher. <strong>En combat :</strong> développe la force de tirage dans la position de saisie basse utilisée dans les takedowns.",
+  "Développé couché au sol":"Presse au sol — amplitude réduite mais force de démarrage maximale. <strong>En combat :</strong> développe la force de poussée depuis le dessous — fondamental pour sortir de la position inférieure.",
+  "Pompes pliométrique":"Pompes explosives avec décollage. <strong>En combat :</strong> améliore la vitesse de frappe et la réactivité des bras dans les combinaisons rapides.",
+  "Bench barbell squat jump":"Squat jump depuis un banc. <strong>En combat :</strong> développe la puissance explosive pure depuis une position assez profonde.",
+  "Développé couché incliné aux haltères":"Presse inclinée haltères. <strong>En combat :</strong> développe les pectoraux supérieurs et les deltoïdes antérieurs pour les frappes montantes.",
+  "Side jump with straight jump":"Saut latéral enchaîné avec saut vertical. <strong>En combat :</strong> entraîne la réorientation explosive après un déplacement défensif.",
+  "Knee floor to straight jump":"Depuis le genou, saut vertical. <strong>En combat :</strong> entraîne la conversion rapide d'une position au sol vers une explosion verticale.",
+  "B stance deadlift":"Deadlift avec position décalée. <strong>En combat :</strong> développe la force unilatérale de la chaîne postérieure pour des appuis solides.",
+  "Presse cuisse machine":"Presse sur machine — quadriceps et fessiers. <strong>En combat :</strong> développe la force de poussée des jambes dans un contexte sécurisé pour les genoux.",
+  "Isométrique curl à la barre EZ":"Curl avec contraction statique maintenue. <strong>En combat :</strong> développe la force d'endurance des fléchisseurs du coude dans les saisies prolongées.",
+  "Développé couché avec élastique":"Presse avec résistance élastique. <strong>En combat :</strong> développe la force et la vitesse en fin de mouvement — là où la plupart des frappes manquent de puissance.",
+  "Jump squat over the box":"Saut par-dessus la box depuis squat. <strong>En combat :</strong> développe la puissance explosive verticale et l'agilité.",
+  "High jump":"Saut vertical maximal. <strong>En combat :</strong> test et développement de la puissance explosive brute des membres inférieurs.",
+  "Landmine press switch step":"Press avec changement de pied simultané. <strong>En combat :</strong> développe la coordination pieds-bras dans les frappes en mouvement.",
+  "Clean & strict press":"Clean suivi d'un press strict. <strong>En combat :</strong> développe la force overhead pure après un soulèvement explosif.",
+  "Zercher squat isométrique":"Zercher squat avec pause isométrique. <strong>En combat :</strong> développe la force de maintien en position basse sous charge — résistance aux takedowns.",
+  "Press plate high jump":"Press avec disque suivi d'un saut. <strong>En combat :</strong> développe la coordination poussée-saut et la puissance corps entier.",
+  "Landmine rotate elastic press":"Press rotatif avec élastique et landmine. <strong>En combat :</strong> reproduit la mécanique complète d'une frappe rotationnelle sous résistance progressive.",
+  "Elastic rotate shot":"Lancer rotatif avec élastique. <strong>En combat :</strong> développe la puissance rotationnelle des frappes avec résistance progressive dans tout l'arc de mouvement.",
+  "Cossack squat":"Squat latéral profond. <strong>En combat :</strong> développe la mobilité des hanches et la force fonctionnelle dans les positions latérales basses.",
+};
+function getVid(url){
+  if(!url)return null;
+  // Extract ID from https://youtube.com/shorts/ID or https://youtu.be/ID or https://youtube.com/watch?v=ID
+  var m=url.match(/(?:shorts\/|youtu\.be\/|watch\?v=)([A-Za-z0-9_-]{8,12})/);
+  return m?m[1]:null;
+}
+
+function getWhy(name){
+  const n=name.toLowerCase().replace(/[()0-9%']/g,'').replace(/\s+/g,' ').trim();
+  for(const[k,v]of Object.entries(WHY)){if(n.includes(k.toLowerCase()))return v;}
+  // try partial
+  const words=n.split(' ');
+  for(const[k,v]of Object.entries(WHY)){
+    const kw=k.toLowerCase().split(' ');
+    if(kw.length>=2&&kw.every(w=>n.includes(w)))return v;
+  }
+  return null;
+}
+
+// ═══════════════════════════
+// MOBILITY DESCRIPTIONS
+// ═══════════════════════════
+const MOB_DESC={
+  "Hip 90/90 stretch":"Assis, deux genoux à 90°, l'un devant, l'un derrière. Laisse le bassin peser vers le sol à chaque expiration. Développe la rotation externe et interne de hanche — indispensable pour les gardes basses et les sweeps.",
+  "World's greatest stretch":"En fente basse, pose la main côté avant à l'extérieur du pied, ouvre la rotation thoracique vers le haut. L'exercice le plus complet : mobilise 7 articulations simultanément. Combat : améliore la garde debout et la souplesse en clinch.",
+  "Thoracic rotation":"Allongé sur le côté, tourne le bras vers l'arrière jusqu'au sol. Développe la mobilité thoracique sans bouger les lombaires. En combat : améliore la rotation des frappes et réduit le risque de blessures à l'épaule.",
+  "Pigeon pose":"Genou avant fléchi, jambe arrière tendue. Descends progressivement sur les avant-bras. Étire profondément le piriforme et le psoas. En combat : résout les tensions de hanche qui limitent les coups de pied et les changements de niveau.",
+  "Shoulder dislocates":"Passage des bras de l'avant vers l'arrière avec bâton. Développe la mobilité complète de la coiffe des rotateurs. En combat : prévient les blessures d'épaule lors des sorties de clés et des takedowns.",
+  "Deep squat hold":"Squat profond maintenu, talons au sol. Mobilise les chevilles, les hanches et la colonne thoracique. En combat : développe la stabilité dans les positions basses de grappling et la fluidité dans les changements de niveau.",
+  "Ankle circles + dorsiflexion":"Cercles de cheville puis flexion dorsale contre mur. Améliore la mobilité de la cheville. En combat : une cheville mobile est la base d'un squat profond solide et de coups de pied puissants et précis.",
+  "Couch stretch":"Tibia contre le mur, bassin bas. Étire le psoas et le quadriceps. En combat : libère les hanches bloquées par la position assise, améliore l'amplitude des coups de pied et la vitesse de démarche.",
+  "Bretzel stretch":"Rotation complète du corps depuis le côté. Mobilise simultanément les hanches et la colonne thoracique. En combat : améliore la fluidité des sweeps et des renversements au sol.",
+  "Cat-cow dynamique":"Flexion-extension rythmée de la colonne. Entretient la mobilité vertébrale et réchauffe le dos. En combat : préserve la santé du dos à long terme — l'articulation la plus sollicitée dans toutes les disciplines.",
+  "Squat cossack latéral":"Squat latéral profond alterné. Développe la force et la mobilité des hanches dans le plan frontal. En combat : améliore les déplacements latéraux, les esquives basses et les positions de lutte latérale.",
+  "Lat stretch suspension":"Suspension à une barre, relâchement total. Étire les dorsaux sur toute leur longueur. En combat : relâche la compression causée par les tractions et soulèvements — prévient les douleurs dorsales.",
+  "Frog stretch":"Position grenouille, genoux très écartés. Étire l'adducteur et les rotateurs de hanche. En combat : améliore les positions de garde basse, les passes de garde et les déplacements au sol.",
+  "Neck rolls + résistance manuelle":"Mobilisation du cou avec résistance légère. Entretient la mobilité cervicale. En combat : un cou mobile absorbe mieux les chocs et résiste mieux aux étranglements.",
+  "Jefferson curl":"Enroulement vertébral progressif. Mobilise toute la chaîne postérieure. En combat : prévient les blessures du bas du dos causées par les soulevés répétés dans les projections.",
+  "Hip flexor lunge + rotation":"Fente basse avec rotation du tronc. Développe la mobilité en extension de hanche combinée à la rotation thoracique. En combat : améliore la puissance des coups de pied arrière et des pivots.",
+  "Scorpion stretch sol":"Rotation bassin depuis le sol. Mobilise les hanches et la colonne lombaire. En combat : dénoue les tensions dorsales accumulées et améliore les retournements au sol.",
+  "Deep squat + overhead reach":"Squat profond avec bras tendus au ciel. Développe la mobilité complète de la chaîne postérieure. En combat : test de mobilité globale — si tu peux faire ça, tu peux accéder à toutes les positions de combat.",
+  "Shoulder CARs":"Cercles complets et lents de l'épaule. Entretient l'amplitude articulaire maximale. En combat : prévient les blessures de la coiffe des rotateurs causées par les projections et les bras de force.",
+  "Spiderman crawl":"Ramener le pied vers la main en avançant. Mobilise les hanches et active les stabilisateurs du tronc. En combat : améliore la fluidité des passages en lutte et les rampers défensifs.",
+  "Wrist mobility circles + pression":"Mobilisation des poignets en appui. Entretient la santé des poignets. En combat : prévient les tendinites et les entorses causées par les chutes, les clés et les projections.",
+};
+
+// ═══════════════════════════
+// PROGRAM DATA
+// ═══════════════════════════
+function ex(name,sets,reps,rest){return{name,sets,reps,rest,video:getVideo(name),why:getWhy(name)};}
+function mob(name,sets,reps,rest){return{name,sets,reps,rest,isMobility:true,desc:MOB_DESC[name]||'Réalise cet exercice avec contrôle et conscience corporelle.'};}
+const MOB1={id:'mob',emoji:'🧘',title:'Routine Mobilité — Phase 1',meta:'Mobilité & Prévention',
+  exercises:[mob("Hip 90/90 stretch","2","60 sec/côté","15s"),mob("World's greatest stretch","2","6 reps/côté","15s"),mob("Thoracic rotation","2","10 reps/côté","15s"),mob("Pigeon pose","2","60 sec/côté","15s"),mob("Shoulder dislocates","2","15 reps","30s"),mob("Deep squat hold","3","45 sec","30s"),mob("Ankle circles + dorsiflexion","2","15 reps/sens","15s")]};
+const MOB2={id:'mob',emoji:'🧘',title:'Routine Mobilité — Phase 2',meta:'Mobilité & Prévention',
+  exercises:[mob("Couch stretch","2","90 sec/côté","15s"),mob("Bretzel stretch","2","60 sec/côté","15s"),mob("Cat-cow dynamique","3","10 reps lentes","15s"),mob("Squat cossack latéral","3","8 reps/côté","20s"),mob("Lat stretch suspension","3","45 sec","30s"),mob("Frog stretch","2","60 sec","20s"),mob("Neck rolls + résistance manuelle","2","8 reps/sens","15s")]};
+const MOB3={id:'mob',emoji:'🧘',title:'Routine Mobilité — Phase 3',meta:'Mobilité & Prévention',
+  exercises:[mob("Jefferson curl","3","6 reps lentes","30s"),mob("Hip flexor lunge + rotation","3","8 reps/côté","15s"),mob("Scorpion stretch sol","2","8 reps/côté","20s"),mob("Deep squat + overhead reach","3","10 reps","20s"),mob("Shoulder CARs","2","5 reps/bras","15s"),mob("Spiderman crawl","3","10 mètres","30s"),mob("Wrist mobility circles + pression","2","15 reps/sens","15s")]};
+
+
+// ═══════════════════════════
+// SUPERSET MAPPING (from PDF)
+// key: session id → {exerciseIndex: 'label'}
+// ═══════════════════════════
+const SUPERSETS={
+  's1_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's1_2':{0:'1A',1:'1B',2:'1C',4:'2A',5:'2B'},
+  's1_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's2_1':{1:'1A',2:'1B',3:'2A',4:'2B'},
+  's2_2':{3:'1A',4:'1B'},
+  's2_3':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's3_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's3_2':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's3_3':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's4_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's4_2':{0:'1A',1:'1B',2:'2A',4:'3A',5:'3B'},
+  's4_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's5_1':{2:'2A',3:'2B'},
+  's5_2':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's5_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's6_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's6_2':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's6_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's7_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's7_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's7_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's8_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's8_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's8_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's9_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's9_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's9_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's10_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's10_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's10_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's11_1':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's11_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's11_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's12_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's12_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's12_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'}
+};
+function getSSMap(wi,si){return SUPERSETS[PROGRAM[wi].sessions[si].id]||{};}
+function ssPrefix(label){return label?label.slice(0,-1):null;}
+function getSSGroup(ssMap,exIdx){
+  const label=ssMap[exIdx];
+  if(!label)return[exIdx];
+  const pfx=ssPrefix(label);
+  return Object.keys(ssMap).map(Number).filter(k=>ssMap[k]&&ssPrefix(ssMap[k])===pfx).sort((a,b)=>a-b);
+}
+function isFirstInGroup(ssMap,exIdx){
+  const grp=getSSGroup(ssMap,exIdx);
+  return grp[0]===exIdx;
+}
+function isLastInGroup(ssMap,exIdx){
+  const grp=getSSGroup(ssMap,exIdx);
+  return grp[grp.length-1]===exIdx;
+}
+function nextGroupStart(ssMap,exIdx,total){
+  const grp=getSSGroup(ssMap,exIdx);
+  return Math.min(Math.max(...grp)+1,total);
+}
+function countGroups(ssMap,total){
+  const seen=new Set();let g=0;
+  for(let i=0;i<total;i++){
+    const lbl=ssMap[i];const pfx=lbl?ssPrefix(lbl):null;
+    const key=pfx||'__'+i;
+    if(!seen.has(key)){seen.add(key);g++;}
+  }
+  return g;
+}
+function groupIndex(ssMap,exIdx){
+  const seen=new Set();let g=0;
+  const total=exIdx+10;
+  for(let i=0;i<=exIdx;i++){
+    const lbl=ssMap[i];const pfx=lbl?ssPrefix(lbl):null;
+    const key=pfx||'__'+i;
+    if(!seen.has(key)){seen.add(key);if(i===exIdx||(lbl&&getSSGroup(ssMap,i).includes(exIdx)))g=seen.size;}
+  }
+  return g;
+}
+
+
+const PROGRAM=[
+  {id:0,num:'S0',title:'ACTIVATION',sub:'Calibration & Activation Combat',phase:'activation',phaseColor:'#5B9BD4',days:'Jours 1–7',focus:'Calibrer ton système nerveux, identifier les faiblesses, activer les patterns moteurs. Pour combattants déjà actifs — charge intentionnellement modérée.',bilan:null,
+   sessions:[
+    {id:'s0_1',emoji:'💥',title:'Séance A1 — Activation Explosive',meta:'Force + Explosivité',exercises:[ex("Montées de genoux dynamiques","3","20 sec","30s"),ex("Kettlebell swing elastic","4","10 reps","45s"),ex("Dead broad jump","3","4 sauts max","30s"),ex("Slam ball","3","6 reps","30s"),ex("Développé couché à la barre","3","8 reps (70%)","90s"),ex("Landmine press","3","8 reps/bras","60s"),ex("Assault bike","1","6×20s ON / 20s OFF","2 min")]},
+    {id:'s0_2',emoji:'💪',title:'Séance A2 — Force Fonctionnelle',meta:'Force fonctionnelle',exercises:[ex("Zercher squat","4","6 reps (60%)","40s"),ex("Jump squat over the box","4","4 sauts","40s"),ex("Trap bar deadlift","4","5 reps (70%)","2 min"),ex("Kettlebell swing elastic","4","8 reps","2 min"),ex("Traction","3","Max reps propres","90s"),ex("Sled push","3","20m aller-retour","90s"),ex("Rameur","1","2000m","—")]},
+    {id:'s0_3',emoji:'🥊',title:'Séance A3 — Cardio Combat',meta:'Cardio + Puissance',exercises:[ex("Medball shuffle to lateral throw","4","5 reps/côté","45s"),ex("Explosive hip torque","4","6 reps/côté","45s"),ex("B stance squat","4","6 reps","2 min"),ex("Hang power clean","4","4 reps (60%)","2 min"),ex("Switch step slam ball","3","8 reps","60s"),ex("Ski erg","1","10×20s ON / 10s OFF","2 min")]},
+    MOB1]},
+  {id:1,num:'S1',title:'CALIBRATION',sub:'Maîtrise des patterns de mouvement',phase:'p1',phaseColor:'#C9A84C',days:'Jours 8–14',focus:'Maîtrise des patterns de mouvement, établissement des charges de travail, introduction aux supersets.',bilan:null,
+   sessions:[
+    {id:'s1_1',emoji:'🏋️',title:'Séance 1',meta:'Explosivité + Force',exercises:[ex("High static jump + isometric jump squat over box","4","6 reps","45s"),ex("Bench barbell jump squat","5","6 reps/jambe","1'20"),ex("Landmine squat press","4","8 reps","1'30"),ex("Landmine press","4","6 reps","1'30"),ex("Kettlebell swing elastic","4","10 reps","1'30"),ex("Switch step slam ball","4","8 reps","1'30"),ex("Rameur / Assault bike","1","6 min : 15s effort / 30s actif","—")]},
+    {id:'s1_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure + Frappe',exercises:[ex("Développé couché à la barre isométrique","4","6 reps","2'40"),ex("Pompes plyométriques","4","8-10 reps","2'40"),ex("Medball punch","5","8 reps/côté","2'40"),ex("Zercher squat","4","6 reps (charge lourde)","2'40"),ex("Sled push","4","3 aller-retours","1'40"),ex("Trap bar farmer walk","4","40m","1'40")]},
+    {id:'s1_3',emoji:'⚡',title:'Séance 3',meta:'Rotation + Cardio',exercises:[ex("Explosive hip torque","5","8 reps/côté","1'"),ex("Medball shuffle to lateral throw","4","5 pas + 1 tir","1'30"),ex("Gym ball dumbbell press","4","10 reps + 2s excentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Hang power clean","5","3 reps (80-85%)","2'20"),ex("Ski erg","1","10 min continu","—")]},
+    MOB1]},
+  {id:2,num:'S2',title:'CONSTRUCTION',sub:'Augmentation des charges',phase:'p1',phaseColor:'#C9A84C',days:'Jours 15–21',focus:'Augmentation des charges, introduction des mouvements olympiques, supersets plus intenses.',bilan:null,
+   sessions:[
+    {id:'s2_1',emoji:'🏋️',title:'Séance 1',meta:'Force + Explosivité jambes',exercises:[ex("Kettlebell swing + high jump squat","4","6 KB + 4 squat jump","1'45"),ex("Banded KB front squat press","5","8 reps","1'20"),ex("Pendlay row","5","10 reps dynamique","1'20"),ex("Trap bar deadlift","4","5 reps + 2s excentrique","2'30"),ex("Landmine squat press","3","6 reps","2'30"),ex("Switch step slam ball","3","12 reps","45s")]},
+    {id:'s2_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Force inférieure',exercises:[ex("High knee dynamic + jump over the box","4","6-8 montées + 1 saut","1'20"),ex("Knee to floor to high jump + medball shot","4","5 reps","1'"),ex("Glute bridge single dumbbell floor press","4","12 reps","1'30"),ex("B stance squat","4","4 reps (90%)","2'20"),ex("Hang power clean","4","4 reps (75%)","2'20")]},
+    {id:'s2_3',emoji:'⚡',title:'Séance 3',meta:'Force supérieure + Sauts',exercises:[ex("Développé couché à la barre","4","4 reps (90%)","2'"),ex("Dumbbell bench press unilateral","4","6 reps","2'"),ex("Rotational landmine clean & press","3","16 reps","1'20"),ex("B stance trap bar deadlift","5","5 reps charge lourde","2'20"),ex("Dumbbell B stance box jump","4","6 reps","2'20"),ex("Kettlebell drop lunges","3","12 reps","45s")]},
+    MOB1]},
+  {id:3,num:'S3',title:'INTENSIFICATION',sub:'Introduction du travail lourd',phase:'p1',phaseColor:'#C9A84C',days:'Jours 22–28',focus:'Premier bloc à 90% RM. Assault bike 30 min en fractionné. Power clean lourd.',bilan:null,
+   sessions:[
+    {id:'s3_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Squat lourd',exercises:[ex("Bench barbell jump squat","4","8 reps","1'"),ex("Side step to high jump","4","6 reps","1'"),ex("Zercher squat","4","5 reps","2'20"),ex("Side sled push","4","20m","2'20"),ex("Stato dynamic hip thrust","4","6 reps","1'45"),ex("Assault bike","1","1min ON / 1min OFF × 30 min","—")]},
+    {id:'s3_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Olympic lifts',exercises:[ex("Knee floor to side jump","4","5 reps","50s"),ex("Full rotation medball slam","4","3 reps/bras","50s"),ex("Power clean","4","4 reps (80%)","2'"),ex("Landmine split jerk","4","8 reps","2'"),ex("Traction","4","6-4 reps (lest)","2'"),ex("Pendlay row","4","8 reps","2'")]},
+    {id:'s3_3',emoji:'⚡',title:'Séance 3',meta:'Force + Sauts + Carry',exercises:[ex("Développé couché à la barre","4","4 reps (90%)","2'"),ex("Kettlebell swing elastic","4","12 reps","2'"),ex("Db clean & press","4","16 reps","1'20"),ex("B stance trap bar deadlift","5","6 reps charge lourde","2'20"),ex("Dumbbell B stance box jump","5","4 reps","2'20"),ex("Kettlebell drop lunges","3","12 reps","1'30")]},
+    MOB1]},
+  {id:4,num:'S4',title:'PEAK PHASE 1',sub:'Charges maximales Phase 1',phase:'p1',phaseColor:'#C9A84C',days:'Jours 29–37',
+   focus:'Charges maximales, mouvements olympiques lourds. Bilan de fin de phase à réaliser cette semaine.',
+   bilan:["Tenir 3 séances/semaine sans épuisement 48h après","Charges sur Zercher, trap bar, développé couché en hausse","Assault bike 30 min en fractionné sans tomber sous le rythme","Faire les TESTS DE RÉFÉRENCE J1→J45"],
+   sessions:[
+    {id:'s4_1',emoji:'🏋️',title:'Séance 1',meta:'Olympic lifts lourds',exercises:[ex("Dead broad jump","5","4 sauts explosifs","1'"),ex("Knee floor to side jump","5","4 reps","1'45"),ex("Fast ladder tipping","5","20 sec","1'45"),ex("Clean high pull","4","3 reps (80%)","2'30"),ex("Hang power clean","4","4 reps (50% vitesse)","2'30"),ex("Suitcase carry","5","30m","1'"),ex("Hollow arch","5","30 sec","1'")]},
+    {id:'s4_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure maximale',exercises:[ex("Développé couché à la barre isométrique","4","6 stato-dynamique","2'"),ex("Pompes plyométriques isométrique","4","8-10 reps","2'"),ex("Slam ball","5","8 reps/côté","1'20"),ex("Zercher squat","4","6 reps charge lourde","2'40"),ex("Sled push","4","3 aller-retours","1'40"),ex("Trap bar farmer walk","4","40m","1'40")]},
+    {id:'s4_3',emoji:'⚡',title:'Séance 3',meta:'Medball + Olympic + Cardio',exercises:[ex("Heavy straight medball shoot","4","6 reps","1'30"),ex("High squat box jump","4","6 reps","1'30"),ex("Bench press","4","10 reps + 2s concentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Hang power clean","3","3 reps","2'20"),ex("B stance squat","3","6 reps","2'20"),ex("Ski erg","1","10 min continu","—")]},
+    MOB1]},
+  {id:5,num:'S5',title:"VITESSE D'EXÉCUTION",sub:'Priorité à la vitesse',phase:'p2',phaseColor:'#D4603A',days:'Jours 38–44',focus:"Priorité à la vitesse de déplacement de la charge. Tabata assault bike. Box jumps combinés.",bilan:null,
+   sessions:[
+    {id:'s5_1',emoji:'⚡',title:'Séance 1',meta:'Explosivité + Supérieur',exercises:[ex("Dead broad jump","3","4 sauts","1'30"),ex("Medball lateral jump","3","8 reps","1'30"),ex("Hips dumbbell floor press","4","10 reps dynamique","1'"),ex("Pompes plyométriques","4","10 reps","2'"),ex("Landmine switch press","5","8 reps/bras","1'40"),ex("Zercher lunges","4","6 reps/jambe","1'30"),ex("Assault bike","2","4 min Tabata — 20s max / 10s OFF","2 min")]},
+    {id:'s5_2',emoji:'💥',title:'Séance 2',meta:'Sauts complexes + Inférieur',exercises:[ex("Kettlebell swing + high jump squat","4","3 sauts explosifs","1'40"),ex("Knee floor to high jump","4","6 reps","1'40"),ex("B stance squat","4","4 reps (90%)","2'20"),ex("Dumbbell B stance box jump","4","6 reps","2'20"),ex("Landmine squat press","5","8 reps","1'45"),ex("Zercher good morning","5","12 reps","1'45")]},
+    {id:'s5_3',emoji:'🏋️',title:'Séance 3',meta:'Box jumps + Force + Sled',exercises:[ex("High squat box jump","4","6 reps","1'20"),ex("Box single leg high broad jump","4","4 reps","1'20"),ex("Knee to floor to high jump + medball shot","4","6 reps","1'30"),ex("Rotational landmine clean & press","3","6 reps","2'20"),ex("Hips dumbbell floor press","3","10 reps explosif","2'20"),ex("Sled push","4","20m aller-retour charge lourde","1'40"),ex("Wall roll up","4","25 pas","1'")]},
+    MOB2]},
+  {id:6,num:'S6',title:'FORCE MAX + ENDURANCE',sub:'Deadlift lourd + Cardio long',phase:'p2',phaseColor:'#D4603A',days:'Jours 45–51',focus:'Deadlift 87-92% RM. Rameur 4000m. Le combo force + endurance qui fait la différence en fin de round.',bilan:null,
+   sessions:[
+    {id:'s6_1',emoji:'🏋️',title:'Séance 1',meta:'Deadlift max + Endurance',exercises:[ex("Medball shuffle to lateral throw","4","4 reps","1'20"),ex("Knee to floor to high jump + medball shot","4","5 reps","1'20"),ex("Deadlift","4","3 reps (87-92%)","3'"),ex("Kettlebell cossack squat","4","6 reps","2'20"),ex("Stato dynamic hip thrust","4","6 reps","2'20"),ex("Rameur","1","4000m","—")]},
+    {id:'s6_2',emoji:'💥',title:'Séance 2',meta:'Stato-dynamique + Carry',exercises:[ex("Développé couché à la barre isométrique","4","6 reps (85%)","2'"),ex("Hips dumbbell floor press","4","6 reps plyométrique","2'"),ex("Slam ball","5","12 reps","1'20"),ex("Zercher squat","4","6 reps charge lourde","2'40"),ex("Elastic jump squat","4","10 reps","2'40"),ex("Suitcase carry","5","30m","1'20")]},
+    {id:'s6_3',emoji:'⚡',title:'Séance 3',meta:'Box jumps + KB + Carry',exercises:[ex("High static jump + isometric jump squat over box","3","6 reps","1'30"),ex("High squat box jump","3","4 reps","1'30"),ex("Kettlebell swing elastic","4","10 reps charge lourde","2'30"),ex("Hang power clean","4","6 reps (60%)","2'30"),ex("Gym ball dumbbell press","4","8 reps","2'"),ex("Medball side shuffle slam","4","20m","2'"),ex("Trap bar farmer walk","6","20m aller-retour","1'45")]},
+    MOB2]},
+  {id:7,num:'S7',title:'PUISSANCE DE FRAPPE',sub:'Transfert de puissance corps entier',phase:'p2',phaseColor:'#D4603A',days:'Jours 52–58',focus:'Transfert de puissance corps entier. Power clean 80%. Run 25 min. Frappes et rotations.',bilan:null,
+   sessions:[
+    {id:'s7_1',emoji:'🥊',title:'Séance 1',meta:'Rotation + Power clean + Run',exercises:[ex("Knee floor to side jump","4","5 reps","1'45"),ex("Full rotation medball slam","4","5 reps","1'45"),ex("Power clean","4","4 reps (80%)","2'30"),ex("Zercher deadlift","4","6 reps explosif","2'30"),ex("Landmine switch press","4","6 reps charge moyenne","2'30"),ex("Run","1","25 minutes continu","—")]},
+    {id:'s7_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Deadlift + Carries',exercises:[ex("Explosive hip torque","4","6 reps","1'"),ex("Box single leg high broad jump","4","6 reps","1'"),ex("Trap bar deadlift","4","6 reps + 3s excentrique","2'30"),ex("Landmine split jerk","4","6 reps","2'30"),ex("Leg raises","4","12 reps + 2s iso","1'40"),ex("Trap bar farmer walk","4","30m","1'40")]},
+    {id:'s7_3',emoji:'⚡',title:'Séance 3',meta:'Medball + Pression + Power clean',exercises:[ex("Explosive hip torque","5","8 reps/côté","1'"),ex("Medball lateral jump","4","12 reps","1'30"),ex("Dumbbell incline press","4","10 reps + 2s excentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Power clean","4","3 reps (65-75%)","2'"),ex("Soulever de terre jambes tendues","4","10 reps","1'"),ex("Ski erg","1","10 min continu","—")]},
+    MOB2]},
+  {id:8,num:'S8',title:'PEAK PHASE 2',sub:'Charges maximales Phase 2',phase:'p2',phaseColor:'#D4603A',days:'Jours 59–67',
+   focus:'Clean press 85% RM. Charges les plus lourdes de la phase. Retests à effectuer cette semaine.',
+   bilan:["Assault bike 30 min à rythme plus élevé qu'en Phase 1","Sauts progressés en distance et en hauteur","Hang power clean +5kg minimum","Différence de rapidité ressentie en sparring","REFAIRE LES TESTS DE RÉFÉRENCE — comparer avec J1"],
+   sessions:[
+    {id:'s8_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Olympic + Ski erg',exercises:[ex("Side step to high jump","3","6 reps","1'20"),ex("Kettlebell swing + high jump squat","3","4 reps","1'20"),ex("Banded KB front squat press","4","8 reps","2'"),ex("Front squat","4","5 reps","2'"),ex("Barbell punch","3","10 reps","2'30"),ex("Slam ball","3","8 reps","2'30"),ex("Ski erg","2","20s effort / 10s OFF — 8 min","2 min")]},
+    {id:'s8_2',emoji:'💥',title:'Séance 2',meta:'Medball + Olympic + Core',exercises:[ex("Medball lateral jump","4","8 reps","1'30"),ex("Full rotation medball slam","4","8 reps","1'30"),ex("Hang power clean","5","3 reps (70%)","2'20"),ex("Zercher deadlift","5","6 reps progressif","2'20"),ex("Wall roll up","4","8 reps + 2s excentrique","1'"),ex("Hollow arch","4","20 sec","1'")]},
+    {id:'s8_3',emoji:'⚡',title:'Séance 3',meta:'Clean press max + Rameur',exercises:[ex("Side step to high jump","3","4 reps","1'20"),ex("Slam ball","3","6 reps","1'20"),ex("Clean & press","4","3 reps (85%)","3'"),ex("Deadlift","4","8 reps (65% vitesse)","3'"),ex("Side sled push","4","20m aller-retour","1'40"),ex("Rameur","2","30s ON / 10s OFF × 5 min","2 min")]},
+    MOB2]},
+  {id:9,num:'S9',title:'TRANSFERT COMBAT',sub:'Application au contexte combat',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 68–74',focus:'Application des qualités physiques dans des contextes proches du combat.',bilan:null,
+   sessions:[
+    {id:'s9_1',emoji:'🥋',title:'Séance 1',meta:'KB + Squat isométrique + Sled',exercises:[ex("Kettlebell swing elastic","4","6 reps explosif","15s"),ex("High squat box jump","4","4 reps explosifs","1'40"),ex("Zercher squat","4","4 reps (90%)","15s"),ex("Isométrique squat","4","15 sec tension","2'40"),ex("Elastic jump squat","4","6 reps explosifs","15s"),ex("Sled push","4","40m aller-retour","1'40")]},
+    {id:'s9_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Presse + Deadlift',exercises:[ex("Fast ladder tipping","5","10 reps dynamique","15s"),ex("High hurdle jump","5","4 reps le plus haut possible","1'30"),ex("Sled push","5","40m aller-retour","1'30"),ex("Barbell bridge floor press","4","12 reps","15s"),ex("Zercher squat","4","5 reps surcharge progressive","2'"),ex("Trap bar deadlift","4","5 reps tempo 3/1/1","2'")]},
+    {id:'s9_3',emoji:'⚡',title:'Séance 3',meta:'Grappling focus + Ski erg',exercises:[ex("Single leg side jump","5","8 reps/jambe","1'"),ex("Cossack squat","5","6 reps/jambe","1'"),ex("Landmine press squat","5","5 reps charge lourde","15s"),ex("Passage d'épaulé","5","4 reps charge légère puissant","2'20"),ex("Shadow single / double leg","5","30 sec explosif","2'20"),ex("Curl prise marteau","5","16 reps (8/bras)","1'45"),ex("Ski erg","2","5 min : 20s ON / 10s OFF","2 min")]},
+    MOB3]},
+  {id:10,num:'S10',title:'CHARGES MAXIMALES',sub:'Apex absolu du programme',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 75–81',focus:'Apex absolu du programme. Deadlift 92%, Zercher 87%, Clean press 85%. Ski erg 7 séries.',bilan:null,
+   sessions:[
+    {id:'s10_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Deadlift 85% + Olympic',exercises:[ex("Knee floor to side jump","4","6 reps explosifs","15s"),ex("Cossack squat","4","6 reps charge lourde","1'40"),ex("Bench barbell jump squat","4","6 reps","1'40"),ex("Trap bar deadlift","4","5 reps (85%)","30-40s"),ex("Gorilla row","4","8 reps explosif","2'"),ex("Zercher lunges","4","6 reps/jambe","2'")]},
+    {id:'s10_2',emoji:'💥',title:'Séance 2',meta:'Sauts + DL 92% + Carries',exercises:[ex("Knee floor to high jump","6","6 reps explosifs","45s"),ex("Sprawl with high jump","6","5 reps dynamique","45s"),ex("Soulever de terre","5","3 reps (92%)","20s"),ex("Passage d'épaulé","5","5 reps (60%)","3'"),ex("Heavy KB farmer walk","4","40m aller-retour","1'20"),ex("Hollow arch","4","30 sec","1'20")]},
+    {id:'s10_3',emoji:'⚡',title:'Séance 3',meta:'Olympic max + Ski erg 7 séries',exercises:[ex("One step clean press on box","5","5 reps charge légère","1'"),ex("One step high jump on box","5","6 reps explosifs","1'"),ex("Tirage lourd d'épaulé","5","4 reps (80%)","40s"),ex("Clean & press","5","5 reps charge moyenne","2'30"),ex("Squat box","4","5 reps (90%)","3'"),ex("Ski erg","7","200m en 60s","1' récup")]},
+    MOB3]},
+  {id:11,num:'S11',title:'CARDIO COMBAT MAX',sub:'Volume cardio le plus élevé',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 82–86',focus:'Volume cardio le plus élevé du programme. Résistance à la fatigue. Assault bike, ski erg, rameur combinés.',bilan:null,
+   sessions:[
+    {id:'s11_1',emoji:'🫁',title:'Séance 1',meta:'Zercher + Olympic + Ski erg',exercises:[ex("Zercher squat","4","6 reps (87%)","30s"),ex("Tirage haut d'épaule","4","4 reps (75%)","3'"),ex("Shadow single / double leg","4","30 sec explosif","3'"),ex("Soulever de terre","3","3 reps (92%)","40s"),ex("Hang clean","3","5 reps (70%)","2'"),ex("Kettlebell farmer walk","3","20m aller-retour","2'"),ex("Ski erg","2","5 min : 20s ON / 10s OFF","2 min")]},
+    {id:'s11_2',emoji:'💥',title:'Séance 2',meta:'Box jumps + Deadlift + Core',exercises:[ex("Jump squat over the box","5","5 reps","20s"),ex("Lunges to high step","5","5 reps/jambe","1'"),ex("Trap bar deadlift","4","6 reps (87%)","20s"),ex("Rotational landmine clean & press","4","6 reps/bras","20s"),ex("Kettlebell swing elastic","4","10 reps","2'40"),ex("Trap bar farmer walk","5","40m aller-retour","15s"),ex("Hollow arch","5","25 sec","1'")]},
+    {id:'s11_3',emoji:'⚡',title:'Séance 3',meta:'Zercher + Isométrique + Assault bike',exercises:[ex("Zercher squat","4","4 reps (87%)","15s"),ex("Tirage haut d'épaule","4","4 reps (75%)","3'"),ex("Soulever de terre","4","5 reps (85%)","15s"),ex("Slam ball","4","10 reps charge légère","2'30"),ex("Zercher squat","3","4 reps charge lourde","10s"),ex("Isométrique squat","3","6 reps (5s iso)","1'45"),ex("Assault bike","2","20s effort / 10s OFF — 8 min","2 min")]},
+    MOB3]},
+  {id:12,num:'S12',title:'PEAK FINAL',sub:'Dernière semaine + Tests J90',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 87–90',
+   focus:'Dernière semaine haute. Puis TESTS FINAUX J90 — compare tout avec J1.',
+   bilan:["Refaire EXACTEMENT les 4 tests du Jour 1 dans les mêmes conditions","Comparer chaque résultat — les progressions doivent être visibles sur les 4 axes","+20-35% explosivité | +15-25% cardio | +10-20% force | Mobilité améliorée","Prendre des photos — la différence visuelle confirme ce que les chiffres montrent"],
+   sessions:[
+    {id:'s12_1',emoji:'🏋️',title:'Séance 1',meta:'Développé + Zercher + Bike',exercises:[ex("Développé couché aux haltères","5","8 reps charge lourde","15s"),ex("Pompes plyométriques","5","8 reps","1'30"),ex("Zercher squat","4","4-5 reps charge lourde","2'30"),ex("Zercher lunges","4","8 reps iso 2s","2'30"),ex("Landmine switch press","3","6 reps coordination","1'30"),ex("Side jump high knee with KB","3","8 reps dynamique","1'30"),ex("Assault bike","2","20s effort / 10s OFF — 8 min","2 min")]},
+    {id:'s12_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Push press + DL jambes',exercises:[ex("Dead broad jump","5","5 reps explosifs","20s"),ex("High hurdle jump","5","6 reps","1'"),ex("Push press","4","4 reps (90%)","15s"),ex("Gorilla row","4","8 reps charge lourde","2'30"),ex("Soulever de terre jambes tendues","4","6 reps 3s iso","30s"),ex("Kettlebell swing elastic","4","6 reps","2-3 min")]},
+    {id:'s12_3',emoji:'⚡',title:'Séance 3',meta:'KB + Tractions + Push press + Ski erg',exercises:[ex("Kettlebell swing elastic","5","8 reps","20s"),ex("High squat box jump","5","6 reps explosifs","1'"),ex("Pendlay row","4","10 reps charge moyenne","30s"),ex("Tractions lestées","4","6 reps surcharge progressive","2'30"),ex("Push press","4","6 reps charge lourde","30s"),ex("Sled push","4","40m aller-retour + sprawl","2-3 min"),ex("Ski erg","3","3 séries 10 tours — 20s ON / 10s OFF","90s")]},
+    MOB3]},
+];
+
+// ═══════════════════════════
+// STATE
+// ═══════════════════════════
+let S={
+  view:'home', tab:'home', weekIdx:null, sessIdx:null,
+  progress:JSON.parse(localStorage.getItem('ce_prog')||'{}'),
+  notes:JSON.parse(localStorage.getItem('ce_notes')||'{}'),
+  checks:JSON.parse(localStorage.getItem('ce_checks')||'{}'),
+};
+function save(){localStorage.setItem('ce_prog',JSON.stringify(S.progress));localStorage.setItem('ce_notes',JSON.stringify(S.notes));localStorage.setItem('ce_checks',JSON.stringify(S.checks));}
+function isSessDone(wi,si){return!!S.progress[`${wi}_${si}`];}
+function isWeekUnlocked(wi){if(wi===0)return true;return PROGRAM[wi-1].sessions.every((_,si)=>isSessDone(wi-1,si));}
+function isWeekDone(wi){return PROGRAM[wi].sessions.every((_,si)=>isSessDone(wi,si));}
+function isSessUnlocked(wi,si){if(!isWeekUnlocked(wi))return false;return si===0||isSessDone(wi,si-1);}
+function ckKey(wi,si,ei){return`${wi}_${si}_${ei}`;}
+function totalDone(){let d=0;PROGRAM.forEach((w,wi)=>w.sessions.forEach((_,si)=>{if(isSessDone(wi,si))d++;}));return d;}
+function totalSess(){return PROGRAM.reduce((a,w)=>a+w.sessions.length,0);}
+function phasePct(phaseId){const ws=PROGRAM.filter(w=>w.phase===phaseId);const tot=ws.reduce((a,w)=>a+w.sessions.length,0);const done=ws.reduce((a,w,i)=>{const wi=PROGRAM.indexOf(w);return a+w.sessions.filter((_,si)=>isSessDone(wi,si)).length;},0);return tot?Math.round((done/tot)*100):0;}
+function nextSession(){for(let wi=0;wi<PROGRAM.length;wi++){if(!isWeekUnlocked(wi))break;for(let si=0;si<PROGRAM[wi].sessions.length;si++){if(!isSessDone(wi,si)&&isSessUnlocked(wi,si))return{wi,si};}}return null;}
+function getPC(phase){return{activation:'#5B9BD4',p1:'#C9A84C',p2:'#D4603A',p3:'#3DAF6B'}[phase]||'#C9A84C';}
+
+// ═══════════════════════════
+// TOAST
+// ═══════════════════════════
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// ═══════════════════════════
+// WORKOUT MODE
+// ═══════════════════════════
+let WO={active:false,wi:0,si:0,exIdx:0,restTimer:null,restTotal:0,restLeft:0};
+function parseSeconds(str){if(!str||str==='—')return 0;const m=str.match(/(\d+)'(\d*)/);if(m)return parseInt(m[1])*60+(parseInt(m[2])||0);const s=str.match(/(\d+)\s*s/i);if(s)return parseInt(s[1]);const d=str.match(/(\d+)\s*min/i);if(d)return parseInt(d[1])*60;return 0;}
+function startWorkout(wi,si){
+  WO={active:true,wi,si,exIdx:0,restTimer:null,restTotal:0,restLeft:0};
+  document.getElementById('wo').classList.add('active');
+  renderWO();
+}
+function closeWorkout(){
+  clearInterval(WO.restTimer);
+  WO.active=false;
+  document.getElementById('wo').classList.remove('active');
+}
+function renderWO(){
+  const w=PROGRAM[WO.wi],s=w.sessions[WO.si];
+  const total=s.exercises.length;
+  const idx=WO.exIdx;
+  const finished=idx>=total;
+  const ssMap=getSSMap(WO.wi,WO.si);
+  document.getElementById('wo-sess-title').textContent=s.title;
+  document.getElementById('wo-progress-text').textContent=finished?'Séance terminée !':'Exercice '+(Math.min(idx+1,total))+' / '+total;
+  document.getElementById('wo-fill').style.width=Math.min((idx/total)*100,100)+'%';
+  const body=document.getElementById('wo-body');
+  const footer=document.getElementById('wo-footer');
+
+  if(finished){
+    body.innerHTML='<div class="wo-done-screen active"><div class="wo-done-emoji">🔥</div><div class="wo-done-title">SÉANCE TERMINÉE !</div><div class="wo-done-sub">Tu as enchaîné tous les exercices. Marque la séance comme terminée ci-dessous.</div></div>';
+    footer.innerHTML='<button class="wo-btn-next done-style" onclick="finishWO()">✓ Valider la séance</button>';
+    return;
+  }
+
+  const ssLabel=ssMap[idx]||null;
+  const grp=ssLabel?getSSGroup(ssMap,idx):null;
+  const isSS=grp&&grp.length>1;
+
+  if(isSS){
+    // ─── SUPERSET — 1 EXERCICE À LA FOIS ───
+    const ex=s.exercises[idx];
+    const isMob=ex.isMobility;
+    const checked=!!S.checks[ckKey(WO.wi,WO.si,idx)];
+    const posInGrp=grp.indexOf(idx);
+    const isLastInGrp=isLastInGroup(ssMap,idx);
+    const nextInGrp=isLastInGrp?null:grp[posInGrp+1];
+    const nextEx2=nextInGrp!==null?s.exercises[nextInGrp]:null;
+    const restSec=isLastInGrp?parseSeconds(ex.rest):0;
+    const totalInGrp=grp.length;
+
+    let html='';
+
+    // SS progress indicator
+    html+='<div class="wo-ss-progress-bar">';
+    grp.forEach(function(k,gi){
+      const done2=!!S.checks[ckKey(WO.wi,WO.si,k)];
+      const isCurrent=k===idx;
+      html+='<div class="wo-ss-pip'+(isCurrent?' current':done2?' done':'')+'">';
+      html+='<span class="wo-ss-pip-label">'+ssMap[k]+'</span>';
+      html+='</div>';
+      if(gi<grp.length-1) html+='<div class="wo-ss-pip-arrow">→</div>';
+    });
+    html+='</div>';
+
+    // Step indicator
+    html+='<div class="wo-ss-step-label">SUPERSET — ÉTAPE '+(posInGrp+1)+' / '+totalInGrp+'</div>';
+
+    // Exercise name
+    html+='<div class="wo-ex-num">'+String(idx+1).padStart(2,'0')+'</div>';
+    html+='<div class="wo-ex-name">'+ex.name+'</div>';
+
+    if(ex.video){
+      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
+    }
+
+    html+='<div class="wo-params">';
+    html+='<div class="wo-param"><div class="wo-param-icon">🔄</div><div class="wo-param-val">'+ex.sets+'</div><div class="wo-param-lbl">SÉRIES</div></div>';
+    html+='<div class="wo-param"><div class="wo-param-icon">🔁</div><div class="wo-param-val" style="font-size:15px">'+ex.reps+'</div><div class="wo-param-lbl">REPS</div></div>';
+    if(isLastInGrp){
+      html+='<div class="wo-param"><div class="wo-param-icon">⏱</div><div class="wo-param-val" style="font-size:15px">'+ex.rest+'</div><div class="wo-param-lbl">REPOS</div></div>';
+    } else {
+      html+='<div class="wo-param" style="border-color:rgba(201,168,76,.3)"><div class="wo-param-icon">⚡</div><div class="wo-param-val" style="font-size:13px;color:var(--or)">0</div><div class="wo-param-lbl" style="color:var(--or)">REPOS</div></div>';
+    }
+    html+='</div>';
+
+    if(isMob&&ex.desc){html+='<div class="wo-mob-desc">'+ex.desc+'</div>';}
+    else if(ex.why){html+='<div class="wo-why">'+ex.why+'</div>';}
+
+    // ENCHAÎNE DIRECT banner (if not last in group)
+    if(!isLastInGrp&&nextEx2){
+      html+='<div class="wo-enchaine-banner">';
+      html+='<div class="wo-enchaine-label">ENCHAÎNE DIRECT</div>';
+      html+='<div class="wo-enchaine-arrow">↓</div>';
+      html+='<div class="wo-enchaine-next">'+nextEx2.name+'</div>';
+      html+='<div class="wo-enchaine-sub">Sans repos — passe directement à cet exercice</div>';
+      html+='</div>';
+    } else {
+      // Last in group — show rest timer
+      if(restSec>0){
+        const circ=2*Math.PI*48;
+        html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">REPOS APRÈS LE SUPERSET</div><div class="wo-rest-ring"><svg viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="48"/><circle class="rf" id="rf" cx="55" cy="55" r="48" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
+      }
+    }
+
+    body.innerHTML=html;
+
+    const btnLabel=isLastInGrp?(idx===total-1?'Terminer la séance ✓':'Exercice suivant →'):'⚡ Enchaîne → '+nextEx2.name;
+    footer.innerHTML='<button class="wo-btn-next" id="wo-btn-next" style="'+(isLastInGrp?'':'background:rgba(201,168,76,.15);border:2px solid var(--or);color:var(--or)')+'" onclick="nextEx()">'+btnLabel+'</button><button class="wo-btn-check '+(checked?'checked':'')+'" id="wo-btn-check" onclick="toggleWOCheck()">'+(checked?'✓ Exercice coché':'☐ &nbsp;Marquer cet exercice')+'</button>';
+
+  } else {
+    // ─── SINGLE EXERCISE ───
+    const ex=s.exercises[idx];
+    const isMob=ex.isMobility;
+    const checked=!!S.checks[ckKey(WO.wi,WO.si,idx)];
+    const restSec=parseSeconds(ex.rest);
+
+    let html='';
+    html+='<div class="wo-ex-num">'+String(idx+1).padStart(2,'0')+'</div>';
+    html+='<div class="wo-ex-name">'+ex.name+'</div>';
+    if(ex.video){
+      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
+    }
+    html+='<div class="wo-params">';
+    html+='<div class="wo-param"><div class="wo-param-icon">🔄</div><div class="wo-param-val">'+ex.sets+'</div><div class="wo-param-lbl">SÉRIES</div></div>';
+    html+='<div class="wo-param"><div class="wo-param-icon">🔁</div><div class="wo-param-val" style="font-size:15px">'+ex.reps+'</div><div class="wo-param-lbl">REPS</div></div>';
+    html+='<div class="wo-param"><div class="wo-param-icon">⏱</div><div class="wo-param-val" style="font-size:15px">'+ex.rest+'</div><div class="wo-param-lbl">REPOS</div></div>';
+    html+='</div>';
+    if(isMob&&ex.desc){html+='<div class="wo-mob-desc">'+ex.desc+'</div>';}
+    else if(ex.why){html+='<div class="wo-why">'+ex.why+'</div>';}
+    if(restSec>0){
+      const circ=2*Math.PI*48;
+      html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">TEMPS DE REPOS</div><div class="wo-rest-ring"><svg viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="48"/><circle class="rf" id="rf" cx="55" cy="55" r="48" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
+    }
+    body.innerHTML=html;
+    footer.innerHTML='<button class="wo-btn-next" id="wo-btn-next" onclick="nextEx()">'+(idx===total-1?'Terminer la séance ✓':'Exercice suivant →')+'</button><button class="wo-btn-check '+(checked?'checked':'')+'" id="wo-btn-check" onclick="toggleWOCheck()">'+(checked?'✓ Exercice coché':'☐ &nbsp;Marquer cet exercice')+'</button>';
+  }
+}
+
+
+function nextEx(){
+  clearInterval(WO.restTimer);
+  const s=PROGRAM[WO.wi].sessions[WO.si];
+  const ex=s.exercises[WO.exIdx];
+  const restSec=parseSeconds(ex.rest);
+  WO.exIdx++;
+  if(restSec>0&&WO.exIdx<s.exercises.length){
+    renderWO();
+    startRest(restSec);
+  } else {
+    renderWO();
+  }
+}
+function startRest(secs){
+  const restDiv=document.getElementById('wo-rest');
+  if(!restDiv)return;
+  restDiv.classList.add('active');
+  WO.restTotal=secs;WO.restLeft=secs;
+  const circ=2*Math.PI*48;
+  const update=()=>{
+    const rf=document.getElementById('rf');
+    const rn=document.getElementById('rt-num');
+    if(!rf||!rn){clearInterval(WO.restTimer);return;}
+    rn.textContent=WO.restLeft;
+    rf.style.strokeDashoffset=circ*(1-WO.restLeft/WO.restTotal);
+    if(WO.restLeft<=0){clearInterval(WO.restTimer);skipRest();}
+    WO.restLeft--;
+  };
+  update();
+  WO.restTimer=setInterval(update,1000);
+}
+function skipRest(){
+  clearInterval(WO.restTimer);
+  const restDiv=document.getElementById('wo-rest');
+  if(restDiv)restDiv.classList.remove('active');
+}
+function toggleWOCheck(){
+  const k=ckKey(WO.wi,WO.si,WO.exIdx);
+  S.checks[k]=!S.checks[k];save();
+  const btn=document.getElementById('wo-btn-check');
+  if(btn){btn.classList.toggle('checked');btn.textContent=S.checks[k]?'✓ Exercice coché':'☐ \u00a0Marquer cet exercice';}
+}
+function finishWO(){
+  S.progress[`${WO.wi}_${WO.si}`]=true;save();
+  closeWorkout();toast('Séance validée ! 🔥');render();
+}
+document.getElementById('wo-close').addEventListener('click',closeWorkout);
+
+// ═══════════════════════════
+// RENDER
+// ═══════════════════════════
+function render(){
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  const done=totalDone(),total=totalSess(),pct=Math.round((done/total)*100);
+  const r=16,circ=2*Math.PI*r;
+
+  // Header
+  const hdr=document.createElement('div');hdr.className='hdr';
+  if(S.view==='home'){
+    hdr.innerHTML=`<div class="hdr-info"><div class="hdr-sub">COMBATTANT ÉLITE</div><div class="hdr-title">TABLEAU DE BORD</div></div><div class="hdr-right"><button class="hdr-icon-btn" onclick="openProfile()" title="Mon Profil">👤</button><button class="hdr-icon-btn" onclick="openNutrition()" title="Nutrition">🍎</button><div class="hdr-ring"><svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="hdr-pct">${pct}%</div></div></div>`;
+  }else if(S.view==='timeline'){
+    hdr.innerHTML=`<div class="hdr-info"><div class="hdr-sub"><a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">COMBATTANT ÉLITE · @ZACAIR_</a></div><div class="hdr-title">PROGRAMME 90 JOURS</div></div><div class="hdr-right"><button class="hdr-icon-btn" onclick="openProfile()" title="Mon Profil">👤</button><button class="hdr-icon-btn" onclick="openNutrition()" title="Nutrition">🍎</button><div class="hdr-ring"><svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="hdr-pct">${pct}%</div></div></div>`;
+  }else if(S.view==='week'){
+    const w=PROGRAM[S.weekIdx];
+    hdr.innerHTML=`<button class="hdr-back" id="btn-back">←</button><div class="hdr-info"><div class="hdr-sub">SEMAINE ${w.num}</div><div class="hdr-title">${w.title}</div></div>`;
+  }else if(S.view==='session'){
+    const w=PROGRAM[S.weekIdx],s=w.sessions[S.sessIdx];
+    hdr.innerHTML=`<button class="hdr-back" id="btn-back">←</button><div class="hdr-info"><div class="hdr-sub">${w.num} · ${s.meta||''}</div><div class="hdr-title">${s.title}</div></div>`;
+  }
+  app.appendChild(hdr);
+
+  const scroll=document.createElement('div');scroll.className='scroll';
+
+  if(S.view==='home')renderHome(scroll);
+  else if(S.view==='timeline')renderTimeline(scroll);
+  else if(S.view==='week')renderWeek(scroll);
+  else if(S.view==='session')renderSession(scroll);
+
+  app.appendChild(scroll);
+
+  // Bottom nav
+  const bn=document.createElement('div');bn.className='bottom-nav';
+  [['home','🏠','ACCUEIL'],['timeline','📅','PROGRAMME'],].forEach(([tab,icon,lbl])=>{
+    const it=document.createElement('button');it.className='bn-item'+(S.tab===tab?' active':'');
+    it.innerHTML=`<div class="bn-icon">${icon}</div><div class="bn-lbl">${lbl}</div>`;
+    it.addEventListener('click',()=>{S.tab=tab;S.view=tab;render();});
+    bn.appendChild(it);
+  });
+  app.appendChild(bn);
+
+  const back=document.getElementById('btn-back');
+  if(back)back.addEventListener('click',()=>{
+    if(S.view==='session'){S.view='week';render();}
+    else if(S.view==='week'){S.view='timeline';render();}
+  });
+}
+
+// ─── HOME ───
+function renderHome(scroll){
+  const done=totalDone(),total=totalSess(),pct=Math.round((done/total)*100);
+  const r=38,circ=2*Math.PI*r;
+  const next=nextSession();
+  const days=done>0?Math.ceil(done*(90/total)):0;
+
+  const hero=document.createElement('div');hero.className='home-hero';
+  const h=new Date().getHours();
+  const greet=h<12?'Bonjour':h<18?'Bon après-midi':'Bonsoir';
+  hero.innerHTML=`<div class="home-greeting">${greet} 👊</div><div class="home-title">COMBATTANT ÉLITE</div><div class="home-day">by <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:var(--or);text-decoration:none">@zacair_</a> · ${done}/${total} séances complétées</div>`;
+  scroll.appendChild(hero);
+
+  // Ring
+  const rw=document.createElement('div');rw.className='home-ring-wrap';
+  rw.innerHTML=`<div class="big-ring"><svg viewBox="0 0 110 110"><circle class="track" cx="55" cy="55" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="55" cy="55" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="big-ring-pct"><div class="big-ring-num">${pct}%</div><div class="big-ring-sub">TERMINÉ</div></div></div>
+  <div class="home-stats">
+    <div class="home-stat"><span class="home-stat-lbl">Séances faites</span><span class="home-stat-val">${done} / ${total}</span></div>
+    <div class="home-stat"><span class="home-stat-lbl">Jours équivalents</span><span class="home-stat-val">~J${Math.max(1,days)}</span></div>
+    <div class="home-stat"><span class="home-stat-lbl">Semaines débloquées</span><span class="home-stat-val">${PROGRAM.filter((_,i)=>isWeekUnlocked(i)).length} / 13</span></div>
+  </div>`;
+  scroll.appendChild(rw);
+
+  // Next session
+  const ns=document.createElement('div');ns.className='home-next';
+  ns.innerHTML=`<div class="home-next-title">PROCHAINE SÉANCE</div>`;
+  if(next){
+    const w=PROGRAM[next.wi],s=w.sessions[next.si];
+    const nc=document.createElement('div');nc.className='next-card';
+    nc.style.setProperty('--or',w.phaseColor);
+    nc.innerHTML=`<div class="next-card-icon" style="background:rgba(${next.wi<4?'201,168,76':next.wi<8?'212,96,58':'61,175,107'},.1)">${s.emoji}</div><div class="next-card-info"><div class="next-card-week">${w.num} · ${s.meta}</div><div class="next-card-name">${s.title}</div><div class="next-card-meta">${s.exercises.length} exercices</div></div><div class="next-card-arrow">›</div>`;
+    nc.addEventListener('click',()=>{S.weekIdx=next.wi;S.sessIdx=next.si;S.view='session';S.tab='timeline';render();});
+    ns.appendChild(nc);
+  }else{
+    ns.innerHTML+=`<div style="font-size:13px;color:var(--g2);padding:12px;text-align:center">🏆 Programme terminé ! Bravo !</div>`;
+  }
+  scroll.appendChild(ns);
+
+  // Phase progress
+  const ph=document.createElement('div');ph.className='home-phases';
+  ph.innerHTML=`<div class="hp-title">PROGRESSION PAR PHASE</div><div class="hp-grid">
+    <div class="hp-item"><div class="hp-item-pct" style="color:#5B9BD4">${phasePct('activation')}%</div><div class="hp-item-lbl">Activation</div></div>
+    <div class="hp-item"><div class="hp-item-pct" style="color:#C9A84C">${phasePct('p1')}%</div><div class="hp-item-lbl">Fondations</div></div>
+    <div class="hp-item"><div class="hp-item-pct" style="color:#D4603A">${phasePct('p2')}%</div><div class="hp-item-lbl">Explosion</div></div>
+    <div class="hp-item"><div class="hp-item-pct" style="color:#3DAF6B">${phasePct('p3')}%</div><div class="hp-item-lbl">Domination</div></div>
+  </div>`;
+  scroll.appendChild(ph);
+
+  // Recent activity
+  const rec=[];
+  for(let wi=PROGRAM.length-1;wi>=0&&rec.length<4;wi--){
+    for(let si=PROGRAM[wi].sessions.length-1;si>=0&&rec.length<4;si--){
+      if(isSessDone(wi,si))rec.push({wi,si,name:PROGRAM[wi].sessions[si].title,week:PROGRAM[wi].num,phase:PROGRAM[wi].phase});
+    }
+  }
+  if(rec.length>0){
+    const ra=document.createElement('div');ra.className='home-recent';
+    ra.innerHTML=`<div class="hr-title">ACTIVITÉ RÉCENTE</div>`;
+    rec.forEach(r=>{
+      ra.innerHTML+=`<div class="hr-item"><div class="hr-dot" style="background:${getPC(r.phase)}"></div><div class="hr-name">${r.name}</div><div class="hr-time">${r.week}</div></div>`;
+    });
+    scroll.appendChild(ra);
+  }
+  const sp=document.createElement('div');sp.style.height='12px';scroll.appendChild(sp);
+}
+
+// ─── TIMELINE ───
+function renderTimeline(scroll){
+  const hero=document.createElement('div');hero.className='tl-hero';
+  hero.innerHTML=`<div class="tl-brand">BY <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:var(--or);text-decoration:none">ZACAIR · @ZACAIR_</a></div><div class="tl-title">PLAN<br><span>90J</span></div><div class="tl-desc">13 semaines · 3 phases · 36 séances · 260+ vidéos</div>`;
+  scroll.appendChild(hero);
+  const bar=document.createElement('div');bar.className='pbar-wrap';
+  for(let i=1;i<=90;i++){const d=document.createElement('div');d.className='pbar-day';if([1,8,38,68,90].includes(i))d.classList.add('test');else if(i<=7)d.classList.add('s0');else if(i<=37)d.classList.add('p1');else if(i<=67)d.classList.add('p2');else d.classList.add('p3');bar.appendChild(d);}
+  scroll.appendChild(bar);
+  const ms=document.createElement('div');ms.className='tl-milestones';
+  [['J1','Départ + Tests'],['J8','Phase 1'],['J38','Phase 2'],['J68','Phase 3']].forEach(([d,l])=>{ms.innerHTML+=`<div class="tl-ms done"><div class="tl-ms-day">${d}</div><div class="tl-ms-lbl">${l}</div></div>`;});
+  scroll.appendChild(ms);
+  const phases=[{label:'PRÉ-PROGRAMME',name:'ACTIVATION',days:'Jours 1-7',color:'#5B9BD4',weeks:[0]},{label:'PHASE 1',name:'FONDATIONS',days:'Jours 8-37',color:'#C9A84C',weeks:[1,2,3,4]},{label:'PHASE 2',name:'EXPLOSION',days:'Jours 38-67',color:'#D4603A',weeks:[5,6,7,8]},{label:'PHASE 3',name:'DOMINATION',days:'Jours 68-90',color:'#3DAF6B',weeks:[9,10,11,12]}];
+  phases.forEach(ph=>{
+    const phe=document.createElement('div');phe.className='tl-phase';phe.style.setProperty('--phase-c',ph.color);
+    phe.innerHTML=`<div class="tl-phase-tag">${ph.label}</div><div class="tl-phase-name" style="color:${ph.color}">${ph.name}</div><div class="tl-phase-days">${ph.days}</div>`;
+    scroll.appendChild(phe);
+    ph.weeks.forEach(wi=>{
+      const w=PROGRAM[wi];const locked=!isWeekUnlocked(wi);const done_=isWeekDone(wi);
+      const sessDone=w.sessions.filter((_,si)=>isSessDone(wi,si)).length;
+      const card=document.createElement('div');card.className='wk-card'+(locked?' locked':done_?' completed':'');card.style.setProperty('--wc',ph.color);
+      let dots='';w.sessions.forEach((_,si)=>dots+=`<div class="wk-sess-dot${isSessDone(wi,si)?' done':''}"></div>`);
+      card.innerHTML=`<div class="wk-head"><div class="wk-badge${locked?'':done_?' completed':' unlocked'}">${locked?'🔒':done_?'✓':'▶'}</div><div class="wk-info"><div class="wk-num">${w.num} · ${w.days}</div><div class="wk-name">${w.title}</div></div></div><div class="wk-focus">${w.focus}</div><div class="wk-sessions">${dots}</div><div class="wk-status" style="color:${locked?'var(--g1)':ph.color}">${locked?'🔒 TERMINE LA SEMAINE PRÉCÉDENTE':sessDone+'/'+w.sessions.length+' séances'}</div>`;
+      if(!locked)card.addEventListener('click',()=>{S.weekIdx=wi;S.view='week';render();});
+      scroll.appendChild(card);
+    });
+  });
+  const sp=document.createElement('div');sp.style.height='12px';scroll.appendChild(sp);
+}
+
+// ─── WEEK VIEW ───
+function renderWeek(scroll){
+  const wi=S.weekIdx,w=PROGRAM[wi],pc=w.phaseColor;
+  const hero=document.createElement('div');hero.className='wv-hero';hero.style.setProperty('--phase-c',pc);
+  const sessDone=w.sessions.filter((_,si)=>isSessDone(wi,si)).length;
+  let prog='';w.sessions.forEach((_,si)=>prog+=`<div class="wv-prog-item${isSessDone(wi,si)?' done':''}"></div>`);
+  const phNames={activation:'Activation',p1:'Phase 1 — Fondations',p2:'Phase 2 — Explosion',p3:'Phase 3 — Domination'};
+  hero.innerHTML=`<div class="wv-phase">${phNames[w.phase]}</div><div class="wv-title" style="color:${pc}">${w.title}</div><div class="wv-sub">${w.sub}</div><div class="wv-prog">${prog}</div><div class="wv-prog-lbl">${sessDone} / ${w.sessions.length} séances</div>`;
+  scroll.appendChild(hero);
+  const sect=document.createElement('div');sect.className='sect';sect.textContent='SÉANCES';scroll.appendChild(sect);
+  w.sessions.forEach((s,si)=>{
+    const done_=isSessDone(wi,si),unlocked=isSessUnlocked(wi,si);
+    const checksDone=s.exercises.filter((_,ei)=>S.checks[ckKey(wi,si,ei)]).length;
+    const pct=Math.round((checksDone/s.exercises.length)*100);
+    const isMob=s.id==='mob';
+    if(isMob){
+      const card=document.createElement('div');card.className='mob-card'+(unlocked?'':' locked');
+      card.innerHTML=`<div class="mob-card-head"><div class="mob-icon${done_?' done':''}">${done_?'✓':'🧘'}</div><div class="sess-info"><div class="sess-title" style="color:#5B9BD4">${s.title}</div><div class="sess-meta">${s.exercises.length} exercices · Mobilité</div></div><div class="sess-arrow" style="color:#5B9BD4">${unlocked?'›':''}</div></div><div class="sess-done-bar" style="background:#5B9BD4;width:${pct}%"></div>`;
+      if(unlocked)card.addEventListener('click',()=>{S.sessIdx=si;S.view='session';render();});
+      scroll.appendChild(card);
+    }else{
+      const card=document.createElement('div');card.className='sess-card'+(unlocked?'':' locked');
+      card.innerHTML=`<div class="sess-card-head"><div class="sess-icon${done_?' done':!unlocked?'':' active'}" style="${done_?`background:${pc};border-color:${pc}`:unlocked?`border-color:${pc}`:''}"> ${done_?'✓':!unlocked?'🔒':s.emoji}</div><div class="sess-info"><div class="sess-title">${s.title}</div><div class="sess-meta">${s.exercises.length} exercices · ${s.meta||''}</div></div><div class="sess-arrow" style="color:${pc}">${unlocked?'›':''}</div></div><div class="sess-done-bar" style="background:${pc};width:${pct}%"></div>`;
+      if(unlocked)card.addEventListener('click',()=>{S.sessIdx=si;S.view='session';render();});
+      scroll.appendChild(card);
+    }
+  });
+  if(w.bilan){const b=document.createElement('div');b.className='wv-bilan';b.innerHTML=`<div class="wv-bilan-title">BILAN DE PHASE</div>`+w.bilan.map(x=>`<div class="wv-bilan-item">${x}</div>`).join('');scroll.appendChild(b);}
+  const sp=document.createElement('div');sp.style.height='12px';scroll.appendChild(sp);
+}
+
+// ─── SESSION VIEW ───
+function buildExItem(wi,si,ei,ex,ssMap,pc,isMob){
+  const ck=ckKey(wi,si,ei);const checked=!!S.checks[ck];
+  const ssLabel=ssMap[ei]||null;
+  const vid=ex.video?ex.video:null;
+
+  const item=document.createElement('div');
+  item.className='ex-item'+(checked?' checked':'');
+  item.style.setProperty('--phase-c',isMob?'#5B9BD4':pc);
+
+  // Main row
+  const main=document.createElement('div');main.className='ex-main';
+
+  const chk=document.createElement('div');chk.className='ex-check';chk.dataset.ck=ck;
+  chk.innerHTML='<svg viewBox="0 0 12 12" fill="none" stroke="#161616" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>';
+  if(checked)chk.querySelector('svg').style.display='block';
+  chk.addEventListener('click',function(){
+    S.checks[ck]=!S.checks[ck];save();
+    item.classList.toggle('checked');
+    chk.querySelector('svg').style.display=S.checks[ck]?'block':'none';
+  });
+
+  const body=document.createElement('div');body.className='ex-body';
+
+  const nameLine=document.createElement('div');nameLine.className='ex-name';
+  nameLine.innerHTML=vid?'<a href="'+vid+'" target="_blank" rel="noopener">'+ex.name+' <span style="font-size:10px;opacity:.6">▶</span></a>':'<span class="no-link">'+ex.name+'</span>';
+
+  const params=document.createElement('div');params.className='ex-params';
+  params.innerHTML='<span class="ex-param">🔄 '+ex.sets+'</span><span class="ex-param">🔁 '+ex.reps+'</span><span class="ex-param">⏱ '+ex.rest+'</span>';
+  if(ssLabel){const ssBadgeSmall=document.createElement('span');ssBadgeSmall.className='ex-param';ssBadgeSmall.style.cssText='background:rgba(201,168,76,.12);color:#C9A84C;font-family:Bebas Neue;letter-spacing:1px';ssBadgeSmall.textContent='SS '+ssLabel;params.appendChild(ssBadgeSmall);}
+
+  body.appendChild(nameLine);body.appendChild(params);
+  if(isMob&&ex.desc){const d=document.createElement('div');d.className='mob-desc';d.innerHTML=ex.desc;body.appendChild(d);}
+  else if(ex.why){const w2=document.createElement('div');w2.className='ex-why';w2.innerHTML=ex.why;body.appendChild(w2);}
+
+  main.appendChild(chk);
+  main.appendChild(body);
+  item.appendChild(main);
+
+
+
+  return item;
+}
+
+function renderSession(scroll){
+  const wi=S.weekIdx,si=S.sessIdx,w=PROGRAM[wi],s=w.sessions[si];
+  const pc=w.phaseColor,done_=isSessDone(wi,si),isMob=s.id==='mob';
+  const ssMap=getSSMap(wi,si);
+  const hero=document.createElement('div');hero.className='sv-hero';hero.style.setProperty('--phase-c',isMob?'#5B9BD4':pc);
+  hero.innerHTML='<div class="sv-phase" style="color:'+(isMob?'#5B9BD4':pc)+'">'+(isMob?'MOBILITÉ & PRÉVENTION':w.num+' · '+w.title)+'</div><div class="sv-title">'+s.title+'</div><div class="sv-meta">'+s.exercises.length+' exercices'+(isMob?' · Descriptions détaillées':' · Clique sur le nom pour voir la vidéo')+'</div>';
+  scroll.appendChild(hero);
+
+  const acts=document.createElement('div');acts.className='sv-actions';
+  if(!done_){
+    const btnStart=document.createElement('button');btnStart.className='sv-btn-start';
+    btnStart.style.setProperty('--phase-c',isMob?'#5B9BD4':pc);
+    btnStart.innerHTML='▶ &nbsp;MODE SÉANCE';
+    btnStart.addEventListener('click',function(){startWorkout(wi,si);});
+    acts.appendChild(btnStart);
+  }
+  const btnComplete=document.createElement('button');btnComplete.className='sv-btn-complete'+(done_?' done':'');
+  btnComplete.textContent=done_?'✓ Séance terminée':'Valider la séance';
+  if(!done_){btnComplete.addEventListener('click',function(){S.progress[wi+'_'+si]=true;save();toast('Séance validée ! 🔥');render();});}
+  acts.appendChild(btnComplete);
+  scroll.appendChild(acts);
+
+  const sect=document.createElement('div');sect.className='sect';sect.textContent=isMob?'EXERCICES DE MOBILITÉ':'EXERCICES';scroll.appendChild(sect);
+
+  // Group exercises by superset
+  const rendered=new Set();
+  s.exercises.forEach(function(ex,ei){
+    if(rendered.has(ei))return;
+    const ssLabel=ssMap[ei]||null;
+    const grp=ssLabel?getSSGroup(ssMap,ei):null;
+
+    if(grp&&grp.length>1&&isFirstInGroup(ssMap,ei)){
+      const pfx=ssPrefix(ssLabel);
+      const grpDiv=document.createElement('div');grpDiv.className='ss-group';
+
+      // Header
+      const hdr=document.createElement('div');hdr.className='ss-header';
+      const labels=grp.map(function(k){return ssMap[k];}).join(' + ');
+      hdr.innerHTML='<div class="ss-header-left"><span class="ss-badge">SUPERSET</span><span class="ss-count">'+grp.length+' exercices</span></div><span class="ss-rule">⚡ SANS REPOS ENTRE</span>';
+      grpDiv.appendChild(hdr);
+
+      // Explanation
+      const exp=document.createElement('div');exp.className='ss-explain';
+      const names=grp.map(function(k){return s.exercises[k].name;});
+      if(grp.length===2){
+        exp.innerHTML='Enchaîne <strong>'+names[0]+'</strong> puis <strong>'+names[1]+'</strong> sans poser la barre ni reprendre ton souffle. Récupère uniquement après avoir terminé les 2 exercices.';
+      } else {
+        exp.innerHTML='Enchaîne les <strong>'+grp.length+' exercices dans l’ordre</strong> sans repos entre eux. Récupère uniquement après avoir tout enchaîné.';
+      }
+      grpDiv.appendChild(exp);
+
+      // Visual order strip
+      const ord=document.createElement('div');ord.className='ss-order';
+      grp.forEach(function(k,idx){
+        const step=document.createElement('span');step.className='ss-order-step';
+        step.textContent=ssMap[k]+' — '+s.exercises[k].name;
+        ord.appendChild(step);
+        if(idx<grp.length-1){
+          const arr=document.createElement('span');arr.className='ss-order-arrow';arr.textContent='→';
+          ord.appendChild(arr);
+        }
+      });
+      const then=document.createElement('span');then.className='ss-then';
+      const lastEx=s.exercises[grp[grp.length-1]];
+      then.textContent='puis repos '+lastEx.rest;
+      ord.appendChild(then);
+      grpDiv.appendChild(ord);
+
+      grp.forEach(function(k){
+        rendered.add(k);
+        grpDiv.appendChild(buildExItem(wi,si,k,s.exercises[k],ssMap,pc,isMob));
+      });
+      scroll.appendChild(grpDiv);
+    } else if(!grp||grp.length<=1){
+      // Solo exercise
+      rendered.add(ei);
+      scroll.appendChild(buildExItem(wi,si,ei,ex,ssMap,pc,isMob));
+    }
+  });
+
+  const ns=document.createElement('div');ns.className='notes-section';
+  const nk=wi+'_'+si;
+  ns.innerHTML='<div class="notes-lbl">NOTES DE SÉANCE</div><textarea class="notes-ta" id="notes-ta" placeholder="Charges utilisées, sensations, commentaires...">'+( S.notes[nk]||'')+'</textarea>';
+  scroll.appendChild(ns);
+  if(done_&&isWeekDone(wi)){const cg=document.createElement('div');cg.className='congrats';const isLast=wi===PROGRAM.length-1;cg.innerHTML='<div class="congrats-emoji">'+(isLast?'🏆':'🔓')+'</div><div class="congrats-title">'+(isLast?'PROGRAMME TERMINÉ !':'SEMAINE DÉBLOQUÉE !')+'</div><div class="congrats-text">'+(isLast?'Tu as terminé les 90 jours. Tu es un combattant élite.':'La semaine suivante est maintenant débloquée !')+'</div>';scroll.appendChild(cg);}
+  const sp=document.createElement('div');sp.style.height='20px';scroll.appendChild(sp);
+  setTimeout(function(){const ta=document.getElementById('notes-ta');if(ta)ta.addEventListener('input',function(){S.notes[nk]=ta.value;save();});},100);
+}
+
+
+// ══════════════════════════════════════════════
+// NUTRITION DATA
+// ══════════════════════════════════════════════
+const NUT = {
+  seche: {
+    title: 'SÈCHE',
+    color: '#C9A84C',
+    tagColor: 'rgba(201,168,76,.15)',
+    intro: "Programme alimentaire de sèche structuré pour réduire la masse grasse tout en préservant un maximum de muscle. Adapté à ton morphotype, ton rythme de vie et tes objectifs de combattant.",
+    notions: [
+      {title: "Qu'est-ce que la sèche ?", content: "Phase où tu consommes moins de calories que tu n'en brûles. L'objectif est de réduire la masse grasse tout en préservant la masse musculaire. Cette phase doit être bien encadrée pour éviter la fonte musculaire et les carences."},
+      {title: "Macronutriments clés", content: "Protéines (2–2,5 g/kg) : indispensables pour préserver le muscle. Glucides (2,5–4 g/kg) : énergie pour l'entraînement, à ajuster selon morphotype. Lipides (25–30%) : hormones et récupération — favoriser les bons gras."},
+      {title: "Règle d'or", content: "Déficit calorique de 300 à 500 kcal/jour. Un déficit trop agressif détruit le muscle. Un déficit trop faible ne brûle pas le gras. Trouve l'équilibre et sois constant."}
+    ],
+    timing: [
+      {moment: "Petit-déjeuner 7h–9h", objectif: "Relancer le métabolisme", contenu: "Protéines + bons lipides + glucides lents (œufs + flocons d'avoine + avocat)"},
+      {moment: "Collation optionnelle 10h–11h", objectif: "Éviter la fringale", contenu: "Protéine (shake ou fromage blanc) + fruit ou oléagineux"},
+      {moment: "Déjeuner 12h–13h", objectif: "Repas principal", contenu: "Protéines maigres + glucides complexes + légumes"},
+      {moment: "Pré-entraînement 15h–17h", objectif: "Énergie pour la séance", contenu: "Glucides rapides légers + protéines (galette de riz + blanc de poulet)"},
+      {moment: "Dîner 19h–20h", objectif: "Récupération nocturne", contenu: "Protéines maigres + légumes + glucides réduits"},
+      {moment: "Collation nocturne", objectif: "Anti-catabolisme", contenu: "Fromage blanc 0% ou Skyr — protéines lentes à absorption lente"}
+    ],
+    complements: [
+      {nom: "Thé vert (EGCG)", objectif: "Oxydation des graisses", moment: "Matin ou avant entraînement", note: "Léger effet brûle-graisse naturel"},
+      {nom: "Caféine / Pré-workout", objectif: "Énergie + dépense calorique", moment: "Avant entraînement", note: "Améliore le focus et l'intensité"},
+      {nom: "Whey protéine", objectif: "Atteindre les objectifs protéiques", moment: "Post-entraînement", note: "Rapide, pratique, bien assimilée"},
+      {nom: "Oméga-3", objectif: "Anti-inflammatoire + récupération", moment: "Avec un repas", note: "Saumon, maquereau ou capsules"},
+      {nom: "Magnésium", objectif: "Qualité du sommeil + récupération", moment: "Le soir", note: "Réduit les crampes et la fatigue"}
+    ],
+    morphotypes: [
+      {
+        id: 'ecto', emoji: '⚡', name: 'ECTOMORPHE',
+        desc: "Ossature fine, métabolisme élevé — brûle les calories rapidement. Difficulté à conserver la masse lors d'une sèche.",
+        kcal: "2200–2600 kcal/j",
+        macros: [{val:"2,2–2,5 g/kg",lbl:"PROTÉINES"},{val:"3–4 g/kg",lbl:"GLUCIDES"},{val:"25–30%",lbl:"LIPIDES"}],
+        repas: [
+          {icon:"🌅",titre:"Petit-déjeuner",items:["60g flocons d'avoine","200ml lait d'amande sans sucre","1 banane","1 œuf + 2 blancs d'œufs","10g noix"]},
+          {icon:"☀️",titre:"Déjeuner",items:["150g blanc de poulet grillé","120g riz basmati cuit","Légumes vapeur (brocolis, carottes)","1 c. à soupe huile d'olive"]},
+          {icon:"⚡",titre:"Collation pré-séance",items:["2 galettes de riz","30g blanc de dinde fumée","1 pomme"]},
+          {icon:"🌙",titre:"Dîner",items:["150g filet de saumon","100g patate douce","Épinards sautés à l'ail","1 c. à café huile de noix"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["200g fromage blanc 0%","10g graines de chia"]}
+        ]
+      },
+      {
+        id: 'meso', emoji: '💪', name: 'MÉSOMORPHE',
+        desc: "Ossature moyenne, corps homogène — prend et perd du poids facilement. Morphotype idéal, sèche bien encadrée suffit.",
+        kcal: "2000–2400 kcal/j",
+        macros: [{val:"2–2,2 g/kg",lbl:"PROTÉINES"},{val:"2,5–3,5 g/kg",lbl:"GLUCIDES"},{val:"25–30%",lbl:"LIPIDES"}],
+        repas: [
+          {icon:"🌅",titre:"Petit-déjeuner",items:["60g flocons d'avoine","200ml lait végétal","1 œuf entier + 2 blancs","10g noix ou amandes"]},
+          {icon:"☀️",titre:"Déjeuner",items:["150g blanc de poulet","130g riz basmati cuit","100g carottes râpées","Vinaigrette citron + huile d'olive"]},
+          {icon:"⚡",titre:"Collation pré-séance",items:["1 yaourt grec 0%","15g noix","1 pomme"]},
+          {icon:"🌙",titre:"Dîner",items:["120g filet de saumon","80g quinoa cuit","100g courgettes grillées"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["150g skyr nature","1 carré chocolat noir 85%"]}
+        ]
+      },
+      {
+        id: 'endo', emoji: '🔥', name: 'ENDOMORPHE',
+        desc: "Ossature large, tendance à stocker le gras facilement. Sèche plus difficile — glucides à contrôler strictement.",
+        kcal: "1800–2200 kcal/j",
+        macros: [{val:"2–2,2 g/kg",lbl:"PROTÉINES"},{val:"2–2,5 g/kg",lbl:"GLUCIDES"},{val:"30–35%",lbl:"LIPIDES"}],
+        repas: [
+          {icon:"🌅",titre:"Petit-déjeuner",items:["2 œufs entiers","1 tranche pain complet 40g","50g avocat","1 infusion sans sucre"]},
+          {icon:"☀️",titre:"Déjeuner",items:["150g filet de poulet grillé","80g patate douce vapeur","120g brocolis vapeur","1 c. à soupe huile d'olive"]},
+          {icon:"⚡",titre:"Collation pré-séance",items:["100g fromage blanc 0%","10g amandes","1 kiwi"]},
+          {icon:"🌙",titre:"Dîner",items:["130g saumon grillé","100g épinards sautés","80g pois chiches","1 c. à café huile de noix"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["150g yaourt nature 0%"]}
+        ]
+      }
+    ],
+    faq: [
+      {q:"Combien de calories pour sécher ?", a:"Déficit de 300 à 500 kcal/jour par rapport à ta maintenance. Trop peu : pas de résultats. Trop agressif : tu perds du muscle. Un déficit modéré et constant est toujours plus efficace."},
+      {q:"Dois-je supprimer les glucides ?", a:"Non. Les glucides sont essentiels pour l'entraînement. Réduis-les progressivement, garde-les autour de l'entraînement et le matin. Supprime les glucides rapides et les sucres ajoutés."},
+      {q:"Combien de repas par jour ?", a:"3 à 5 repas selon ton emploi du temps. L'important est d'atteindre tes macros journalières. La fréquence des repas a peu d'impact si les totaux sont respectés."},
+      {q:"Puis-je manger avant de dormir ?", a:"Oui. Une collation protéinée nocturne (fromage blanc, skyr) limite le catabolisme musculaire pendant la nuit. Évite les glucides et les graisses saturées."},
+      {q:"Que faire si je stagne ?", a:"Réévalue tes apports (pèse tes portions), augmente légèrement le déficit (–100 à –150 kcal), augmente ton activité physique. Parfois un 'refeed day' (jour à maintenance) relance le métabolisme."},
+      {q:"Le cheat meal est-il utile ?", a:"Oui, s'il est contrôlé. 1 repas libre par semaine peut aider à relancer le métabolisme et éviter la frustration. Mais évite qu'il devienne un cheat day complet."},
+      {q:"Combien de protéines faut-il ?", a:"Entre 2 et 2,5 g/kg de poids de corps pour préserver la masse musculaire. Priorité absolue pendant la sèche."},
+      {q:"Dois-je faire du cardio ?", a:"Oui, mais du cardio modéré. 2 à 3 sessions de 20–30 min par semaine suffisent si ton déficit calorique est bien calibré. Trop de cardio augmente le catabolisme musculaire."}
+    ]
+  },
+  masse: {
+    title: 'PRISE DE MASSE',
+    color: '#3DAF6B',
+    tagColor: 'rgba(61,175,107,.15)',
+    intro: "Programme alimentaire de prise de masse conçu pour construire du muscle avec un minimum de gras. Surplus calorique contrôlé, alimentation fractionnée et timing des macronutriments optimisé pour les combattants.",
+    notions: [
+      {title: "Le surplus calorique", content: "Pour prendre du poids, tu dois consommer plus de calories que tu n'en dépenses. La maintenance est d'environ 2000 kcal pour un homme. Pour la prise de masse, vise +200 à +400 kcal/jour au-dessus de ta maintenance."},
+      {title: "Fréquence alimentaire", content: "Mange au moins 5 à 6 repas par jour. Sur ces 6 repas, fais au moins 3 repas solides. Les autres peuvent être des collations protéinées, fruits secs ou shakes. Fractionne pour distribuer l'énergie en continu."},
+      {title: "Protéines en priorité", content: "Commence toujours par manger tes protéines. Elles sont la base de la construction musculaire. Vise 2 à 2,5 g/kg de poids de corps minimum. Si l'appétit est difficile, utilise des protéines en poudre ou un gainer."}
+    ],
+    aliments: [
+      {emoji:"🍗",cat:"Viandes blanches",desc:"Contiennent 20 à 25g de protéines pour 100g. Faibles en graisses, faciles à cuisiner (poêle, grill, vapeur). Indispensables pour atteindre tes objectifs protéiques.",tags:["Poulet","Dinde","Veau"]},
+      {emoji:"🥚",cat:"Œufs",desc:"Environ 8g de protéines par œuf. L'albumine du blanc est une protéine très assimilable. Le jaune contient autant de protéines que le blanc, plus des vitamines liposolubles essentielles.",tags:["Blancs d'œufs","Œufs entiers","Omelette"]},
+      {emoji:"🐟",cat:"Poissons & viandes rouges",desc:"Les poissons gras (saumon, thon, maquereau) apportent protéines ET oméga-3 anti-inflammatoires. La viande rouge (bœuf, steak haché 5%) est riche en créatine naturelle.",tags:["Saumon","Thon","Steak haché 5%","Colin"]},
+      {emoji:"🌾",cat:"Glucides complexes",desc:"Base énergétique de la prise de masse. Riz complet, patate douce, flocons d'avoine, pâtes complètes, quinoa. Consomme-les autour de l'entraînement pour maximiser l'anabolisme.",tags:["Riz complet","Patate douce","Flocons d'avoine","Pâtes","Quinoa"]},
+      {emoji:"🥑",cat:"Bonnes graisses",desc:"Essentielles pour la production hormonale (testostérone, IGF-1). Huile d'olive, noix, amandes, avocat, huile de lin. Ne les supprime jamais.",tags:["Avocat","Noix","Amandes","Huile d'olive"]}
+    ],
+    morphotypes: [
+      {
+        id:'ecto', emoji:'⚡', name:'ECTOMORPHE',
+        desc:"Métabolisme très élevé — brûle les calories rapidement. Candidat idéal pour la prise de masse : mange beaucoup de glucides à IG bas.",
+        kcal:"+400 à +600 kcal/j au-dessus maintenance",
+        conseil:"Consomme exclusivement des hydrates de carbone à index glycémique bas : riz complet, épeautre, patate douce. Multiplie les collations entre les repas.",
+        macros:[{val:"2–2,5 g/kg",lbl:"PROTÉINES"},{val:"4–6 g/kg",lbl:"GLUCIDES"},{val:"20–25%",lbl:"LIPIDES"}],
+        repas:[
+          {icon:"🌅",titre:"Petit-déjeuner (~700 kcal)",items:["100g flocons d'avoine","250ml lait","3 œufs au plat","1 kiwi","30g protéines (shake ou skyr)"]},
+          {icon:"☀️",titre:"Déjeuner (~800 kcal)",items:["250g pâtes cuites","180g saumon","2 tomates","1 fromage blanc","1 banane"]},
+          {icon:"⚡",titre:"Pré-entraînement",items:["1 banane","30g gainer","Eau"]},
+          {icon:"🌙",titre:"Dîner (~700 kcal)",items:["200g riz complet","150g blanc de poulet","150g petits pois","3 carrés chocolat noir"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["200g fromage blanc","1 tranche poulet","30g gainer (optionnel)"]}
+        ]
+      },
+      {
+        id:'meso', emoji:'💪', name:'MÉSOMORPHE',
+        desc:"Corps homogène, prend de la masse facilement. Varie les apports en protéines et optimise le timing nutritionnel autour de l'entraînement.",
+        kcal:"+200 à +400 kcal/j au-dessus maintenance",
+        conseil:"Varie tes sources de protéines. Consomme 2 à 3g de protéines/kg. Favorise les glucides complexes et limite les graisses saturées.",
+        macros:[{val:"2–2,5 g/kg",lbl:"PROTÉINES"},{val:"3–5 g/kg",lbl:"GLUCIDES"},{val:"25–30%",lbl:"LIPIDES"}],
+        repas:[
+          {icon:"🌅",titre:"Petit-déjeuner (~600 kcal)",items:["70g flocons d'avoine","1 banane","2 œufs + 2 blancs","200ml lait d'amande"]},
+          {icon:"☀️",titre:"Déjeuner (~700 kcal)",items:["150g blanc de poulet","150g quinoa cuit","1 wrap complet","Légumes crus"]},
+          {icon:"⚡",titre:"Pré-entraînement",items:["1 pomme","10 amandes","1 yaourt 0%"]},
+          {icon:"🌙",titre:"Dîner (~600 kcal)",items:["140g steak haché 5%","130g pommes de terre vapeur","100g brocolis","1 œuf brouillé"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["150g skyr","10g noix"]}
+        ]
+      },
+      {
+        id:'endo', emoji:'🔥', name:'ENDOMORPHE',
+        desc:"Prend du gras facilement — prise de masse à faire avec rigueur. Surplus calorique minimal, macros contrôlées, cardio maintenu.",
+        kcal:"+100 à +200 kcal/j au-dessus maintenance",
+        conseil:"Limite le surplus calorique. Préfère les glucides complexes à IG bas. Maintiens 2 séances de cardio par semaine même en prise de masse pour limiter la prise de gras.",
+        macros:[{val:"2,5 g/kg",lbl:"PROTÉINES"},{val:"2–3 g/kg",lbl:"GLUCIDES"},{val:"25–30%",lbl:"LIPIDES"}],
+        repas:[
+          {icon:"🌅",titre:"Petit-déjeuner (~500 kcal)",items:["2 œufs + 2 blancs","50g pain complet","1 tranche poulet","1 yaourt 0%"]},
+          {icon:"☀️",titre:"Déjeuner (~650 kcal)",items:["150g blanc de dinde","100g riz complet","100g brocolis vapeur","1 c. à soupe huile d'olive"]},
+          {icon:"⚡",titre:"Pré-entraînement",items:["100g fromage blanc","1 galette de riz","Purée de noisettes"]},
+          {icon:"🌙",titre:"Dîner (~550 kcal)",items:["130g saumon","80g lentilles","100g épinards","1 c. à café huile de noix"]},
+          {icon:"🌛",titre:"Collation nocturne",items:["150g yaourt 0%"]}
+        ]
+      }
+    ],
+    complements: [
+      {moment:"Matin au réveil",items:["30g gainer dilué dans 250ml d'eau","1 pilule vitamine B (si fatigue)","3g créatine"]},
+      {moment:"Midi",items:["3g créatine","30g gainer dans 250ml d'eau"]},
+      {moment:"Avant la séance",items:["3 dosettes BCAA dans 250ml d'eau","3g créatine (optionnel)"]},
+      {moment:"Après la séance",items:["30g whey protéine","30g gainer (si ectomorphe)","Glucides rapides (banane)"]},
+      {moment:"Coucher",items:["Caséine ou fromage blanc","Magnésium (récupération sommeil)"]}
+    ],
+    aNepasFaire: [
+      "Évite les sucres rapides avant l'effort (boissons énergisantes, sodas). La sécrétion d'insuline qu'ils provoquent crée une hypoglycémie réactionnelle — sensation de faiblesse pendant la séance.",
+      "Ne saute pas de repas. La prise de masse demande un apport calorique constant. Sauter un repas te met immédiatement en déficit.",
+      "Ne néglige pas les légumes. Même en masse, les micronutriments sont essentiels. Minimum 200–300g de légumes par jour.",
+      "Ne te force pas à manger au-delà de ton appétit. En cas de manque d'appétit, utilise des stimulateurs naturels comme le fenugrec, ou fractionne davantage.",
+      "Ne confonds pas prise de masse et alimentation libre. Chaque calorie doit être calibrée — un surplus non contrôlé génère du gras, pas du muscle."
+    ],
+    resume: [
+      "Fractionne tes apports caloriques en 5 à 6 repas ou plus",
+      "Choisis des aliments que tu apprécies — la régularité est clé",
+      "Ne te force jamais à manger. En cas de manque d'appétit, utilise un gainer ou des stimulateurs d'appétit",
+      "Un gainer peut optimiser tes apports caloriques sans te forcer à manger des volumes excessifs",
+      "Commence TOUJOURS par manger tes protéines avant les glucides et lipides"
+    ],
+    exemples: [
+      {
+        kcal:"2500 kcal",
+        macros:"Protéines 174g (27,5%) · Glucides 253g (40%) · Lipides 92g (32,5%)",
+        repas:[
+          {titre:"Petit-déjeuner",items:["60g flocons d'avoine","15cl lait","2 œufs","1 fruit"]},
+          {titre:"Collation",items:["30g protéines (shake)","1 banane"]},
+          {titre:"Déjeuner",items:["150g blanc de poulet","150g riz basmati","Légumes + huile d'olive"]},
+          {titre:"Pré-séance",items:["30g gainer","1 fruit"]},
+          {titre:"Dîner",items:["150g poisson","100g patate douce","Légumes verts"]},
+          {titre:"Nocturne",items:["200g fromage blanc 0%"]}
+        ]
+      },
+      {
+        kcal:"3000 kcal",
+        macros:"Protéines 191g (25%) · Glucides 345g (46%) · Lipides 98g (29%)",
+        repas:[
+          {titre:"Petit-déjeuner",items:["80g flocons d'avoine","200ml lait","3 œufs","1 banane","30g gainer"]},
+          {titre:"Collation matin",items:["200g skyr","20g noix"]},
+          {titre:"Déjeuner",items:["180g blanc de poulet","200g riz","2 tomates","Huile d'olive"]},
+          {titre:"Pré-séance",items:["30g gainer","1 pomme","Amandes"]},
+          {titre:"Post-séance",items:["30g whey","Banane"]},
+          {titre:"Dîner",items:["160g saumon","150g quinoa","Épinards"]},
+          {titre:"Nocturne",items:["200g fromage blanc","Graines de chia"]}
+        ]
+      }
+    ]
+  }
+};
+
+// ══════════════════════════════════════════════
+// PROFILE STATE
+// ══════════════════════════════════════════════
+function loadProfile(){return JSON.parse(localStorage.getItem('ce_profile')||'[]');}
+function saveProfile(entries){localStorage.setItem('ce_profile',JSON.stringify(entries));}
+let profileForm={poids:'',feeling:0,sommeil:0,energie:0,notes:''};
+
+// ══════════════════════════════════════════════
+// PROFILE OVERLAY RENDER
+// ══════════════════════════════════════════════
+function openProfile(){
+  document.getElementById('profile-overlay').classList.add('open');
+  renderProfileScroll();
+}
+function closeProfile(){document.getElementById('profile-overlay').classList.remove('open');}
+
+function renderProfileScroll(){
+  const scroll=document.getElementById('profile-scroll');
+  const entries=loadProfile();
+  const today=new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+  const todayKey=new Date().toISOString().split('T')[0];
+  const todayEntry=entries.find(e=>e.date===todayKey);
+  if(todayEntry){profileForm={poids:todayEntry.poids,feeling:todayEntry.feeling,sommeil:todayEntry.sommeil,energie:todayEntry.energie,notes:todayEntry.notes};}
+
+  const scaleHTML=(field,val)=>{let h='';for(let i=1;i<=10;i++){h+=`<button class="pf-scale-btn${val==i?' sel':''}" onclick="setPF('${field}',${i})">${i}</button>`;}return h;};
+
+  scroll.innerHTML=`
+  <div class="profile-hero">
+    <div class="profile-hero-title">MON PROFIL</div>
+    <div class="profile-hero-sub">${today} — Saisis ta progression du jour</div>
+  </div>
+  <div class="profile-form">
+    <div class="profile-form-title">ENTRÉE DU JOUR</div>
+    <div class="pf-row">
+      <div class="pf-label">⚖️ Poids (kg)</div>
+      <input class="pf-input" id="pf-poids" type="number" step="0.1" placeholder="ex: 78.5" value="${profileForm.poids}" oninput="profileForm.poids=this.value">
+    </div>
+    <div class="pf-row">
+      <div class="pf-label">💭 Feeling général</div>
+      <div class="pf-scale">${scaleHTML('feeling',profileForm.feeling)}</div>
+    </div>
+    <div class="pf-row">
+      <div class="pf-label">😴 Qualité du sommeil</div>
+      <div class="pf-scale">${scaleHTML('sommeil',profileForm.sommeil)}</div>
+    </div>
+    <div class="pf-row">
+      <div class="pf-label">⚡ Énergie / Motivation</div>
+      <div class="pf-scale">${scaleHTML('energie',profileForm.energie)}</div>
+    </div>
+    <div class="pf-row">
+      <div class="pf-label">📝 Notes libres</div>
+      <textarea class="pf-input notes-ta" rows="3" placeholder="Sensations, douleurs, remarques..." oninput="profileForm.notes=this.value">${profileForm.notes}</textarea>
+    </div>
+    <button class="pf-save-btn" onclick="saveProfileEntry()">ENREGISTRER L'ENTRÉE</button>
+  </div>
+  ${renderWeightChart(entries)}
+  ${renderProfileHistory(entries)}`;
+}
+
+function setPF(field,val){
+  profileForm[field]=val;
+  renderProfileScroll();
+}
+
+function saveProfileEntry(){
+  if(!profileForm.poids&&!profileForm.feeling){alert('Saisis au moins ton poids ou ton feeling !');return;}
+  const entries=loadProfile();
+  const key=new Date().toISOString().split('T')[0];
+  const idx=entries.findIndex(e=>e.date===key);
+  const entry={date:key,dateLabel:new Date().toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'}),...profileForm};
+  if(idx>=0)entries[idx]=entry;else entries.unshift(entry);
+  saveProfile(entries.slice(0,90));
+  profileForm={poids:'',feeling:0,sommeil:0,energie:0,notes:''};
+  renderProfileScroll();
+  toast('Entrée sauvegardée ! 📊');
+}
+
+function renderWeightChart(entries){
+  const withWeight=entries.filter(e=>e.poids).slice(0,30).reverse();
+  if(withWeight.length<2)return`<div class="profile-chart"><div class="pc-title">COURBE DE POIDS</div><div class="pc-svg-wrap"><div class="pc-no-data">Saisis ton poids pendant au moins 2 jours pour voir la courbe.</div></div></div>`;
+  const weights=withWeight.map(e=>parseFloat(e.poids));
+  const minW=Math.min(...weights)-1;const maxW=Math.max(...weights)+1;
+  const W=320,H=100,pad=10;
+  const toX=(i)=>pad+(i/(withWeight.length-1))*(W-pad*2);
+  const toY=(w)=>H-pad-((w-minW)/(maxW-minW))*(H-pad*2);
+  let path=withWeight.map((e,i)=>`${i===0?'M':'L'}${toX(i).toFixed(1)},${toY(parseFloat(e.poids)).toFixed(1)}`).join(' ');
+  const fillPath=path+` L${toX(withWeight.length-1).toFixed(1)},${H} L${toX(0).toFixed(1)},${H} Z`;
+  const current=weights[weights.length-1];const start=weights[0];const diff=(current-start).toFixed(1);const sign=diff>0?'+':'';
+  return`<div class="profile-chart"><div class="pc-title">COURBE DE POIDS <span style="color:var(--or);font-size:13px">${current} kg <span style="font-size:11px;color:${diff>0?'#D4603A':'#3DAF6B'}">(${sign}${diff} kg)</span></span></div>
+  <div class="pc-svg-wrap"><svg class="pc-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.2"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/></linearGradient></defs>
+    <path d="${fillPath}" fill="url(#wg)"/>
+    <path d="${path}" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${withWeight.map((e,i)=>`<circle cx="${toX(i).toFixed(1)}" cy="${toY(parseFloat(e.poids)).toFixed(1)}" r="3" fill="#C9A84C"/>`).join('')}
+  </svg></div></div>`;
+}
+
+function renderProfileHistory(entries){
+  if(!entries.length)return'';
+  const last=entries.slice(0,7);
+  const metric=(v,label,max)=>v?('<span class="ph-metric">'+label+' '+v+(max?'/'+max:'')+'</span>'):'';
+  const items=last.map(e=>{
+    const notes=e.notes?('<div class="ph-notes">\"'+e.notes+'\"</div>'):'';
+    return '<div class="ph-item"><div class="ph-date">'+e.dateLabel+'</div><div class="ph-metrics">'+metric(e.poids,'⚖️',false)+metric(e.feeling,'💭',10)+metric(e.sommeil,'😴',10)+metric(e.energie,'⚡',10)+'</div>'+notes+'</div>';
+  }).join('');
+  return '<div class="profile-history"><div class="ph-title">HISTORIQUE (7 DERNIERS JOURS)</div>'+items+'</div>';
+}
+
+document.getElementById('profile-close').addEventListener('click',closeProfile);
+
+// ══════════════════════════════════════════════
+// NUTRITION OVERLAY RENDER
+// ══════════════════════════════════════════════
+let nutState={view:'home',section:null,morpho:null};
+
+function openNutrition(){
+  nutState={view:'home',section:null,morpho:null};
+  document.getElementById('nutrition-overlay').classList.add('open');
+  renderNutritionScroll();
+}
+function closeNutrition(){document.getElementById('nutrition-overlay').classList.remove('open');}
+
+function renderNutritionScroll(){
+  const scroll=document.getElementById('nutrition-scroll');
+  const titleEl=document.getElementById('nut-ov-title');
+
+  if(nutState.view==='home'){
+    titleEl.textContent='NUTRITION';
+    let h='<div class="nut-home">';
+    h+='<div class="nut-home-title">NUTRITION<br><span style="color:var(--or)">COMBAT</span></div>';
+    h+='<div class="nut-home-sub">Adapte ton alimentation à ton objectif. Chaque programme est décliné selon ton morphotype.</div>';
+    h+='<div class="nut-card nut-card-seche" onclick="openNutSection(\'seche\')">';
+    h+='<div class="nut-card-tag" style="color:#C9A84C">OBJECTIF PERTE DE GRAS</div>';
+    h+='<div class="nut-card-title" style="color:#C9A84C">SÈCHE</div>';
+    h+='<div class="nut-card-sub" style="color:#888">Déficit calorique contrôlé · Préservation musculaire · 3 morphotypes</div>';
+    h+='<div class="nut-card-chips">';
+    h+='<span class="nut-chip" style="background:rgba(201,168,76,.12);color:#C9A84C">Ectomorphe</span>';
+    h+='<span class="nut-chip" style="background:rgba(201,168,76,.12);color:#C9A84C">Mésomorphe</span>';
+    h+='<span class="nut-chip" style="background:rgba(201,168,76,.12);color:#C9A84C">Endomorphe</span>';
+    h+='</div><div class="nut-card-arrow">›</div></div>';
+    h+='<div class="nut-card nut-card-masse" onclick="openNutSection(\'masse\')">';
+    h+='<div class="nut-card-tag" style="color:#3DAF6B">OBJECTIF CONSTRUCTION MUSCULAIRE</div>';
+    h+='<div class="nut-card-title" style="color:#3DAF6B">PRISE DE MASSE</div>';
+    h+='<div class="nut-card-sub" style="color:#888">Surplus calorique · Alimentation fractionnée · 5 à 6 repas/jour</div>';
+    h+='<div class="nut-card-chips">';
+    h+='<span class="nut-chip" style="background:rgba(61,175,107,.12);color:#3DAF6B">Ectomorphe</span>';
+    h+='<span class="nut-chip" style="background:rgba(61,175,107,.12);color:#3DAF6B">Mésomorphe</span>';
+    h+='<span class="nut-chip" style="background:rgba(61,175,107,.12);color:#3DAF6B">Endomorphe</span>';
+    h+='</div><div class="nut-card-arrow">›</div></div></div>';
+    scroll.innerHTML=h;
+
+  } else if(nutState.view==='section'){
+    const d=NUT[nutState.section];
+    titleEl.textContent=d.title;
+    const isMasse=nutState.section==='masse';
+    const c=d.color;
+
+    let timingOrCompHtml='';
+    if(!isMasse){
+      let th='';
+      th+='<div class="nut-section-title" style="color:'+c+'">TIMING DES REPAS</div>';
+      th+='<table class="nut-table"><thead><tr><th>Moment</th><th>Objectif</th><th>Contenu recommandé</th></tr></thead><tbody>';
+      d.timing.forEach(function(t){th+='<tr><td><strong style="color:'+c+'">'+t.moment+'</strong></td><td>'+t.objectif+'</td><td>'+t.contenu+'</td></tr>';});
+      th+='</tbody></table>';
+      th+='<div class="nut-section-title" style="color:'+c+'">COMPLÉMENTS ALIMENTAIRES</div>';
+      th+='<table class="nut-table"><thead><tr><th>Complément</th><th>Objectif</th><th>Remarque</th></tr></thead><tbody>';
+      d.complements.forEach(function(t){th+='<tr><td><strong style="color:'+c+'">'+t.nom+'</strong></td><td>'+t.objectif+'</td><td>'+t.note+'</td></tr>';});
+      th+='</tbody></table>';
+      timingOrCompHtml=th;
+    } else {
+      let th='';
+      th+='<div class="nut-section-title" style="color:'+c+'">ALIMENTS À PRIVILÉGIER</div>';
+      d.aliments.forEach(function(a){
+        var tags=a.tags.map(function(t){return '<span class="nut-tag">'+t+'</span>';}).join('');
+        th+='<div class="nut-aliment-cat"><h4>'+a.emoji+' '+a.cat+'</h4><p>'+a.desc+'</p><div class="nut-tags">'+tags+'</div></div>';
+      });
+      th+='<div class="nut-section-title" style="color:'+c+'">TIMING DES COMPLÉMENTS</div>';
+      d.complements.forEach(function(t){
+        var items=t.items.map(function(i){return '→ '+i;}).join('<br>');
+        th+='<div class="nut-info-box"><h4>'+t.moment+'</h4><p>'+items+'</p></div>';
+      });
+      th+='<div class="nut-section-title" style="color:'+c+'">À NE PAS FAIRE</div>';
+      d.aNepasFaire.forEach(function(x){th+='<div class="nut-info-box"><p>⚠️ '+x+'</p></div>';});
+      th+='<div class="nut-section-title" style="color:'+c+'">RÉSUMÉ EN 5 ÉTAPES</div>';
+      th+='<div class="nut-steps">';
+      d.resume.forEach(function(r,i){th+='<div class="nut-step"><div class="nut-step-num">'+(i+1)+'</div><div class="nut-step-text">'+r+'</div></div>';});
+      th+='</div>';
+      th+='<div class="nut-section-title" style="color:'+c+'">EXEMPLES DE JOURNÉES TYPES</div>';
+      d.exemples.forEach(function(ex){
+        var repasHtml=ex.repas.map(function(r){return '<div style="margin-bottom:6px"><strong style="color:'+c+';font-family:Bebas Neue;font-size:13px;letter-spacing:1px">'+r.titre+'</strong><br><span style="font-size:12px;color:#888">'+r.items.join(' · ')+'</span></div>';}).join('');
+        th+='<div class="nut-info-box"><h4>'+ex.kcal+'</h4><p style="color:#888;margin-bottom:10px">'+ex.macros+'</p>'+repasHtml+'</div>';
+      });
+      timingOrCompHtml=th;
+    }
+
+    let h='<button class="nut-back-btn" onclick="nutGoBack()">← Retour nutrition</button>';
+    h+='<div class="nut-section">';
+    h+='<div class="nut-intro" style="border-left-color:'+c+'">'+d.intro+'</div>';
+    h+='<div class="nut-section-title" style="color:'+c+'">NOTIONS DE BASE</div>';
+    d.notions.forEach(function(n){h+='<div class="nut-info-box"><h4>'+n.title+'</h4><p>'+n.content+'</p></div>';});
+    h+='<div class="nut-section-title" style="color:'+c+'">PAR MORPHOTYPE — CHOISIR LE TIEN</div>';
+    h+='<div class="nut-morpho-grid">';
+    d.morphotypes.forEach(function(m){
+      var active=nutState.morpho===m.id?' active':'';
+      h+='<div class="nut-morpho-btn'+active+'" onclick="setNutMorpho(this.dataset.id)" data-id="'+m.id+'">';
+      h+='<div class="nut-morpho-icon">'+m.emoji+'</div>';
+      h+='<div class="nut-morpho-name">'+m.name+'</div>';
+      h+='<div class="nut-morpho-kcal">'+m.kcal+'</div></div>';
+    });
+    h+='</div>';
+    if(nutState.morpho){h+=renderMorphoDetail(d,nutState.morpho);}
+    else{h+='<div style="font-size:12px;color:var(--g1);text-align:center;padding:16px;font-style:italic">Sélectionne ton morphotype ci-dessus</div>';}
+    h+=timingOrCompHtml;
+    if(!isMasse){h+=renderFaq(d.faq,c);}
+    h+='</div>';
+    scroll.innerHTML=h;
+  }
+}
+
+function renderMorphoDetail(d,morphoId){
+  const m=d.morphotypes.find(x=>x.id===morphoId);
+  if(!m)return'';
+  const c=d.color;
+  return`<div style="margin-bottom:12px">
+    <div class="nut-info-box" style="border-left:3px solid ${c};border-radius:0 8px 8px 0">
+      <h4>${m.emoji} ${m.name} — ${m.kcal}</h4>
+      <p>${m.desc}</p>
+      ${m.conseil?`<p style="margin-top:6px;color:var(--g3)">${m.conseil}</p>`:''}
+    </div>
+    <div class="nut-macros">${m.macros.map(mc=>`<div class="nut-macro"><div class="nut-macro-val">${mc.val}</div><div class="nut-macro-lbl">${mc.lbl}</div></div>`).join('')}</div>
+    <div class="nut-section-title" style="color:${c}">REPAS TYPES — ${m.name}</div>
+    ${m.repas.map(r=>{const itemsHtml=r.items.map(i=>'<div class="nut-meal-item">'+i+'</div>').join('');return '<div class="nut-meal"><div class="nut-meal-head"><div class="nut-meal-icon">'+r.icon+'</div><div class="nut-meal-title">'+r.titre+'</div></div><div class="nut-meal-items">'+itemsHtml+'</div></div>';}).join('')}
+  </div>`;
+}
+
+function renderFaq(faq,c){
+  const faqItems=faq.map((f,i)=>'<div class="nut-faq-item" id="faq-'+i+'"><div class="nut-faq-q" onclick="toggleFaq('+i+')"><span>'+f.q+'</span><span class="nut-faq-arrow">▼</span></div><div class="nut-faq-a">'+f.a+'</div></div>').join('');
+  return'<div class="nut-section-title" style="color:'+c+'">FAQ</div>'+faqItems;
+}
+
+function toggleFaq(i){
+  const el=document.getElementById('faq-'+i);
+  if(el)el.classList.toggle('open');
+}
+
+function openNutSection(section){
+  nutState.view='section';
+  nutState.section=section;
+  nutState.morpho=null;
+  renderNutritionScroll();
+  document.getElementById('nutrition-scroll').scrollTop=0;
+}
+
+function setNutMorpho(morpho){
+  nutState.morpho=nutState.morpho===morpho?null:morpho;
+  renderNutritionScroll();
+  setTimeout(()=>{
+    const el=document.querySelector('.nut-morpho-btn.active');
+    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },100);
+}
+
+function nutGoBack(){
+  nutState.view='home';nutState.section=null;nutState.morpho=null;
+  renderNutritionScroll();
+  document.getElementById('nutrition-scroll').scrollTop=0;
+}
+
+document.getElementById('nutrition-close').addEventListener('click',closeNutrition);
+
+
+render();
+</script>
+</body>
+</html>
