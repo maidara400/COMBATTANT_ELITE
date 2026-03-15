@@ -343,12 +343,12 @@ html,body{height:100%;background:var(--noir);color:var(--blanc);font-family:'DM 
 }
 .wo-rest.active{display:flex}
 .wo-rest-title{font-size:12px;letter-spacing:2px;color:var(--g2);text-transform:uppercase;font-family:'Bebas Neue'}
-.wo-rest-ring{position:relative;width:110px;height:110px}
-.wo-rest-ring svg{width:110px;height:110px;transform:rotate(-90deg)}
-.wo-rest-ring circle{fill:none;stroke-width:5}
+.wo-rest-ring{position:relative;width:160px;height:160px}
+.wo-rest-ring svg{width:160px;height:160px;transform:rotate(-90deg)}
+.wo-rest-ring circle{fill:none;stroke-width:6}
 .wo-rest-ring .rt{stroke:var(--n4)}
 .wo-rest-ring .rf{stroke:var(--p3);stroke-linecap:round;transition:stroke-dashoffset 1s linear}
-.wo-rest-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:36px;color:var(--p3)}
+.wo-rest-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:28px;color:var(--p3);letter-spacing:1px}
 .wo-rest-skip{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--g2);border-radius:20px;padding:8px 24px;font-size:13px;cursor:pointer;font-family:'Bebas Neue';letter-spacing:1px}
 .wo-rest-skip:active{background:var(--n3)}
 
@@ -715,54 +715,252 @@ html,body{height:100%;background:var(--noir);color:var(--blanc);font-family:'DM 
 // VIDEO LOOKUP
 // ═══════════════════════════
 const V={
-  "high static jump":"7B3RR6mUy5w","bench barbell jump squat":"Olqjm8xZ5Pk","barbell jump squat":"Olqjm8xZ5Pk",
-  "landmine squat press":"oXHCnV7HFgs","landmine press":"B4gIyoUMHO8","kettlebell swing elastic":"hjGTBOlYfT4",
-  "kettlebell swing élastique":"ckmGUUHTp9M","switch step slam ball":"esO5yTNMlYw","développé couché à la barre isométrique":"e0zqnu94AHY",
-  "pompes plyométriques isométrique":"dMUXiFzipJw","pompes plyométriques":"w4YFQzF1-wE","pompe plyométrique":"w4YFQzF1-wE",
-  "medball punch":"yj8OgcBU894","zercher squat":"Yg862H_qO9w","sled push":"w2oZfMTp7lI",
-  "side sled push":"CM4MlJc44fU","trap bar farmer walk":"Kit8zGJToks","explosive hip torque":"ZxTWAFW0jy8",
-  "medball shuffle to lateral throw":"rwuT6mUA_iU","gym ball dumbbell press":"L1EfE7BzHhw",
-  "landmine press hip variation":"ckDle5nhJxc","passage d'épaulé":"ifi0QIuxNOk","ski erg":"6dZg1dMP5NI",
-  "kettlebell swing + high jump squat":"RLqoh0HLbXY","banded kb front squat press":"UW_uvO_eHuw",
-  "pendlay row":"Z6VN37vmtG4","trap bar deadlift":"Fmd6jtkjnkM","high knee dynamic":"xTDAVRcAbak",
-  "knee to floor to high jump":"KyYZTpnxGHw","glute bridge single dumbbell floor press":"TIcN82lYEcI",
-  "b stance squat":"gQ1ojXP1IXc","développé couché à la barre":"KYLkJXusFtY","bench press":"KYLkJXusFtY",
-  "dumbbell bench press unilateral":"JlsfV0wY7SY","rotational landmine clean & press":"M3gl-fpFkh0",
-  "b stance trap bar deadlift":"W7jn-UU71GM","dumbbell b stance box jump":"5xv7gsyoJDM",
-  "kettlebell drop lunges":"keKc9QbLa9Y","side step to high jump":"hmrzE9L8VeE",
-  "stato dynamic hip thrust":"kvLoUQvRj1U","hiptrust stato":"U0QfQzcnYKw",
-  "knee floor to side jump":"a2R4KTlyhYU","full rotation medball slam":"sFmxTcxCVIo",
-  "power clean":"5tsy1Qp6Bx8","hang power clean":"5tsy1Qp6Bx8","hang clean":"R7J4FvdfiPI",
-  "landmine split jerk":"sYhU8kzoJfs","landmine press split jerk":"0yJRyzVMVM0",
-  "traction":"UtJnu6mH454","tractions":"UtJnu6mH454","tractions lestées":"UtJnu6mH454",
-  "tractions australiennes":"oPwKzB5XfnU","db clean & press":"Kxc8PZt8cnU","clean & press":"Nd0MSeiBN2Q",
-  "dead broad jump":"KT9tt9ceBC4","broad jump":"AkdQ_7P12WA","tipping plate fast":"Wol0eaD23Ek",
-  "fast ladder tipping":"uLETSg1GVl8","clean high pull":"0ys7v_pDFNo","tirage haut d'épaule":"lQQtFPVA3JI",
-  "tirage lourd d'épaulé":"lWsq0QsE7m0","suitcase carry":"SP-PQ-dp6cg","hollow arch":"DQBMf599GZw",
-  "slam ball":"YpyqLj_e5vg","heavy straight medball shoot":"ej2gBzNwNtQ","medball lateral jump":"KScSGcMb2Y8",
-  "hips dumbbell floor press":"4VY7sDWQzlw","landmine switch press":"04OQ5RotC14","zercher lunges":"RmGOUVJBviQ",
-  "knee floor to high jump":"nz4jNLOAeAU","zercher good morning":"s52tZYAlNnQ","high squat box jump":"nsZ1MblXa8E",
-  "box single leg high broad jump":"GiyyFKMeN5A","wall roll up":"Bqy6kwlrs1U","deadlift":"Ho3G4m2OGh4",
-  "soulever de terre":"Ho3G4m2OGh4","zercher deadlift":"k0L1HiUUve8","kettlebell cossack squat":"p7mAdA0N6GQ",
-  "cossack squat":"p7mAdA0N6GQ","elastic jump squat":"EX5JKR7kE3U","medball side shuffle slam":"vB7UIfnWiPk",
-  "soulever de terre jambes tendues":"VThBpsRttvE","front squat":"aQuNtfOAEtI","barbell punch":"C7xayzFVtC4",
-  "high hurdle jump":"XYIBWNxbQVE","shadow single":"48eNEdKZqqk","curl prise marteau":"d_hcLQNMhzI",
-  "gorilla row":"U-vYr2rBOuA","sprawl with high jump":"bdF1vduRQmE","heavy kb farmer walk":"0B0DQ16ItvY",
-  "kb farmer walk":"cyCpvtxfHBg","kettlebell farmer walk":"cyCpvtxfHBg","one step clean press on box":"cfSEHh24xRQ",
-  "one step high jump on box":"wVBS9uTvXVw","squat box":"mHKteQXrIXw","side jump high knee with kb":"ZjTJyNh8OQw",
-  "développé couché aux haltères":"Y662W3L9rWQ","dumbbell incline press":"yDCkMd-uMkw",
-  "développé couché incliné":"yDCkMd-uMkw","leg raises":"Tg16x_-2vrQ","single leg side jump":"P0DEU9p2Zpw",
-  "dumbbell press floor bridge":"T2UHUFJog30","landmine press squat":"hmV3cDZiU4k",
-  "straight medball shot":"gqWUGk3gbh0","rotational medball shot":"I5Dgq3_TIDY","hips rotate medball":"Y2oUP3rNoo8",
-  "fast tipping plate":"D35VE9SoAdI","jump squat over the box":"Ge8ErAnaSek","lunges to high step":"iYCdyHj4D1k",
-  "isométrique squat":"IGZtvCYmTK8","push press":"bkE04fOihhg","barbell bridge floor press":"GhQT-3fBtgE",
-  "slam ball switch step":"8qffBYmrPj8","bûcheron à l'haltère":"RSOjqL1wATc","rameur":"Aakk_gs3gSo",
-  "hiptrust":"5bKYxEBI_gE","développé couché en stato dynamique":"9D6HqYDCJ9g",
-  "medball side jump":"RoCRyj2iyhU","lateral jump with medball":"1T4ZsLxq56c","high knee to box jump":"MgbTbNic_Wk",
-  "fast slam ball":"6yVGJeh-NPE","abs side press plate":"RpSg0DFZYzk","jump lunges":"Qwdse8vW3iQ",
-  "landmine seated press":"SbuanmaLV30","zercher pull band":"lndYuIhmAtg",
-  "développé couché au sol":"lo4nJHjs_as","pompes pliométrique":"EqGuCV1rO-M","assault bike":"7WaJXYjUzdY",
-  "bench barbell squat jump":"G56AYnq6K4w","montées de genoux dynamiques":"xTDAVRcAbak"
+  "abs side press plate":"RpSg0DFZYzk",
+  "assault bike":"7WaJXYjUzdY",
+  "assault bike :":"7WaJXYjUzdY",
+  "assault bike : sec on sec off pendant minutes sur séries avec minute de récupération passive":"hIuGxEVpyVw",
+  "assault bike : secondes deffort secondes de récupération sur minutes séries":"hIuGxEVpyVw",
+  "b stance isometric squat":"uTu4ach4j_w",
+  "b stance medball shot rotate":"WrfPOn_fbIE",
+  "b stance squat":"6UvzW8lstf4",
+  "b stance trap bar deadlift":"W7jn-UU71GM",
+  "b stand trap bar deadlift":"W7jn-UU71GM",
+  "banded kb front squat":"UW_uvO_eHuw",
+  "banded kb front squat press":"UW_uvO_eHuw",
+  "barbell bench jump squat":"Olqjm8xZ5Pk",
+  "barbell bridge floor press":"GhQT-3fBtgE",
+  "barbell press floor bridge":"Jko8kmwxgaQ",
+  "barbell punch":"C7xayzFVtC4",
+  "bench barbell jump squat":"Olqjm8xZ5Pk",
+  "bench barbell squat jump":"Olqjm8xZ5Pk",
+  "bench dumbbell single press hip":"zNmmOLdr954",
+  "bike en fraction / assault bike s":"e3Q_96mtJCw",
+  "box single leg high broad jump":"GiyyFKMeN5A",
+  "broad jump":"AkdQ_7P12WA",
+  "bucheron à lhaltère":"RSOjqL1wATc",
+  "bulgarian jump squat":"nPRuauQNUKs",
+  "clean":"R7J4FvdfiPI",
+  "clean & press":"Nd0MSeiBN2Q",
+  "clean & strict press":"yfH0gQLyAjM",
+  "clean high pull":"0ys7v_pDFNo",
+  "clean press":"GhwTZVhOFgc",
+  "cossack squat":"bp68XyXrNXU",
+  "curl prise marteau":"d_hcLQNMhzI",
+  "db clean & press":"Kxc8PZt8cnU",
+  "dead broad jump":"JUNST7aRlwQ",
+  "deadlift":"Ho3G4m2OGh4",
+  "developpé couché à la barre":"Du5AkUrV6fA",
+  "devéloppé couché aux haltères au gym ball":"2NYTowjGv68",
+  "dumbbell b stance box jump":"5xv7gsyoJDM",
+  "dumbbell b stance jump over the box":"ujNUSe3EZEM",
+  "dumbbell bench press unilateral":"JlsfV0wY7SY",
+  "dumbbell incline press":"yDCkMd-uMkw",
+  "dumbbell press floor bridge":"DVVB7X6CSc0",
+  "dumbbell press floor brigde":"T2UHUFJog30",
+  "dumbbells elastic pull":"e4yrGKY2PMM",
+  "dumbell b stance jump over the box":"cPvRiCqgncQ",
+  "développé couché au sol":"lo4nJHjs_as",
+  "développé couché aux haltères":"BvDJnFVQr0c",
+  "développé couché aux haltères unilatérales":"BvDJnFVQr0c",
+  "développé couché aux haltères unilatérales avec élastique":"RO2F3yTlqdU",
+  "développé couché avec élastique":"LytwiSdiEzo",
+  "développé couché en stato dynamique":"9D6HqYDCJ9g",
+  "développé couché en stato- dynamique":"9D6HqYDCJ9g",
+  "développé couché incliné aux haltères avec contraction des hanches":"yDCkMd-uMkw",
+  "développé couché à la barre":"WY9tBeNw6Ec",
+  "développé couché à la barre //":"Du5AkUrV6fA",
+  "développé couché à la barre avec élastique":"5KRkZC1NkGE",
+  "développé couché à la barre bench press":"KYLkJXusFtY",
+  "développé couché à la barre en stato- dynamique":"1iBXjGFK7-o",
+  "développé couché à la barre isométrique":"e0zqnu94AHY",
+  "développé couché à la barre isométrique bench press isometric":"e0zqnu94AHY",
+  "elastic band kb swing":"qucHGqAYyFM",
+  "elastic jump squat":"Mhe6rO8utL0",
+  "elastic kettlebell swing":"ckmGUUHTp9M",
+  "elastic push up":"Qwdse8vW3iQ",
+  "elastic rotate shot":"_aLxwPJ8oDM",
+  "explosive hip torque":"ZxTWAFW0jy8",
+  "explosive hip torque + explosive power with medball":"ZxTWAFW0jy8",
+  "fast ladder tipping":"d6AG3OaIYyM",
+  "fast slam ball":"6yVGJeh-NPE",
+  "fast tipping plate":"YWCK9bGaeYY",
+  "frontsquat":"aQuNtfOAEtI",
+  "full rotation medball slam":"sFmxTcxCVIo",
+  "full rotations medball slam":"sFmxTcxCVIo",
+  "glute bridge single dumbbell floor press":"TIcN82lYEcI",
+  "gorilla row":"U-vYr2rBOuA",
+  "gym ball dumbbell press":"L1EfE7BzHhw",
+  "hang clean":"R7J4FvdfiPI",
+  "hang power clean":"5tsy1Qp6Bx8",
+  "heavy kb farmer walk":"cqogEuC47C4",
+  "heavy straight medball shoot":"ej2gBzNwNtQ",
+  "high hurdle jump":"XYIBWNxbQVE",
+  "high jump":"CWyWRsaRrB8",
+  "high jump + side jump + high jump":"vxt6l8lAP_Q",
+  "high jump hurdles":"ONkvPpBdOZQ",
+  "high knee dynamic  jump over the box":"xTDAVRcAbak",
+  "high knee dynamic + jump over the box":"xTDAVRcAbak",
+  "high knee to box jump":"MgbTbNic_Wk",
+  "high squat box jump":"nsZ1MblXa8E",
+  "high static jump + isometric jump squat over the box":"7B3RR6mUy5w",
+  "hip thrust":"mD29I48u5R8",
+  "hips dumbbell floor press":"4VY7sDWQzlw",
+  "hips rotate medball":"Y2oUP3rNoo8",
+  "hips rotate medball shot":"Y2oUP3rNoo8",
+  "hiptrust":"mD29I48u5R8",
+  "hiptrust en stato-dynamique":"U0QfQzcnYKw",
+  "hiptrust status dynamic":"kvLoUQvRj1U",
+  "hollow arch":"oCe7RBPsQKg",
+  "hollow arch abs :":"nwb-aax9k6k",
+  "i jump":"CWyWRsaRrB8",
+  "i-jump":"CWyWRsaRrB8",
+  "iso squat jump over the box":"FBPCtRMcaCk",
+  "isometric press bar":"QH5MMvMhdY0",
+  "isometrique presse barre":"PkFZkpBWRN0",
+  "isométrique breakdown lunges":"6sBW8FdJgLA",
+  "isométrique curl à la barre ez":"SXdxGFwp-io",
+  "isométrique presse barre":"C9rgiB7QOcw",
+  "isométrique squat":"IGZtvCYmTK8",
+  "jump hurdle":"_aLxwPJ8oDM",
+  "jump lunges":"Qwdse8vW3iQ",
+  "jump squat avec élastique":"Q8MCpEvYa1w",
+  "jump squat over the box":"zCBTtNksJeA",
+  "kb swing elastic":"ckmGUUHTp9M",
+  "kettlebell clean":"I4Bhz2frQ_Q",
+  "kettlebell cossack squat":"p7mAdA0N6GQ",
+  "kettlebell drop lunges":"keKc9QbLa9Y",
+  "kettlebell dropped lunges":"3dBE1Fl9Blk",
+  "kettlebell farmer walk":"cyCpvtxfHBg",
+  "kettlebell swing":"8gcv33kmsw4",
+  "kettlebell swing + high jump squat":"RLqoh0HLbXY",
+  "kettlebell swing avec élastique":"ckmGUUHTp9M",
+  "kettlebell swing elastic":"hjGTBOlYfT4",
+  "kettlebell swing elastic band":"hjGTBOlYfT4",
+  "kettlebell swing élastic":"e4yrGKY2PMM",
+  "kettlebell swing élastique":"ckmGUUHTp9M",
+  "knee floor to high jump":"VuBjgQo6hms",
+  "knee floor to high jump + medball shot":"qf3akvvMsMk",
+  "knee floor to side jump":"0lLathm1-Vc",
+  "knee floor to straight jump":"4vjp3pd5ZTk",
+  "knee to floor side jump":"km7Lp1BJJaE",
+  "knee to floor to high jump  medball shot":"KyYZTpnxGHw",
+  "knee to floor to high jump + medball shot":"KyYZTpnxGHw",
+  "knee to floor to side jump":"km7Lp1BJJaE",
+  "knee to floor to straight jump":"4vjp3pd5ZTk",
+  "landmine press":"GdRI6Ok2isQ",
+  "landmine press hip variation":"ckDle5nhJxc",
+  "landmine press split jerk":"0yJRyzVMVM0",
+  "landmine press squat":"hmV3cDZiU4k",
+  "landmine press switch step":"f90QrStNKus",
+  "landmine rotate elastic press":"RstcqBfzUz0",
+  "landmine seated press":"SbuanmaLV30",
+  "landmine side squat":"3Wjb65mfgMc",
+  "landmine split jerk":"sYhU8kzoJfs",
+  "landmine squat press":"oXHCnV7HFgs",
+  "landmine switch press":"04OQ5RotC14",
+  "lateral jump with medball":"1T4ZsLxq56c",
+  "lateral jump with medball shot":"1T4ZsLxq56c",
+  "leg raises":"CvkyK-BmNl0",
+  "lunges step single leg":"q_2ml0KbXCw",
+  "lunges to high step":"iYCdyHj4D1k",
+  "lunges to high step on box":"_nUoak5KfoI",
+  "lunges to high step on the box":"_nUoak5KfoI",
+  "med ball punch":"yj8OgcBU894",
+  "medball lateral jump":"KScSGcMb2Y8",
+  "medball punch":"yj8OgcBU894",
+  "medball shuffle to lateral throw":"rwuT6mUA_iU",
+  "medball side jump":"RoCRyj2iyhU",
+  "medball side shuffle slam":"sQGeankRgfU",
+  "medball switch step with uppercut":"kKp9TghwwM0",
+  "montées de genoux dynamiques":"xTDAVRcAbak",
+  "one single leg high jump":"ighP2YsROuw",
+  "one step clean press on box":"cfSEHh24xRQ",
+  "one step high jump on box":"wVBS9uTvXVw",
+  "passage d épaulé":"ifi0QIuxNOk",
+  "passage dépaule":"Wm2V4g1q12s",
+  "passage dépaulé":"ifi0QIuxNOk",
+  "passage dépaulé avec haltère":"RExRTBKpfkk",
+  "passage dépaulé hang power clean":"ifi0QIuxNOk",
+  "pendlay row":"Z6VN37vmtG4",
+  "plate around the world":"kCXQq1rI01w",
+  "plyometric push up plate variation":"mZLDt3uilAI",
+  "pompe pliométrique avec élastique":"w4YFQzF1-wE",
+  "pompes pliométrique avec élastique":"Swps0Rlm02E",
+  "pompes pliométrique plate variation":"ATg8OC2IG30",
+  "pompes plyometrtique":"EqGuCV1rO-M",
+  "pompes plyométrique":"w4YFQzF1-wE",
+  "pompes plyométrique isometric push up pliométric":"dMUXiFzipJw",
+  "pompes plyométrique push up pliométric":"w4YFQzF1-wE",
+  "pompes plyométriques":"w4YFQzF1-wE",
+  "power clean":"5tsy1Qp6Bx8",
+  "press barre isométrique":"QH5MMvMhdY0",
+  "press plate high jump":"sAZXIZYCQlY",
+  "presse cuisse":"Id_nYRDcfcs",
+  "presse cuisse machine":"oa6UR6D3O6w",
+  "pull up / traction":"UtJnu6mH454",
+  "push press":"bkE04fOihhg",
+  "rameur":"Aakk_gs3gSo",
+  "rameur :":"Aakk_gs3gSo",
+  "rameur : sec on sec off pendant minutes":"5D2KISu6-ME",
+  "rotational landmine clean & press":"O3dag032GKM",
+  "rotational medball shot":"I5Dgq3_TIDY",
+  "rowing à la barre buste penché":"Id_nYRDcfcs",
+  "run":"rRFO7d-Fm7k",
+  "shadow single  double leg":"48eNEdKZqqk",
+  "shadow single leg / double leg":"48eNEdKZqqk",
+  "side high jump with medball shot":"1T4ZsLxq56c",
+  "side jump high knee with kb":"ZjTJyNh8OQw",
+  "side jump high knee with kettlebell":"ZjTJyNh8OQw",
+  "side jump with straight jump":"GQqDFhu7tJ0",
+  "side sled push":"CM4MlJc44fU",
+  "side step to high jump":"hmrzE9L8VeE",
+  "single leg side jump":"NDPsUzf5DZ0",
+  "ski erg":"6dZg1dMP5NI",
+  "ski erg :":"6dZg1dMP5NI",
+  "ski erg : séries de tours en fractionné secondes deffort sec de récupération, minute de récupération entre chaque séries":"gWymdzCYcHs",
+  "ski erg secondes deffort secondes de pause entre chaque intervalle sur minutes, séries":"gWymdzCYcHs",
+  "slam ball":"b8R8qgRTfW4",
+  "slam ball switch step":"8qffBYmrPj8",
+  "sled push":"Qg2tZ5g70Vk",
+  "slep push +sprawl":"rRFO7d-Fm7k",
+  "soulever de terre":"2M0b4yRMdXY",
+  "soulever de terre jambes tendues":"VThBpsRttvE",
+  "sprawl with high jump":"bdF1vduRQmE",
+  "squat":"1zuuJF0OlcI",
+  "squat box":"mHKteQXrIXw",
+  "squat classique":"1zuuJF0OlcI",
+  "squat elastic jump":"EX5JKR7kE3U",
+  "squat isométrique":"nylIh3EHink",
+  "sraight medball shot":"gqWUGk3gbh0",
+  "stato dynamic hip thrust":"U0QfQzcnYKw",
+  "straight medball shot":"gqWUGk3gbh0",
+  "suitcase carry":"SP-PQ-dp6cg",
+  "switch step slam ball":"esO5yTNMlYw",
+  "tipping plate fast":"Wol0eaD23Ek",
+  "tirage haut d épaule":"lQQtFPVA3JI",
+  "tirage haut depaule":"lQQtFPVA3JI",
+  "tirage haut dépaule":"lQQtFPVA3JI",
+  "tirage lourd d épaulé":"_BiJ6Lawz5Q",
+  "tirage lourd dépaulé":"_BiJ6Lawz5Q",
+  "traction":"UtJnu6mH454",
+  "traction australienne":"oPwKzB5XfnU",
+  "tractions":"UtJnu6mH454",
+  "tractions australienne":"oPwKzB5XfnU",
+  "tractions lesté":"h7CmkNURj8c",
+  "tractions lestées":"h7CmkNURj8c",
+  "trap bar deadlift":"5SnlWBeouDk",
+  "trap bar farmer walk":"FzKT4osMOA4",
+  "wall roll up":"Bqy6kwlrs1U",
+  "zercher deadlift":"k0L1HiUUve8",
+  "zercher good morning":"T_fwiiPdMU0",
+  "zercher lunges":"RmGOUVJBviQ",
+  "zercher pull band":"bgPBdoEoioc",
+  "zercher squat":"ghGSCGXVNLw",
+  "zercher squat isométrique":"ghGSCGXVNLw",
+  "shadow single / double leg":"48eNEdKZqqk",
+  "high static jump + isometric jump squat over box":"7B3RR6mUy5w",
+  "banded zercher squat":"lndYuIhmAtg",
+  "front squat":"aQuNtfOAEtI"
 };
 function getVideo(name){
   const n=name.toLowerCase().replace(/[()0-9%']/g,'').replace(/\s+/g,' ').trim();
@@ -961,44 +1159,378 @@ const MOB3={id:'mob',emoji:'🧘',title:'Routine Mobilité — Phase 3',meta:'Mo
   exercises:[mob("Jefferson curl","3","6 reps lentes","30s"),mob("Hip flexor lunge + rotation","3","8 reps/côté","15s"),mob("Scorpion stretch sol","2","8 reps/côté","20s"),mob("Deep squat + overhead reach","3","10 reps","20s"),mob("Shoulder CARs","2","5 reps/bras","15s"),mob("Spiderman crawl","3","10 mètres","30s"),mob("Wrist mobility circles + pression","2","15 reps/sens","15s")]};
 
 
+const PROGRAM=[
+  /* S0 — ACTIVATION (Jours 1-7) */
+  {id:0,num:'S0',title:'ACTIVATION',sub:'Calibration & Activation Combat',phase:'activation',phaseColor:'#5B9BD4',days:'Jours 1–7',
+   focus:'Calibrer ton système nerveux, identifier les faiblesses, activer les patterns moteurs. Pour combattants déjà actifs — charge intentionnellement modérée.',bilan:null,
+   sessions:[
+    {id:'s0_1',emoji:'💥',title:'Séance A1 — Activation Explosive',meta:'Force + Explosivité',exercises:[
+      ex("Montées de genoux dynamiques","3","20 sec","30s"),
+      ex("Kettlebell swing elastic","4","10 reps","45s"),
+      ex("Dead broad jump","3","4 sauts max","30s"),
+      ex("Slam ball","3","6 reps","30s"),
+      ex("Développé couché à la barre","3","8 reps (charge à 70%)","90s"),
+      ex("Landmine press","3","8 reps/bras","60s"),
+      ex("Assault bike","1","6×20s ON / 20s OFF","2 min")]},
+    {id:'s0_2',emoji:'💪',title:'Séance A2 — Force Fonctionnelle',meta:'Force fonctionnelle',exercises:[
+      ex("Zercher squat","4","6 reps (charge à 60%)","40s"),
+      ex("High squat box jump","4","4 sauts explosifs — saut vertical max","40s"),
+      ex("Trap bar deadlift","4","5 reps (charge à 70%)","2 min"),
+      ex("Kettlebell swing elastic","4","8 reps","2 min"),
+      ex("Traction","3","Max reps propres","90s"),
+      ex("Sled push","3","20m aller-retour","90s"),
+      ex("Rameur","1","2000m","—")]},
+    {id:'s0_3',emoji:'🥊',title:'Séance A3 — Cardio Combat',meta:'Cardio + Puissance',exercises:[
+      ex("Full rotation medball slam","4","5 reps/côté (mouvement explosif)","45s"),
+      ex("B stance squat","4","6 reps","2 min"),
+      ex("Hang power clean","4","4 reps (charge à 60%)","2 min"),
+      ex("Switch step slam ball","3","8 reps","60s"),
+      ex("Ski erg","1","10×20s ON / 10s OFF","2 min")]},
+    MOB1]},
+
+  /* S1 — CALIBRATION (Jours 8-14) */
+  {id:1,num:'S1',title:'CALIBRATION',sub:'Maîtrise des patterns de mouvement',phase:'p1',phaseColor:'#C9A84C',days:'Jours 8–14',
+   focus:'Maîtrise des patterns de mouvement, établissement des charges de travail, introduction aux supersets. Le repos indiqué s\'applique APRÈS avoir terminé tous les exercices du superset.',bilan:null,
+   sessions:[
+    {id:'s1_1',emoji:'🏋️',title:'Séance 1',meta:'Explosivité + Force',exercises:[
+      ex("High squat box jump","4","6 reps — saut explosif le plus haut possible","45s"),
+      ex("Bench barbell jump squat","5","6 reps/jambe — unilatéral : 6 reps côté gauche puis 6 reps côté droit","1'20"),
+      ex("Landmine squat press","4","8 reps","1'30"),
+      ex("Landmine press","4","6 reps","1'30"),
+      ex("Kettlebell swing elastic","4","10 reps (charge moyenne, mouvement explosif)","1'30"),
+      ex("Switch step slam ball","4","8 reps","1'30"),
+      ex("Rameur / Assault bike","1","6 min : 15s effort / 30s actif","—")]},
+    {id:'s1_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure + Frappe',exercises:[
+      ex("Développé couché à la barre isométrique","4","6 reps — maintien 7-10s isométrique","15s"),
+      ex("Pompes plyométriques","4","8-10 reps — enchaîner direct","15s"),
+      ex("Medball punch","4","8 reps/côté — enchaîner direct après les pompes","2'30"),
+      ex("Zercher squat","4","6 reps (charge lourde)","2'40"),
+      ex("Sled push","4","3 aller-retours (20m)","1'40"),
+      ex("Trap bar farmer walk","4","40m aller-retour","1'40")]},
+    {id:'s1_3',emoji:'⚡',title:'Séance 3',meta:'Rotation + Cardio',exercises:[
+      ex("Full rotation medball slam","4","5 reps/côté","1'30"),
+      ex("Medball shuffle to lateral throw","4","5 pas + 1 tir","1'30"),
+      ex("Gym ball dumbbell press","4","10 reps + 2s excentrique","2'"),
+      ex("Landmine press hip variation","4","6 reps/côté","2'"),
+      ex("Hang power clean","5","3 reps (charge à 80-85%)","2'20"),
+      ex("Ski erg","1","6 × 20s effort / 20s récup — allure soutenue","—")]},
+    MOB1]},
+
+  /* S2 — CONSTRUCTION (Jours 15-21) */
+  {id:2,num:'S2',title:'CONSTRUCTION',sub:'Augmentation des charges',phase:'p1',phaseColor:'#C9A84C',days:'Jours 15–21',
+   focus:'Augmentation des charges, introduction des mouvements olympiques, supersets plus intenses.',bilan:null,
+   sessions:[
+    {id:'s2_1',emoji:'🏋️',title:'Séance 1',meta:'Force + Explosivité jambes',exercises:[
+      ex("Kettlebell swing elastic","4","6 reps KB + 4 squat jump (enchaîner sans poser)","1'45"),
+      ex("Banded KB front squat","5","8 reps (mouvement dynamique, charge moyenne)","1'20"),
+      ex("Pendlay row","5","10 reps dynamique — barre posée entre chaque rep","1'20"),
+      ex("Trap bar deadlift","4","5 reps + 2s excentrique","2'30"),
+      ex("Landmine squat press","3","6 reps","2'30"),
+      ex("Switch step slam ball","3","12 reps (charge lourde)","45s")]},
+    {id:'s2_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Force inférieure',exercises:[
+      ex("High knee dynamic + jump over the box","4","6-8 montées de genoux + 1 saut","1'20"),
+      ex("Knee to floor to high jump + medball shot","4","5 reps — enchaîner direct","1'"),
+      ex("Glute bridge single dumbbell floor press","4","12 reps","1'30"),
+      ex("B stance squat","4","4 reps (charge à 90%)","20s"),
+      ex("Hang power clean","4","4 reps (charge à 75%) — enchaîner direct","2'20"),
+      ex("Dead broad jump","4","4 sauts explosifs","20s"),
+      ex("Slam ball","4","6 reps explosif — enchaîner direct","1'30")]},
+    {id:'s2_3',emoji:'⚡',title:'Séance 3',meta:'Force supérieure + Sauts',exercises:[
+      ex("Développé couché à la barre","4","4 reps (charge à 90%)","2'"),
+      ex("Dumbbell bench press unilateral","4","6 reps — unilatéral : 6 reps chaque bras","2'"),
+      ex("Rotational landmine clean & press","3","16 reps — 8 reps/côté","1'20"),
+      ex("B stance trap bar deadlift","5","5 reps (charge lourde) — position unilatérale, switcher côté","2'20"),
+      ex("Dumbbell B stance box jump","4","6 reps","2'20"),
+      ex("Kettlebell drop lunges","3","12 reps (charge légère)","45s")]},
+    MOB1]},
+
+  /* S3 — INTENSIFICATION (Jours 22-28) */
+  {id:3,num:'S3',title:'INTENSIFICATION',sub:'Introduction du travail lourd',phase:'p1',phaseColor:'#C9A84C',days:'Jours 22–28',
+   focus:'Premier bloc à 90% RM. Assault bike fractionné. Power clean lourd. Le repos indiqué s\'applique APRÈS avoir terminé tous les exercices du superset.',bilan:null,
+   sessions:[
+    {id:'s3_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Squat lourd',exercises:[ex("Bench barbell jump squat","6","8 reps","1'"),ex("Side step to high jump","6","6 reps","1'"),ex("Zercher squat","4","5 reps","20s"),ex("Kettlebell swing elastic","4","10 reps","2'20"),ex("Stato dynamic hip thrust","4","6 reps","1'45"),ex("Side sled push","4","20m","2'20"),ex("Assault bike","3","1min ON / 1min OFF × 30 min","—")]},
+    {id:'s3_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Olympic lifts',exercises:[ex("Knee floor to side jump","4","5 reps","20s"),ex("Full rotation medball slam","4","3 reps/bras","20s"),ex("Medball side shuffle slam","4","6 reps","50s"),ex("Power clean","4","4 reps (80%)","2'"),ex("Landmine split jerk","4","8 reps","2'"),ex("Pendlay row","4","8 reps","2'"),ex("Traction","4","6-4 reps (lest)","2'")]},
+    {id:'s3_3',emoji:'⚡',title:'Séance 3',meta:'Force + Sauts + Carry',exercises:[ex("Développé couché à la barre","4","4 reps (90%)","0s"),ex("Développé couché à la barre isométrique","4","7-10s hold","0s"),ex("Développé couché en stato dynamique","4","6 reps","2'"),ex("Kettlebell swing elastic","4","6 reps (charge lourde)","15s"),ex("Db clean & press","4","6-8 reps (50%)","1'20"),ex("B stance trap bar deadlift","5","6 reps charge lourde","2'20"),ex("Dumbbell B stance box jump","5","4 reps","2'20")]},
+    MOB1]},
+
+  /* S4 — PEAK PHASE 1 (Jours 29-37) */
+  {id:4,num:'S4',title:'PEAK PHASE 1',sub:'Charges maximales Phase 1',phase:'p1',phaseColor:'#C9A84C',days:'Jours 29–37',
+   focus:'Charges maximales, mouvements olympiques lourds. Bilan de fin de phase à réaliser cette semaine.',
+   bilan:["Tenir 3 séances/semaine sans épuisement 48h après","Charges sur Zercher, trap bar, développé couché en hausse","Assault bike 30 min en fractionné sans tomber sous le rythme","Faire les TESTS DE RÉFÉRENCE J1→J45"],
+   sessions:[
+    {id:'s4_1',emoji:'🏋️',title:'Séance 1',meta:'Olympic lifts lourds',exercises:[ex("Dead broad jump","5","4 sauts explosifs","0s"),ex("High jump","5","4 reps","0s"),ex("Fast ladder tipping","5","20 sec","1'45"),ex("Clean high pull","4","3 reps (80%)","15s"),ex("Hang power clean","4","5 reps (50% vitesse)","2'"),ex("Suitcase carry","5","30m","1'"),ex("Hollow arch","5","30 sec","1'")]},
+    {id:'s4_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure maximale',exercises:[
+      ex("Deadlift","4","4 reps (charge à 90%)","15s"),
+      ex("Développé couché à la barre isométrique","4","10-15s maintien isométrique — enchaîner direct","15s"),
+      ex("Hang power clean","4","5 reps (charge à 50%) — enchaîner direct","2'"),
+      ex("Zercher squat","4","6 reps (charge lourde)","15s"),
+      ex("Slam ball","4","5 reps explosifs (charge lourde) — enchaîner direct","2'30"),
+      ex("Sled push","4","3 aller-retours","1'40"),
+      ex("Trap bar farmer walk","4","40m aller-retour","1'40")]},
+    {id:'s4_3',emoji:'⚡',title:'Séance 3',meta:'Medball + Olympic + Ski erg',exercises:[
+      ex("Heavy straight medball shoot","5","6 reps — lancer frontal puissant","1'10"),
+      ex("Dumbbell bench press unilateral","4","6 reps/bras (charge lourde) — enchaîner direct après le medball shoot","15s"),
+      ex("Landmine press hip variation","4","6 reps/côté — enchaîner direct","2'"),
+      ex("Hang power clean","4","5 reps (charge à 70%)","20s"),
+      ex("Soulever de terre jambes tendues","4","10 reps — enchaîner direct","1'"),
+      ex("Ski erg","1","Objectif : 1000m","—")]},
+    MOB1]},
+
+  /* S5 — VITESSE D'EXÉCUTION (Jours 38-44) */
+  {id:5,num:'S5',title:"VITESSE D'EXÉCUTION",sub:'Priorité à la vitesse',phase:'p2',phaseColor:'#D4603A',days:'Jours 38–44',
+   focus:"Priorité à la vitesse de déplacement de la charge. Tout mouvement explosif doit être réalisé à haute vélocité. Charge légère à moyenne — la vitesse prime sur le poids.",bilan:null,
+   sessions:[
+    {id:'s5_1',emoji:'⚡',title:'Séance 1',meta:'Explosivité + Supérieur',exercises:[
+      ex("Dead broad jump","5","4 sauts explosifs","45s"),
+      ex("Medball lateral jump","5","8 reps — déplacements latéraux explosifs","45s"),
+      ex("Hips dumbbell floor press","4","10 reps dynamique (charge lourde) — explosif","15s"),
+      ex("Pompes plyométriques","4","7 reps — enchaîner direct","2'"),
+      ex("Landmine switch press","5","8 reps/bras (charge à 50%)","1'20"),
+      ex("Zercher lunges","3","6 reps/jambe","1'30"),
+      ex("Assault bike","2","4 min Tabata — 20s max / 10s OFF","2 min")]},
+    {id:'s5_2',emoji:'💥',title:'Séance 2',meta:'Sauts complexes + Inférieur',exercises:[
+      ex("Kettlebell swing elastic","4","3 reps KB + 4 squat jump enchaîné","40s"),
+      ex("Knee floor to high jump","4","6 reps explosif — enchaîner direct","1'40"),
+      ex("B stance squat","4","4 reps (charge à 90%)","20s"),
+      ex("Dumbbell B stance box jump","4","6 reps — enchaîner direct","2'20"),
+      ex("Zercher good morning","4","8 reps (charge lourde)","20s"),
+      ex("Landmine squat press","4","8 reps — enchaîner direct","1'45")]},
+    {id:'s5_3',emoji:'🏋️',title:'Séance 3',meta:'Box jumps + Force + Sled',exercises:[
+      ex("High squat box jump","4","6 reps","50s"),
+      ex("Box single leg high broad jump","4","4 reps par jambe — unilatéral : 4 reps gauche puis 4 reps droite","50s"),
+      ex("Knee to floor to high jump + medball shot","4","6 reps","1'20"),
+      ex("Rotational landmine clean & press","4","6 reps/côté","1'20"),
+      ex("Hips dumbbell floor press","4","10 reps explosif (charge lourde)","1'"),
+      ex("Sled push","4","20m aller-retour (charge lourde)","1'40"),
+      ex("Wall roll up","4","25 pas","1'")]},
+    MOB2]},
+
+  /* S6 — FORCE MAX + ENDURANCE (Jours 45-51) */
+  {id:6,num:'S6',title:'FORCE MAX + ENDURANCE',sub:'Deadlift lourd + Cardio long',phase:'p2',phaseColor:'#D4603A',days:'Jours 45–51',
+   focus:'Deadlift 87-92% RM. Rameur 1200m. Le combo force + endurance qui fait la différence en fin de round.',bilan:null,
+   sessions:[
+    {id:'s6_1',emoji:'🏋️',title:'Séance 1',meta:'Deadlift max + Endurance',exercises:[ex("Medball shuffle to lateral throw","4","4 reps","1'"),ex("Knee to floor to high jump + medball shot","4","5 reps","1'"),ex("Deadlift","4","3 reps (87-92%)","3'"),ex("Hang clean","4","4 reps (70%)","0s"),ex("Push press","4","6 reps","2'20"),ex("Rameur","1","1200m","—")]},
+    {id:'s6_2',emoji:'💥',title:'Séance 2',meta:'Stato-dynamique + Force inférieure + Carry',exercises:[
+      ex("Développé couché à la barre isométrique","4","6 reps (charge à 85%)","15s"),
+      ex("Pompes plyométriques","4","8 reps — enchaîner direct","2'"),
+      ex("Squat classique","5","6 reps (charge lourde)","20s"),
+      ex("Elastic jump squat","5","8-10 reps explosif — enchaîner direct","2'"),
+      ex("Pendlay row","4","8 reps dynamique (charge moyenne)","15s"),
+      ex("Slam ball","4","8 reps explosif — enchaîner direct","1'30"),
+      ex("Suitcase carry","5","30m","1'20")]},
+    {id:'s6_3',emoji:'⚡',title:'Séance 3',meta:'Box jumps + Puissance + Rameur',exercises:[
+      ex("High squat box jump","3","6 reps","1'30"),
+      ex("Kettlebell swing elastic","4","10 reps (charge lourde)","20s"),
+      ex("Hang power clean","4","6 reps (charge à 60%) — enchaîner direct","20s"),
+      ex("Push press","4","6 reps (charge légère) — enchaîner direct — transfère la puissance overhead","2'30"),
+      ex("Stato dynamic hip thrust","4","6 reps (charge lourde)","1'30"),
+      ex("Wall roll up","4","8 reps + 2s excentrique","1'"),
+      ex("Rameur","1","1200m","—")]},
+    MOB2]},
+
+  /* S7 — PUISSANCE DE FRAPPE (Jours 52-58) */
+  {id:7,num:'S7',title:'PUISSANCE DE FRAPPE',sub:'Transfert de puissance corps entier',phase:'p2',phaseColor:'#D4603A',days:'Jours 52–58',
+   focus:'Transfert de puissance corps entier. Power clean à 80%. Run 15 min. Le repos s\'applique APRÈS le dernier exercice du superset — pas de repos entre exercices du même groupe.',bilan:null,
+   sessions:[
+    {id:'s7_1',emoji:'🥊',title:'Séance 1',meta:'Rotation + Power clean + Run',exercises:[
+      ex("Full rotation medball slam","5","5 reps/côté","45s"),
+      ex("Power clean","4","4 reps (charge à 80%)","20s"),
+      ex("Zercher deadlift","4","6 reps explosif — enchaîner direct","1'30"),
+      ex("Landmine switch press","5","6 reps/bras (charge moyenne)","1'20"),
+      ex("Run","1","15 minutes continu (respiration nasale de préférence)","—")]},
+    {id:'s7_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Deadlift + Carries',exercises:[
+      ex("High squat box jump","5","6 reps — saut vertical max","1'"),
+      ex("Box single leg high broad jump","5","4 reps/jambe — unilatéral — enchaîner direct","1'"),
+      ex("Trap bar deadlift","5","6 reps (charge lourde)","20s"),
+      ex("Landmine split jerk","5","6 reps/bras (charge moyenne) — enchaîner direct","2'"),
+      ex("Leg raises","5","12 reps + 2s isométrique","1'20"),
+      ex("Trap bar farmer walk","5","20m aller-retour — enchaîner direct","1'20")]},
+    {id:'s7_3',emoji:'⚡',title:'Séance 3',meta:'Medball latéral + Landmine + Power clean',exercises:[
+      ex("Medball lateral jump","5","6-8 reps/côté — déplacements latéraux explosifs","0s"),
+      ex("Switch step slam ball","5","8 reps (charge entre 6 et 8kg) — enchaîner direct","1'20"),
+      ex("Landmine seated press","4","8 reps — press assis landmine","2'"),
+      ex("Soulever de terre jambes tendues","4","10 reps","20s"),
+      ex("Power clean","4","3 reps (charge à 65-75%) — vitesse d'exécution","2'"),
+      ex("Ski erg","1","8 tours : 30s à 65-70 RPM / 30s récup à 35-40 RPM","—")]},
+    MOB2]},
+
+  /* S8 — PEAK PHASE 2 (Jours 59-67) */
+  {id:8,num:'S8',title:'PEAK PHASE 2',sub:'Charges maximales Phase 2',phase:'p2',phaseColor:'#D4603A',days:'Jours 59–67',
+   focus:'Charges les plus lourdes de la phase. Retests à effectuer cette semaine.',
+   bilan:["Assault bike 30 min à rythme plus élevé qu'en Phase 1","Sauts progressés en distance et en hauteur","Hang power clean +5kg minimum","Différence de rapidité ressentie en sparring","REFAIRE LES TESTS DE RÉFÉRENCE — comparer avec J1"],
+   sessions:[
+    {id:'s8_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Squats + Slam ball',exercises:[
+      ex("Kettlebell swing elastic","5","8 reps explosif (charge lourde)","15s"),
+      ex("High squat box jump","5","4 reps — saut vertical max — enchaîner direct","1'20"),
+      ex("Front squat","4","5 reps","15s"),
+      ex("Banded KB front squat","4","8 reps (charge moyen-lourd, dynamique) — enchaîner direct","1'40"),
+      ex("Slam ball","5","8 reps (charge lourde) — explosif","1'20"),
+      ex("Ski erg","2","20s effort / 10s OFF — 8 séries","2 min")]},
+    {id:'s8_2',emoji:'💥',title:'Séance 2',meta:'Medball + Olympic + Core',exercises:[
+      ex("Medball lateral jump","5","8 reps","1'20"),
+      ex("Full rotation medball slam","5","8 reps — enchaîner direct","1'20"),
+      ex("Trap bar deadlift","5","5 reps (charge lourde)","20s"),
+      ex("Hang power clean","5","3 reps (charge à 70%) — enchaîner direct","20s"),
+      ex("Push press","5","6 reps (charge légère à 45%) — enchaîner direct","2'"),
+      ex("Wall roll up","5","8 reps + 2s excentrique","0s"),
+      ex("Hollow arch","5","30-35 sec — enchaîner direct","1'"),
+      ex("Heavy KB farmer walk","1","20m aller-retour","—")]},
+    {id:'s8_3',emoji:'⚡',title:'Séance 3',meta:'Clean press max + Rameur',exercises:[
+      ex("Deadlift","4","4 reps (charge à 85%)","20s"),
+      ex("Clean & press","4","5 reps (charge à 75%) — enchaîner direct","2'"),
+      ex("Gorilla row","4","8 reps explosif (charge lourde)","15s"),
+      ex("Slam ball","4","6 reps (charge lourde) — enchaîner direct","1'30"),
+      ex("Sled push","5","20m aller-retour","1'30"),
+      ex("Rameur","3","30s effort / 10s OFF × 5 min — 2 min récup entre séries","2'")]},
+    MOB2]},
+
+  /* S9 — TRANSFERT COMBAT (Jours 68-74) */
+  {id:9,num:'S9',title:'TRANSFERT COMBAT',sub:'Application au contexte combat',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 68–74',
+   focus:'Application des qualités physiques dans des contextes proches du combat. Les qualités développées en Phase 1 & 2 sont maintenant transférées dans des mouvements spécifiques combat.',bilan:null,
+   sessions:[
+    {id:'s9_1',emoji:'🥋',title:'Séance 1',meta:'KB Swing + Squat isométrique + Sled',exercises:[
+      ex("Kettlebell swing avec élastique","5","8 reps explosif","15s"),
+      ex("High squat box jump","5","5 reps — saut le plus haut possible — enchaîner direct","1'20"),
+      ex("Zercher squat","4","4 reps (charge à 90%)","20s"),
+      ex("Isométrique squat","4","15 sec de tension maximale — enchaîner direct","15s"),
+      ex("Elastic jump squat","4","8 reps explosif — enchaîner direct","2'20"),
+      ex("Sled push","4","20m aller-retour","1'40")]},
+    {id:'s9_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Presse + Deadlift',exercises:[ex("Fast ladder tipping","5","15 reps dynamique","10s"),ex("High hurdle jump","5","4-5 reps","1'20"),ex("Trap bar deadlift","5","5 reps (charge lourde)","20s"),ex("High jump","5","4 reps","20s"),ex("Slam ball","5","6 reps","2'"),ex("Zercher squat","4","4 reps (87%)","15s"),ex("Banded zercher squat","4","6 reps explosifs","1'")]},
+    {id:'s9_3',emoji:'⚡',title:'Séance 3',meta:'Grappling focus + Combat',exercises:[ex("Cossack squat","5","6 reps/jambe","0s"),ex("Single leg side jump","5","8 reps/jambe","1'20"),ex("Passage d'épaulé","5","4 reps (charge légère)","15s"),ex("Landmine press squat","5","5 reps (charge lourde)","1'40"),ex("Side sled push","5","20m aller-retour","15s"),ex("Shadow single / double leg","5","30 sec explosif","1'20")]},
+    MOB3]},
+
+  /* S10 — CHARGES MAXIMALES (Jours 75-81) */
+  {id:10,num:'S10',title:'CHARGES MAXIMALES',sub:'Apex absolu du programme',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 75–81',
+   focus:'Apex absolu du programme. Deadlift 92%, Zercher 87%, Clean press 85%. Priorité : qualité d\'exécution sur chaque rep.',bilan:null,
+   sessions:[
+    {id:'s10_1',emoji:'🏋️',title:'Séance 1',meta:'Charge maximale — Force corps entier',exercises:[
+      ex("Dead broad jump","5","4 sauts horizontaux explosifs","20s"),
+      ex("High hurdle jump","5","5 reps — sauts verticaux max — enchaîner direct","1'20"),
+      ex("Trap bar deadlift","5","4 reps (charge à 85%)","20s"),
+      ex("Gorilla row","5","8 reps explosif (charge lourde) — enchaîner direct","2'"),
+      ex("Zercher squat","4","4 reps (charge à 87-90%)","20s"),
+      ex("Slam ball","4","6 reps explosifs — enchaîner direct","2'")]},
+    {id:'s10_2',emoji:'💥',title:'Séance 2',meta:'Sauts + DL 92% + Carries',exercises:[
+      ex("Broad jump","5","4 reps explosifs","20s"),
+      ex("One single leg high jump","5","6 reps dynamique — enchaîner direct","45s"),
+      ex("Soulever de terre","5","3 reps (charge à 90-92%)","20s"),
+      ex("Passage d'épaulé","5","5 reps (charge moyenne, explosif) — enchaîner direct","2'30"),
+      ex("Heavy KB farmer walk","4","20m aller-retour","15s"),
+      ex("Leg raises","4","12 reps — enchaîner direct","1'20")]},
+    {id:'s10_3',emoji:'⚡',title:'Séance 3',meta:'Olympic max + Core',exercises:[
+      ex("One step clean press on box","5","5 reps (charge légère)","1'"),
+      ex("One step high jump on box","5","6 reps explosifs — enchaîner direct","1'"),
+      ex("Tirage lourd d'épaulé","5","4 reps (charge à 80%)","40s"),
+      ex("Clean & press","5","5 reps (charge moyenne) — enchaîner direct","2'30"),
+      ex("Squat box","4","5 reps (charge à 90%)","2'20"),
+      ex("Wall roll up","4","8 reps","1'")]},
+    MOB3]},
+
+  /* S11 — CARDIO COMBAT MAX (Jours 82-86)
+     Protocole fractionné spécial prépa fight d'Alexandre
+     Respiration nasale tout au long des séances */
+  {id:11,num:'S11',title:'CARDIO COMBAT MAX',sub:'Développer le moteur cardio du combattant',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 82–86',
+   focus:'Respiration NASALE tout au long des séances — augmente la capacité du diaphragme, l\'espace pulmonaire et la lucidité sous effort. Instrument : Assault bike, Ski erg ou Rameur (équivalent). 3 sets progressifs par séance.',bilan:null,
+   sessions:[
+    {id:'s11_1',emoji:'🫁',title:'Séance Cardio 1 — Assault bike',meta:'Fractionné progressif',exercises:[
+      ex("Assault bike","5","SET 1 — 2'30 allure soutenue (50-60 RPM) / 30s récup active (30-40 RPM)","2'"),
+      ex("Assault bike","8","SET 2 — 30s effort max (65-75 RPM) / 30s récup active (30-40 RPM)","1'30"),
+      ex("Assault bike","12","SET 3 — 6-10s toute puissance (85-100 RPM) / 1' récup complète","—")]},
+    {id:'s11_2',emoji:'💥',title:'Séance Cardio 2 — Ski erg',meta:'Fractionné progressif',exercises:[
+      ex("Ski erg","5","SET 1 — 2'30 allure soutenue (50-60 RPM) / 30s récup active (30-40 RPM)","2'"),
+      ex("Ski erg","8","SET 2 — 30s effort max (65-75 RPM) / 30s récup active (30-40 RPM)","1'30"),
+      ex("Ski erg","15","SET 3 — 6-10s toute puissance (85-100 RPM) / 1' récup complète","—")]},
+    {id:'s11_3',emoji:'⚡',title:'Séance Cardio 3 — Rameur',meta:'Fractionné progressif',exercises:[
+      ex("Rameur","5","SET 1 — 2'30 allure soutenue / 30s récup active","2'"),
+      ex("Rameur","8","SET 2 — 30s effort max / 30s récup active","1'30"),
+      ex("Rameur","12","SET 3 — 6-10s toute puissance / 1' récup complète","—")]},
+    MOB3]},
+
+  /* S12 — PEAK FINAL (Jours 87-90) */
+  {id:12,num:'S12',title:'PEAK FINAL',sub:'Dernière semaine + Tests J90',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 87–90',
+   focus:'Dernière semaine haute. Puis TESTS FINAUX J90 — compare tout avec J1.',
+   bilan:["Refaire EXACTEMENT les 4 tests du Jour 1 dans les mêmes conditions","Comparer chaque résultat — les progressions doivent être visibles sur les 4 axes","+20-35% explosivité | +15-25% cardio | +10-20% force | Mobilité améliorée","Prendre des photos — la différence visuelle confirme ce que les chiffres montrent"],
+   sessions:[
+    {id:'s12_1',emoji:'🏋️',title:'Séance 1',meta:'Développé + Zercher + Puissance',exercises:[
+      ex("Développé couché aux haltères","5","8 reps (charge lourde)","15s"),
+      ex("Pompes plyométriques","5","8 reps — enchaîner direct","1'30"),
+      ex("Zercher squat","4","4-5 reps (charge à 87-90% — charge maximale du cycle)","20s"),
+      ex("Gorilla row","4","8 reps explosif (charge lourde) — enchaîner direct","2'30"),
+      ex("Kettlebell swing elastic","4","8 reps (charge lourde) — explosif","15s"),
+      ex("Push press","4","6 reps (charge lourde) — enchaîner direct — pic de puissance overhead","1'30"),
+      ex("Assault bike","2","20s effort / 10s OFF — 8 min","2 min")]},
+    {id:'s12_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Push press + DL jambes',exercises:[
+      ex("Dead broad jump","5","5 reps explosifs","20s"),
+      ex("High hurdle jump","5","6 reps — enchaîner direct","1'"),
+      ex("Push press","4","4 reps (charge à 90%)","15s"),
+      ex("Gorilla row","4","8 reps (charge lourde) — enchaîner direct","2'30"),
+      ex("Soulever de terre jambes tendues","4","6 reps + 3s isométrique","30s"),
+      ex("Kettlebell swing elastic","4","6 reps (charge lourde) — enchaîner direct","2 min")]},
+    {id:'s12_3',emoji:'⚡',title:'Séance 3',meta:'KB + Tractions + Push press + Ski erg',exercises:[
+      ex("Kettlebell swing elastic","5","8 reps (charge lourde)","20s"),
+      ex("High squat box jump","5","6 reps explosifs — enchaîner direct","1'"),
+      ex("Pendlay row","4","10 reps (charge moyenne)","30s"),
+      ex("Tractions lestées","4","6 reps surcharge progressive — enchaîner direct","2'30"),
+      ex("Push press","4","6 reps (charge lourde)","30s"),
+      ex("Sled push","4","40m aller-retour + sprawl — enchaîner direct","2 min"),
+      ex("Ski erg","3","3 séries × 10 tours — 20s ON / 10s OFF","90s")]},
+    MOB3]},
+];
+
 // ═══════════════════════════
 // SUPERSET MAPPING (from PDF)
 // key: session id → {exerciseIndex: 'label'}
 // ═══════════════════════════
 const SUPERSETS={
+  // S0 — Activation
+  's0_1':{},
+  's0_2':{},
+  's0_3':{},
+  // S1 — Calibration
   's1_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's1_2':{0:'1A',1:'1B',2:'1C',4:'2A',5:'2B'},
   's1_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's2_1':{1:'1A',2:'1B',3:'2A',4:'2B'},
-  's2_2':{3:'1A',4:'1B'},
+  // S2 — Construction
+  's2_1':{0:'1A',2:'2A',3:'2B'},
+  's2_2':{0:'1A',1:'1B',3:'2A',4:'2B',5:'3A',6:'3B'},
   's2_3':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  // S3 — Intensification
   's3_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's3_2':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's3_3':{0:'1A',1:'1B',3:'2A',4:'2B'},
-  's4_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's4_2':{0:'1A',1:'1B',2:'2A',4:'3A',5:'3B'},
-  's4_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's5_1':{2:'2A',3:'2B'},
-  's5_2':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's3_2':{0:'1A',1:'1B',2:'1C',3:'2A',4:'2B',5:'3A',6:'3B'},
+  's3_3':{0:'1A',1:'1B',2:'1C',3:'2A',4:'2B',5:'3A',6:'3B'},
+  // S4 — Peak Phase 1
+  's4_1':{0:'1A',1:'1B',2:'1C',3:'2A',4:'2B'},
+  's4_2':{0:'1A',1:'1B',2:'1C',3:'2A',4:'2B'},
+  's4_3':{1:'1A',2:'1B',3:'2A',4:'2B'},
+  // S5 — Vitesse d'exécution
+  's5_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's5_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's5_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's6_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's6_2':{0:'1A',1:'1B',3:'2A',4:'2B'},
-  's6_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's7_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  // S6 — Force max + endurance
+  's6_1':{0:'1A',1:'1B',3:'2A',4:'2B'},
+  's6_2':{0:'1A',1:'1B',2:'2A',3:'2B',5:'3A',6:'3B'},
+  's6_3':{1:'1A',2:'1B',3:'1C'},
+  // S7 — Puissance de frappe
+  's7_1':{1:'1A',2:'1B'},
   's7_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's7_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's8_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's8_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  's7_3':{0:'1A',1:'1B'},
+  // S8 — Peak Phase 2
+  's8_1':{0:'1A',1:'1B',2:'2A',3:'2B'},
+  's8_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'2C',5:'3A',6:'3B'},
   's8_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's9_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's9_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  // S9 — Transfert combat
+  's9_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'2C'},
+  's9_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'2C',5:'3A',6:'3B'},
   's9_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  // S10 — Charges maximales
   's10_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's10_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's10_3':{0:'1A',1:'1B',2:'2A',3:'2B'},
-  's11_1':{0:'1A',1:'1B',3:'2A',4:'2B'},
-  's11_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
-  's11_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
+  // S11 — Cardio Combat Max (pas de supersets)
+  's11_1':{},
+  's11_2':{},
+  's11_3':{},
+  // S12 — Peak Final
   's12_1':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's12_2':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'},
   's12_3':{0:'1A',1:'1B',2:'2A',3:'2B',4:'3A',5:'3B'}
@@ -1044,92 +1576,7 @@ function groupIndex(ssMap,exIdx){
 }
 
 
-const PROGRAM=[
-  {id:0,num:'S0',title:'ACTIVATION',sub:'Calibration & Activation Combat',phase:'activation',phaseColor:'#5B9BD4',days:'Jours 1–7',focus:'Calibrer ton système nerveux, identifier les faiblesses, activer les patterns moteurs. Pour combattants déjà actifs — charge intentionnellement modérée.',bilan:null,
-   sessions:[
-    {id:'s0_1',emoji:'💥',title:'Séance A1 — Activation Explosive',meta:'Force + Explosivité',exercises:[ex("Montées de genoux dynamiques","3","20 sec","30s"),ex("Kettlebell swing elastic","4","10 reps","45s"),ex("Dead broad jump","3","4 sauts max","30s"),ex("Slam ball","3","6 reps","30s"),ex("Développé couché à la barre","3","8 reps (70%)","90s"),ex("Landmine press","3","8 reps/bras","60s"),ex("Assault bike","1","6×20s ON / 20s OFF","2 min")]},
-    {id:'s0_2',emoji:'💪',title:'Séance A2 — Force Fonctionnelle',meta:'Force fonctionnelle',exercises:[ex("Zercher squat","4","6 reps (60%)","40s"),ex("Jump squat over the box","4","4 sauts","40s"),ex("Trap bar deadlift","4","5 reps (70%)","2 min"),ex("Kettlebell swing elastic","4","8 reps","2 min"),ex("Traction","3","Max reps propres","90s"),ex("Sled push","3","20m aller-retour","90s"),ex("Rameur","1","2000m","—")]},
-    {id:'s0_3',emoji:'🥊',title:'Séance A3 — Cardio Combat',meta:'Cardio + Puissance',exercises:[ex("Medball shuffle to lateral throw","4","5 reps/côté","45s"),ex("Explosive hip torque","4","6 reps/côté","45s"),ex("B stance squat","4","6 reps","2 min"),ex("Hang power clean","4","4 reps (60%)","2 min"),ex("Switch step slam ball","3","8 reps","60s"),ex("Ski erg","1","10×20s ON / 10s OFF","2 min")]},
-    MOB1]},
-  {id:1,num:'S1',title:'CALIBRATION',sub:'Maîtrise des patterns de mouvement',phase:'p1',phaseColor:'#C9A84C',days:'Jours 8–14',focus:'Maîtrise des patterns de mouvement, établissement des charges de travail, introduction aux supersets.',bilan:null,
-   sessions:[
-    {id:'s1_1',emoji:'🏋️',title:'Séance 1',meta:'Explosivité + Force',exercises:[ex("High static jump + isometric jump squat over box","4","6 reps","45s"),ex("Bench barbell jump squat","5","6 reps/jambe","1'20"),ex("Landmine squat press","4","8 reps","1'30"),ex("Landmine press","4","6 reps","1'30"),ex("Kettlebell swing elastic","4","10 reps","1'30"),ex("Switch step slam ball","4","8 reps","1'30"),ex("Rameur / Assault bike","1","6 min : 15s effort / 30s actif","—")]},
-    {id:'s1_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure + Frappe',exercises:[ex("Développé couché à la barre isométrique","4","6 reps","2'40"),ex("Pompes plyométriques","4","8-10 reps","2'40"),ex("Medball punch","5","8 reps/côté","2'40"),ex("Zercher squat","4","6 reps (charge lourde)","2'40"),ex("Sled push","4","3 aller-retours","1'40"),ex("Trap bar farmer walk","4","40m","1'40")]},
-    {id:'s1_3',emoji:'⚡',title:'Séance 3',meta:'Rotation + Cardio',exercises:[ex("Explosive hip torque","5","8 reps/côté","1'"),ex("Medball shuffle to lateral throw","4","5 pas + 1 tir","1'30"),ex("Gym ball dumbbell press","4","10 reps + 2s excentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Hang power clean","5","3 reps (80-85%)","2'20"),ex("Ski erg","1","10 min continu","—")]},
-    MOB1]},
-  {id:2,num:'S2',title:'CONSTRUCTION',sub:'Augmentation des charges',phase:'p1',phaseColor:'#C9A84C',days:'Jours 15–21',focus:'Augmentation des charges, introduction des mouvements olympiques, supersets plus intenses.',bilan:null,
-   sessions:[
-    {id:'s2_1',emoji:'🏋️',title:'Séance 1',meta:'Force + Explosivité jambes',exercises:[ex("Kettlebell swing + high jump squat","4","6 KB + 4 squat jump","1'45"),ex("Banded KB front squat press","5","8 reps","1'20"),ex("Pendlay row","5","10 reps dynamique","1'20"),ex("Trap bar deadlift","4","5 reps + 2s excentrique","2'30"),ex("Landmine squat press","3","6 reps","2'30"),ex("Switch step slam ball","3","12 reps","45s")]},
-    {id:'s2_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Force inférieure',exercises:[ex("High knee dynamic + jump over the box","4","6-8 montées + 1 saut","1'20"),ex("Knee to floor to high jump + medball shot","4","5 reps","1'"),ex("Glute bridge single dumbbell floor press","4","12 reps","1'30"),ex("B stance squat","4","4 reps (90%)","2'20"),ex("Hang power clean","4","4 reps (75%)","2'20")]},
-    {id:'s2_3',emoji:'⚡',title:'Séance 3',meta:'Force supérieure + Sauts',exercises:[ex("Développé couché à la barre","4","4 reps (90%)","2'"),ex("Dumbbell bench press unilateral","4","6 reps","2'"),ex("Rotational landmine clean & press","3","16 reps","1'20"),ex("B stance trap bar deadlift","5","5 reps charge lourde","2'20"),ex("Dumbbell B stance box jump","4","6 reps","2'20"),ex("Kettlebell drop lunges","3","12 reps","45s")]},
-    MOB1]},
-  {id:3,num:'S3',title:'INTENSIFICATION',sub:'Introduction du travail lourd',phase:'p1',phaseColor:'#C9A84C',days:'Jours 22–28',focus:'Premier bloc à 90% RM. Assault bike 30 min en fractionné. Power clean lourd.',bilan:null,
-   sessions:[
-    {id:'s3_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Squat lourd',exercises:[ex("Bench barbell jump squat","4","8 reps","1'"),ex("Side step to high jump","4","6 reps","1'"),ex("Zercher squat","4","5 reps","2'20"),ex("Side sled push","4","20m","2'20"),ex("Stato dynamic hip thrust","4","6 reps","1'45"),ex("Assault bike","1","1min ON / 1min OFF × 30 min","—")]},
-    {id:'s3_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Olympic lifts',exercises:[ex("Knee floor to side jump","4","5 reps","50s"),ex("Full rotation medball slam","4","3 reps/bras","50s"),ex("Power clean","4","4 reps (80%)","2'"),ex("Landmine split jerk","4","8 reps","2'"),ex("Traction","4","6-4 reps (lest)","2'"),ex("Pendlay row","4","8 reps","2'")]},
-    {id:'s3_3',emoji:'⚡',title:'Séance 3',meta:'Force + Sauts + Carry',exercises:[ex("Développé couché à la barre","4","4 reps (90%)","2'"),ex("Kettlebell swing elastic","4","12 reps","2'"),ex("Db clean & press","4","16 reps","1'20"),ex("B stance trap bar deadlift","5","6 reps charge lourde","2'20"),ex("Dumbbell B stance box jump","5","4 reps","2'20"),ex("Kettlebell drop lunges","3","12 reps","1'30")]},
-    MOB1]},
-  {id:4,num:'S4',title:'PEAK PHASE 1',sub:'Charges maximales Phase 1',phase:'p1',phaseColor:'#C9A84C',days:'Jours 29–37',
-   focus:'Charges maximales, mouvements olympiques lourds. Bilan de fin de phase à réaliser cette semaine.',
-   bilan:["Tenir 3 séances/semaine sans épuisement 48h après","Charges sur Zercher, trap bar, développé couché en hausse","Assault bike 30 min en fractionné sans tomber sous le rythme","Faire les TESTS DE RÉFÉRENCE J1→J45"],
-   sessions:[
-    {id:'s4_1',emoji:'🏋️',title:'Séance 1',meta:'Olympic lifts lourds',exercises:[ex("Dead broad jump","5","4 sauts explosifs","1'"),ex("Knee floor to side jump","5","4 reps","1'45"),ex("Fast ladder tipping","5","20 sec","1'45"),ex("Clean high pull","4","3 reps (80%)","2'30"),ex("Hang power clean","4","4 reps (50% vitesse)","2'30"),ex("Suitcase carry","5","30m","1'"),ex("Hollow arch","5","30 sec","1'")]},
-    {id:'s4_2',emoji:'💥',title:'Séance 2',meta:'Force supérieure maximale',exercises:[ex("Développé couché à la barre isométrique","4","6 stato-dynamique","2'"),ex("Pompes plyométriques isométrique","4","8-10 reps","2'"),ex("Slam ball","5","8 reps/côté","1'20"),ex("Zercher squat","4","6 reps charge lourde","2'40"),ex("Sled push","4","3 aller-retours","1'40"),ex("Trap bar farmer walk","4","40m","1'40")]},
-    {id:'s4_3',emoji:'⚡',title:'Séance 3',meta:'Medball + Olympic + Cardio',exercises:[ex("Heavy straight medball shoot","4","6 reps","1'30"),ex("High squat box jump","4","6 reps","1'30"),ex("Bench press","4","10 reps + 2s concentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Hang power clean","3","3 reps","2'20"),ex("B stance squat","3","6 reps","2'20"),ex("Ski erg","1","10 min continu","—")]},
-    MOB1]},
-  {id:5,num:'S5',title:"VITESSE D'EXÉCUTION",sub:'Priorité à la vitesse',phase:'p2',phaseColor:'#D4603A',days:'Jours 38–44',focus:"Priorité à la vitesse de déplacement de la charge. Tabata assault bike. Box jumps combinés.",bilan:null,
-   sessions:[
-    {id:'s5_1',emoji:'⚡',title:'Séance 1',meta:'Explosivité + Supérieur',exercises:[ex("Dead broad jump","3","4 sauts","1'30"),ex("Medball lateral jump","3","8 reps","1'30"),ex("Hips dumbbell floor press","4","10 reps dynamique","1'"),ex("Pompes plyométriques","4","10 reps","2'"),ex("Landmine switch press","5","8 reps/bras","1'40"),ex("Zercher lunges","4","6 reps/jambe","1'30"),ex("Assault bike","2","4 min Tabata — 20s max / 10s OFF","2 min")]},
-    {id:'s5_2',emoji:'💥',title:'Séance 2',meta:'Sauts complexes + Inférieur',exercises:[ex("Kettlebell swing + high jump squat","4","3 sauts explosifs","1'40"),ex("Knee floor to high jump","4","6 reps","1'40"),ex("B stance squat","4","4 reps (90%)","2'20"),ex("Dumbbell B stance box jump","4","6 reps","2'20"),ex("Landmine squat press","5","8 reps","1'45"),ex("Zercher good morning","5","12 reps","1'45")]},
-    {id:'s5_3',emoji:'🏋️',title:'Séance 3',meta:'Box jumps + Force + Sled',exercises:[ex("High squat box jump","4","6 reps","1'20"),ex("Box single leg high broad jump","4","4 reps","1'20"),ex("Knee to floor to high jump + medball shot","4","6 reps","1'30"),ex("Rotational landmine clean & press","3","6 reps","2'20"),ex("Hips dumbbell floor press","3","10 reps explosif","2'20"),ex("Sled push","4","20m aller-retour charge lourde","1'40"),ex("Wall roll up","4","25 pas","1'")]},
-    MOB2]},
-  {id:6,num:'S6',title:'FORCE MAX + ENDURANCE',sub:'Deadlift lourd + Cardio long',phase:'p2',phaseColor:'#D4603A',days:'Jours 45–51',focus:'Deadlift 87-92% RM. Rameur 4000m. Le combo force + endurance qui fait la différence en fin de round.',bilan:null,
-   sessions:[
-    {id:'s6_1',emoji:'🏋️',title:'Séance 1',meta:'Deadlift max + Endurance',exercises:[ex("Medball shuffle to lateral throw","4","4 reps","1'20"),ex("Knee to floor to high jump + medball shot","4","5 reps","1'20"),ex("Deadlift","4","3 reps (87-92%)","3'"),ex("Kettlebell cossack squat","4","6 reps","2'20"),ex("Stato dynamic hip thrust","4","6 reps","2'20"),ex("Rameur","1","4000m","—")]},
-    {id:'s6_2',emoji:'💥',title:'Séance 2',meta:'Stato-dynamique + Carry',exercises:[ex("Développé couché à la barre isométrique","4","6 reps (85%)","2'"),ex("Hips dumbbell floor press","4","6 reps plyométrique","2'"),ex("Slam ball","5","12 reps","1'20"),ex("Zercher squat","4","6 reps charge lourde","2'40"),ex("Elastic jump squat","4","10 reps","2'40"),ex("Suitcase carry","5","30m","1'20")]},
-    {id:'s6_3',emoji:'⚡',title:'Séance 3',meta:'Box jumps + KB + Carry',exercises:[ex("High static jump + isometric jump squat over box","3","6 reps","1'30"),ex("High squat box jump","3","4 reps","1'30"),ex("Kettlebell swing elastic","4","10 reps charge lourde","2'30"),ex("Hang power clean","4","6 reps (60%)","2'30"),ex("Gym ball dumbbell press","4","8 reps","2'"),ex("Medball side shuffle slam","4","20m","2'"),ex("Trap bar farmer walk","6","20m aller-retour","1'45")]},
-    MOB2]},
-  {id:7,num:'S7',title:'PUISSANCE DE FRAPPE',sub:'Transfert de puissance corps entier',phase:'p2',phaseColor:'#D4603A',days:'Jours 52–58',focus:'Transfert de puissance corps entier. Power clean 80%. Run 25 min. Frappes et rotations.',bilan:null,
-   sessions:[
-    {id:'s7_1',emoji:'🥊',title:'Séance 1',meta:'Rotation + Power clean + Run',exercises:[ex("Knee floor to side jump","4","5 reps","1'45"),ex("Full rotation medball slam","4","5 reps","1'45"),ex("Power clean","4","4 reps (80%)","2'30"),ex("Zercher deadlift","4","6 reps explosif","2'30"),ex("Landmine switch press","4","6 reps charge moyenne","2'30"),ex("Run","1","25 minutes continu","—")]},
-    {id:'s7_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Deadlift + Carries',exercises:[ex("Explosive hip torque","4","6 reps","1'"),ex("Box single leg high broad jump","4","6 reps","1'"),ex("Trap bar deadlift","4","6 reps + 3s excentrique","2'30"),ex("Landmine split jerk","4","6 reps","2'30"),ex("Leg raises","4","12 reps + 2s iso","1'40"),ex("Trap bar farmer walk","4","30m","1'40")]},
-    {id:'s7_3',emoji:'⚡',title:'Séance 3',meta:'Medball + Pression + Power clean',exercises:[ex("Explosive hip torque","5","8 reps/côté","1'"),ex("Medball lateral jump","4","12 reps","1'30"),ex("Dumbbell incline press","4","10 reps + 2s excentrique","2'"),ex("Landmine press hip variation","4","6 reps/côté","2'"),ex("Power clean","4","3 reps (65-75%)","2'"),ex("Soulever de terre jambes tendues","4","10 reps","1'"),ex("Ski erg","1","10 min continu","—")]},
-    MOB2]},
-  {id:8,num:'S8',title:'PEAK PHASE 2',sub:'Charges maximales Phase 2',phase:'p2',phaseColor:'#D4603A',days:'Jours 59–67',
-   focus:'Clean press 85% RM. Charges les plus lourdes de la phase. Retests à effectuer cette semaine.',
-   bilan:["Assault bike 30 min à rythme plus élevé qu'en Phase 1","Sauts progressés en distance et en hauteur","Hang power clean +5kg minimum","Différence de rapidité ressentie en sparring","REFAIRE LES TESTS DE RÉFÉRENCE — comparer avec J1"],
-   sessions:[
-    {id:'s8_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Olympic + Ski erg',exercises:[ex("Side step to high jump","3","6 reps","1'20"),ex("Kettlebell swing + high jump squat","3","4 reps","1'20"),ex("Banded KB front squat press","4","8 reps","2'"),ex("Front squat","4","5 reps","2'"),ex("Barbell punch","3","10 reps","2'30"),ex("Slam ball","3","8 reps","2'30"),ex("Ski erg","2","20s effort / 10s OFF — 8 min","2 min")]},
-    {id:'s8_2',emoji:'💥',title:'Séance 2',meta:'Medball + Olympic + Core',exercises:[ex("Medball lateral jump","4","8 reps","1'30"),ex("Full rotation medball slam","4","8 reps","1'30"),ex("Hang power clean","5","3 reps (70%)","2'20"),ex("Zercher deadlift","5","6 reps progressif","2'20"),ex("Wall roll up","4","8 reps + 2s excentrique","1'"),ex("Hollow arch","4","20 sec","1'")]},
-    {id:'s8_3',emoji:'⚡',title:'Séance 3',meta:'Clean press max + Rameur',exercises:[ex("Side step to high jump","3","4 reps","1'20"),ex("Slam ball","3","6 reps","1'20"),ex("Clean & press","4","3 reps (85%)","3'"),ex("Deadlift","4","8 reps (65% vitesse)","3'"),ex("Side sled push","4","20m aller-retour","1'40"),ex("Rameur","2","30s ON / 10s OFF × 5 min","2 min")]},
-    MOB2]},
-  {id:9,num:'S9',title:'TRANSFERT COMBAT',sub:'Application au contexte combat',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 68–74',focus:'Application des qualités physiques dans des contextes proches du combat.',bilan:null,
-   sessions:[
-    {id:'s9_1',emoji:'🥋',title:'Séance 1',meta:'KB + Squat isométrique + Sled',exercises:[ex("Kettlebell swing elastic","4","6 reps explosif","15s"),ex("High squat box jump","4","4 reps explosifs","1'40"),ex("Zercher squat","4","4 reps (90%)","15s"),ex("Isométrique squat","4","15 sec tension","2'40"),ex("Elastic jump squat","4","6 reps explosifs","15s"),ex("Sled push","4","40m aller-retour","1'40")]},
-    {id:'s9_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Presse + Deadlift',exercises:[ex("Fast ladder tipping","5","10 reps dynamique","15s"),ex("High hurdle jump","5","4 reps le plus haut possible","1'30"),ex("Sled push","5","40m aller-retour","1'30"),ex("Barbell bridge floor press","4","12 reps","15s"),ex("Zercher squat","4","5 reps surcharge progressive","2'"),ex("Trap bar deadlift","4","5 reps tempo 3/1/1","2'")]},
-    {id:'s9_3',emoji:'⚡',title:'Séance 3',meta:'Grappling focus + Ski erg',exercises:[ex("Single leg side jump","5","8 reps/jambe","1'"),ex("Cossack squat","5","6 reps/jambe","1'"),ex("Landmine press squat","5","5 reps charge lourde","15s"),ex("Passage d'épaulé","5","4 reps charge légère puissant","2'20"),ex("Shadow single / double leg","5","30 sec explosif","2'20"),ex("Curl prise marteau","5","16 reps (8/bras)","1'45"),ex("Ski erg","2","5 min : 20s ON / 10s OFF","2 min")]},
-    MOB3]},
-  {id:10,num:'S10',title:'CHARGES MAXIMALES',sub:'Apex absolu du programme',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 75–81',focus:'Apex absolu du programme. Deadlift 92%, Zercher 87%, Clean press 85%. Ski erg 7 séries.',bilan:null,
-   sessions:[
-    {id:'s10_1',emoji:'🏋️',title:'Séance 1',meta:'Sauts + Deadlift 85% + Olympic',exercises:[ex("Knee floor to side jump","4","6 reps explosifs","15s"),ex("Cossack squat","4","6 reps charge lourde","1'40"),ex("Bench barbell jump squat","4","6 reps","1'40"),ex("Trap bar deadlift","4","5 reps (85%)","30-40s"),ex("Gorilla row","4","8 reps explosif","2'"),ex("Zercher lunges","4","6 reps/jambe","2'")]},
-    {id:'s10_2',emoji:'💥',title:'Séance 2',meta:'Sauts + DL 92% + Carries',exercises:[ex("Knee floor to high jump","6","6 reps explosifs","45s"),ex("Sprawl with high jump","6","5 reps dynamique","45s"),ex("Soulever de terre","5","3 reps (92%)","20s"),ex("Passage d'épaulé","5","5 reps (60%)","3'"),ex("Heavy KB farmer walk","4","40m aller-retour","1'20"),ex("Hollow arch","4","30 sec","1'20")]},
-    {id:'s10_3',emoji:'⚡',title:'Séance 3',meta:'Olympic max + Ski erg 7 séries',exercises:[ex("One step clean press on box","5","5 reps charge légère","1'"),ex("One step high jump on box","5","6 reps explosifs","1'"),ex("Tirage lourd d'épaulé","5","4 reps (80%)","40s"),ex("Clean & press","5","5 reps charge moyenne","2'30"),ex("Squat box","4","5 reps (90%)","3'"),ex("Ski erg","7","200m en 60s","1' récup")]},
-    MOB3]},
-  {id:11,num:'S11',title:'CARDIO COMBAT MAX',sub:'Volume cardio le plus élevé',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 82–86',focus:'Volume cardio le plus élevé du programme. Résistance à la fatigue. Assault bike, ski erg, rameur combinés.',bilan:null,
-   sessions:[
-    {id:'s11_1',emoji:'🫁',title:'Séance 1',meta:'Zercher + Olympic + Ski erg',exercises:[ex("Zercher squat","4","6 reps (87%)","30s"),ex("Tirage haut d'épaule","4","4 reps (75%)","3'"),ex("Shadow single / double leg","4","30 sec explosif","3'"),ex("Soulever de terre","3","3 reps (92%)","40s"),ex("Hang clean","3","5 reps (70%)","2'"),ex("Kettlebell farmer walk","3","20m aller-retour","2'"),ex("Ski erg","2","5 min : 20s ON / 10s OFF","2 min")]},
-    {id:'s11_2',emoji:'💥',title:'Séance 2',meta:'Box jumps + Deadlift + Core',exercises:[ex("Jump squat over the box","5","5 reps","20s"),ex("Lunges to high step","5","5 reps/jambe","1'"),ex("Trap bar deadlift","4","6 reps (87%)","20s"),ex("Rotational landmine clean & press","4","6 reps/bras","20s"),ex("Kettlebell swing elastic","4","10 reps","2'40"),ex("Trap bar farmer walk","5","40m aller-retour","15s"),ex("Hollow arch","5","25 sec","1'")]},
-    {id:'s11_3',emoji:'⚡',title:'Séance 3',meta:'Zercher + Isométrique + Assault bike',exercises:[ex("Zercher squat","4","4 reps (87%)","15s"),ex("Tirage haut d'épaule","4","4 reps (75%)","3'"),ex("Soulever de terre","4","5 reps (85%)","15s"),ex("Slam ball","4","10 reps charge légère","2'30"),ex("Zercher squat","3","4 reps charge lourde","10s"),ex("Isométrique squat","3","6 reps (5s iso)","1'45"),ex("Assault bike","2","20s effort / 10s OFF — 8 min","2 min")]},
-    MOB3]},
-  {id:12,num:'S12',title:'PEAK FINAL',sub:'Dernière semaine + Tests J90',phase:'p3',phaseColor:'#3DAF6B',days:'Jours 87–90',
-   focus:'Dernière semaine haute. Puis TESTS FINAUX J90 — compare tout avec J1.',
-   bilan:["Refaire EXACTEMENT les 4 tests du Jour 1 dans les mêmes conditions","Comparer chaque résultat — les progressions doivent être visibles sur les 4 axes","+20-35% explosivité | +15-25% cardio | +10-20% force | Mobilité améliorée","Prendre des photos — la différence visuelle confirme ce que les chiffres montrent"],
-   sessions:[
-    {id:'s12_1',emoji:'🏋️',title:'Séance 1',meta:'Développé + Zercher + Bike',exercises:[ex("Développé couché aux haltères","5","8 reps charge lourde","15s"),ex("Pompes plyométriques","5","8 reps","1'30"),ex("Zercher squat","4","4-5 reps charge lourde","2'30"),ex("Zercher lunges","4","8 reps iso 2s","2'30"),ex("Landmine switch press","3","6 reps coordination","1'30"),ex("Side jump high knee with KB","3","8 reps dynamique","1'30"),ex("Assault bike","2","20s effort / 10s OFF — 8 min","2 min")]},
-    {id:'s12_2',emoji:'💥',title:'Séance 2',meta:'Sauts + Push press + DL jambes',exercises:[ex("Dead broad jump","5","5 reps explosifs","20s"),ex("High hurdle jump","5","6 reps","1'"),ex("Push press","4","4 reps (90%)","15s"),ex("Gorilla row","4","8 reps charge lourde","2'30"),ex("Soulever de terre jambes tendues","4","6 reps 3s iso","30s"),ex("Kettlebell swing elastic","4","6 reps","2-3 min")]},
-    {id:'s12_3',emoji:'⚡',title:'Séance 3',meta:'KB + Tractions + Push press + Ski erg',exercises:[ex("Kettlebell swing elastic","5","8 reps","20s"),ex("High squat box jump","5","6 reps explosifs","1'"),ex("Pendlay row","4","10 reps charge moyenne","30s"),ex("Tractions lestées","4","6 reps surcharge progressive","2'30"),ex("Push press","4","6 reps charge lourde","30s"),ex("Sled push","4","40m aller-retour + sprawl","2-3 min"),ex("Ski erg","3","3 séries 10 tours — 20s ON / 10s OFF","90s")]},
-    MOB3]},
-];
+
 
 // ═══════════════════════════
 // STATE
@@ -1228,7 +1675,7 @@ function renderWO(){
     html+='<div class="wo-ex-name">'+ex.name+'</div>';
 
     if(ex.video){
-      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
+      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
     }
 
     html+='<div class="wo-params">';
@@ -1255,8 +1702,8 @@ function renderWO(){
     } else {
       // Last in group — show rest timer
       if(restSec>0){
-        const circ=2*Math.PI*48;
-        html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">REPOS APRÈS LE SUPERSET</div><div class="wo-rest-ring"><svg viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="48"/><circle class="rf" id="rf" cx="55" cy="55" r="48" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
+        const circ=2*Math.PI*70;
+        html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">REPOS APRÈS LE SUPERSET</div><div class="wo-rest-ring"><svg viewBox="0 0 160 160"><circle class="rt" cx="80" cy="80" r="70"/><circle class="rf" id="rf" cx="80" cy="80" r="70" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
       }
     }
 
@@ -1276,7 +1723,7 @@ function renderWO(){
     html+='<div class="wo-ex-num">'+String(idx+1).padStart(2,'0')+'</div>';
     html+='<div class="wo-ex-name">'+ex.name+'</div>';
     if(ex.video){
-      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
+      html+='<div style="text-align:center;margin-bottom:10px"><a href="'+ex.video+'" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--or);text-decoration:none;font-family:Bebas Neue;letter-spacing:1px">▶ VOIR LA VIDÉO</a></div>';
     }
     html+='<div class="wo-params">';
     html+='<div class="wo-param"><div class="wo-param-icon">🔄</div><div class="wo-param-val">'+ex.sets+'</div><div class="wo-param-lbl">SÉRIES</div></div>';
@@ -1286,8 +1733,8 @@ function renderWO(){
     if(isMob&&ex.desc){html+='<div class="wo-mob-desc">'+ex.desc+'</div>';}
     else if(ex.why){html+='<div class="wo-why">'+ex.why+'</div>';}
     if(restSec>0){
-      const circ=2*Math.PI*48;
-      html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">TEMPS DE REPOS</div><div class="wo-rest-ring"><svg viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="48"/><circle class="rf" id="rf" cx="55" cy="55" r="48" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
+      const circ=2*Math.PI*70;
+      html+='<div class="wo-rest" id="wo-rest"><div class="wo-rest-title">TEMPS DE REPOS</div><div class="wo-rest-ring"><svg viewBox="0 0 160 160"><circle class="rt" cx="80" cy="80" r="70"/><circle class="rf" id="rf" cx="80" cy="80" r="70" stroke-dasharray="'+circ+'" stroke-dashoffset="0"/></svg><div class="wo-rest-num" id="rt-num"></div></div><button class="wo-rest-skip" onclick="skipRest()">Passer →</button></div>';
     }
     body.innerHTML=html;
     footer.innerHTML='<button class="wo-btn-next" id="wo-btn-next" onclick="nextEx()">'+(idx===total-1?'Terminer la séance ✓':'Exercice suivant →')+'</button><button class="wo-btn-check '+(checked?'checked':'')+'" id="wo-btn-check" onclick="toggleWOCheck()">'+(checked?'✓ Exercice coché':'☐ &nbsp;Marquer cet exercice')+'</button>';
@@ -1308,19 +1755,59 @@ function nextEx(){
     renderWO();
   }
 }
+function playDing(isFinal){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    // Une vraie cloche = plusieurs harmoniques superposées (ratios 2:3:4)
+    // avec des decay différents par harmonique
+    const bell=(freq,vol,decay)=>{
+      const osc=ctx.createOscillator();
+      const g=ctx.createGain();
+      osc.connect(g);g.connect(ctx.destination);
+      osc.type='sine';
+      osc.frequency.value=freq;
+      g.gain.setValueAtTime(vol,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+decay);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime+decay);
+    };
+    if(isFinal){
+      // Ding final — cloche grave de fin de round, résonne bien
+      // Fondamentale + harmoniques 2:3:4 à ~500Hz
+      bell(500, 0.6, 2.0);   // fondamentale
+      bell(1000,0.25,1.2);   // 2x — décroît plus vite
+      bell(1500,0.15,0.7);   // 3x
+      bell(2000,0.08,0.4);   // 4x — tranchant métallique
+      bell(2800,0.04,0.2);   // harmonique haute — attaque
+    } else {
+      // Ding countdown — cloche courte et nette, plus aiguë
+      bell(750, 0.5, 0.5);
+      bell(1500,0.2, 0.25);
+      bell(2250,0.1, 0.12);
+      bell(3000,0.05,0.08);
+    }
+  }catch(e){}
+}
+function formatRestTime(secs){
+  if(secs<60)return secs+'s';
+  const m=Math.floor(secs/60);
+  const s=secs%60;
+  return s===0 ? m+'min' : m+'min '+s+'s';
+}
 function startRest(secs){
   const restDiv=document.getElementById('wo-rest');
   if(!restDiv)return;
   restDiv.classList.add('active');
   WO.restTotal=secs;WO.restLeft=secs;
-  const circ=2*Math.PI*48;
+  const circ=2*Math.PI*70;
   const update=()=>{
     const rf=document.getElementById('rf');
     const rn=document.getElementById('rt-num');
     if(!rf||!rn){clearInterval(WO.restTimer);return;}
-    rn.textContent=WO.restLeft;
+    rn.textContent=formatRestTime(WO.restLeft);
     rf.style.strokeDashoffset=circ*(1-WO.restLeft/WO.restTotal);
-    if(WO.restLeft<=0){clearInterval(WO.restTimer);skipRest();}
+    if(WO.restLeft<=0){clearInterval(WO.restTimer);playDing(true);skipRest();}
+    else if(WO.restLeft<=5){playDing(false);}
     WO.restLeft--;
   };
   update();
@@ -1357,7 +1844,7 @@ function render(){
   if(S.view==='home'){
     hdr.innerHTML=`<div class="hdr-info"><div class="hdr-sub">COMBATTANT ÉLITE</div><div class="hdr-title">TABLEAU DE BORD</div></div><div class="hdr-right"><button class="hdr-icon-btn" onclick="openProfile()" title="Mon Profil">👤</button><button class="hdr-icon-btn" onclick="openNutrition()" title="Nutrition">🍎</button><div class="hdr-ring"><svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="hdr-pct">${pct}%</div></div></div>`;
   }else if(S.view==='timeline'){
-    hdr.innerHTML=`<div class="hdr-info"><div class="hdr-sub"><a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">COMBATTANT ÉLITE · @ZACAIR_</a></div><div class="hdr-title">PROGRAMME 90 JOURS</div></div><div class="hdr-right"><button class="hdr-icon-btn" onclick="openProfile()" title="Mon Profil">👤</button><button class="hdr-icon-btn" onclick="openNutrition()" title="Nutrition">🍎</button><div class="hdr-ring"><svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="hdr-pct">${pct}%</div></div></div>`;
+    hdr.innerHTML=`<div class="hdr-info"><div class="hdr-sub"><a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">COMBATTANT ÉLITE · @ZACAIR_</a></div><div class="hdr-title">PROGRAMME 90 JOURS</div></div><div class="hdr-right"><button class="hdr-icon-btn" onclick="openProfile()" title="Mon Profil">👤</button><button class="hdr-icon-btn" onclick="openNutrition()" title="Nutrition">🍎</button><div class="hdr-ring"><svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}"/><circle class="fill" cx="18" cy="18" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(pct/100)*circ}"/></svg><div class="hdr-pct">${pct}%</div></div></div>`;
   }else if(S.view==='week'){
     const w=PROGRAM[S.weekIdx];
     hdr.innerHTML=`<button class="hdr-back" id="btn-back">←</button><div class="hdr-info"><div class="hdr-sub">SEMAINE ${w.num}</div><div class="hdr-title">${w.title}</div></div>`;
@@ -1403,7 +1890,7 @@ function renderHome(scroll){
   const hero=document.createElement('div');hero.className='home-hero';
   const h=new Date().getHours();
   const greet=h<12?'Bonjour':h<18?'Bon après-midi':'Bonsoir';
-  hero.innerHTML=`<div class="home-greeting">${greet} 👊</div><div class="home-title">COMBATTANT ÉLITE</div><div class="home-day">by <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:var(--or);text-decoration:none">@zacair_</a> · ${done}/${total} séances complétées</div>`;
+  hero.innerHTML=`<div class="home-greeting">${greet} 👊</div><div class="home-title">COMBATTANT ÉLITE</div><div class="home-day">by <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener noreferrer" style="color:var(--or);text-decoration:none">@zacair_</a> · ${done}/${total} séances complétées</div>`;
   scroll.appendChild(hero);
 
   // Ring
@@ -1462,7 +1949,7 @@ function renderHome(scroll){
 // ─── TIMELINE ───
 function renderTimeline(scroll){
   const hero=document.createElement('div');hero.className='tl-hero';
-  hero.innerHTML=`<div class="tl-brand">BY <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener" style="color:var(--or);text-decoration:none">ZACAIR · @ZACAIR_</a></div><div class="tl-title">PLAN<br><span>90J</span></div><div class="tl-desc">13 semaines · 3 phases · 36 séances · 260+ vidéos</div>`;
+  hero.innerHTML=`<div class="tl-brand">BY <a href="https://www.instagram.com/zacair_/" target="_blank" rel="noopener noreferrer" style="color:var(--or);text-decoration:none">ZACAIR · @ZACAIR_</a></div><div class="tl-title">PLAN<br><span>90J</span></div><div class="tl-desc">13 semaines · 3 phases · 36 séances · 260+ vidéos</div>`;
   scroll.appendChild(hero);
   const bar=document.createElement('div');bar.className='pbar-wrap';
   for(let i=1;i<=90;i++){const d=document.createElement('div');d.className='pbar-day';if([1,8,38,68,90].includes(i))d.classList.add('test');else if(i<=7)d.classList.add('s0');else if(i<=37)d.classList.add('p1');else if(i<=67)d.classList.add('p2');else d.classList.add('p3');bar.appendChild(d);}
@@ -1544,7 +2031,7 @@ function buildExItem(wi,si,ei,ex,ssMap,pc,isMob){
   const body=document.createElement('div');body.className='ex-body';
 
   const nameLine=document.createElement('div');nameLine.className='ex-name';
-  nameLine.innerHTML=vid?'<a href="'+vid+'" target="_blank" rel="noopener">'+ex.name+' <span style="font-size:10px;opacity:.6">▶</span></a>':'<span class="no-link">'+ex.name+'</span>';
+  nameLine.innerHTML=vid?'<a href="'+vid+'" target="_blank" rel="noopener noreferrer">'+ex.name+' <span style="font-size:10px;opacity:.6">▶</span></a>':'<span class="no-link">'+ex.name+'</span>';
 
   const params=document.createElement('div');params.className='ex-params';
   params.innerHTML='<span class="ex-param">🔄 '+ex.sets+'</span><span class="ex-param">🔁 '+ex.reps+'</span><span class="ex-param">⏱ '+ex.rest+'</span>';
